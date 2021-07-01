@@ -111,30 +111,36 @@ function Sidebar() {
                         </li>
                       </ul>
                     </li>   */}
-                    {/* <li>
+                    <li>
                       {" "}
-                      <a href="#">
+                      <a href="/gallery">
                         <span>
-                          <i class="fa fa-info-circle" aria-hidden="true"></i>{" "}
-                          About Us Page
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Photo Gallery
                         </span>
                         <b className="gw-arrow" />
                       </a>
-                      <ul className="gw-submenu" style={{ display: "block" }}>
-                        <li>
-                          {" "}
-                          <a href="/about_section_2" style={{ color: "white" }}>
-                            Values
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/about_section_3" style={{ color: "white" }}>
-                            Leadership
-                          </a>{" "}
-                        </li>
-                      </ul>
-                    </li> */}
+                    </li>
+                    <li>
+                      {" "}
+                      <a href="/videos">
+                        <span>
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Videos
+                        </span>
+                        <b className="gw-arrow" />
+                      </a>
+                    </li>
+                    <li>
+                      {" "}
+                      <a href="/press">
+                        <span>
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Press
+                        </span>
+                        <b className="gw-arrow" />
+                      </a>
+                    </li>
                     <li>
                       {" "}
                       <a href="#">

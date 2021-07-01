@@ -89,6 +89,17 @@ import Events from "./components/events/eventsdetail";
 import EventTypes from "./components/events/event_types";
 import AddEvent from "./components/events/add_new_event";
 
+//Gallery
+import Gallery from "./components/photo_gallery/gallery";
+import AddGallery from "./components/photo_gallery/add_gallery";
+
+//Videos
+import Videos from "./components/Videos/videos";
+import AddVideos from "./components/Videos/add_videos";
+
+//press
+import Press from "./components/pressreleae/press";
+import AddPress from  "./components/pressreleae/add_press";
 //testimonials
 import Testimonial from "./components/testimonial/view_testimonial";
 import AddTestimonial from "./components/testimonial/add_testimonial";
@@ -220,6 +231,15 @@ function Routing() {
         <Route exact path="/add_article" component={AddBlog1}></Route>
         <Route exact path="/edit_article/:_id" component={EditBlog1}></Route>
         <Route exact path="/view_article/:_id" component={ViewBlog1}></Route>
+        {/* photo_gallery */}
+        <Route exact path="/gallery" component={Gallery}></Route>
+        <Route exact path="/add_gallery" component={AddGallery}></Route>
+        {/* Videos */}
+        <Route exact path="/videos" component={Videos}></Route>
+        <Route exact path="/add_videos" component={AddVideos}></Route>
+        {/* pressreleae */}
+        <Route exact path="/press" component={Press}></Route>
+        <Route exact path="/add_press" component={AddPress}></Route>
         {/* Events */}
         <Route exact path="/eventcategory" component={EventCategory}></Route>
         <Route exact path="/add_new_event" component={AddEvent}></Route>
