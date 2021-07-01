@@ -99,7 +99,7 @@ import AddVideos from "./components/Videos/add_videos";
 
 //press
 import Press from "./components/pressreleae/press";
-import AddPress from  "./components/pressreleae/add_press";
+import AddPress from "./components/pressreleae/add_press";
 //testimonials
 import Testimonial from "./components/testimonial/view_testimonial";
 import AddTestimonial from "./components/testimonial/add_testimonial";
@@ -264,7 +264,6 @@ function Routing() {
         <Route exact path="/add_compliance" component={AddCompliances}></Route>
         <Route exact path="/add_new_compliance" component={AddNewCompliance}></Route>
         <Route exact path="/edit_compliance/:_id" component={EditCompliance}></Route>
-
       </Switch>
     </Router>
   );

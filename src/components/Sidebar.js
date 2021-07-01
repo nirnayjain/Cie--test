@@ -263,7 +263,7 @@ function Sidebar() {
                     {/* post*/}
                     <li>
                       {" "}
-                      <a href="#">
+                      <a href="/all_pages">
                         <span>
                           <i
                             className="fa fa-rss-square"
@@ -273,15 +273,6 @@ function Sidebar() {
                         </span>
                         <b className="gw-arrow" />
                       </a>
-                      <ul className="gw-submenu" style={{ display: "block" }}>
-                        <li>
-                          {" "}
-                          <a href="/all_pages" style={{ color: "white" }}>
-                            All Pages
-                          </a>{" "}
-                        </li>
-
-                      </ul>
                     </li>
                     <li>
                       <Link to="/post">
