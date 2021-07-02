@@ -21,14 +21,14 @@ class ViewPages extends React.Component {
     componentDidMount() {
         // https://cie-backend-api.herokuapp.com/
         axios
-            .get(`http://localhost:5000/page/get_all_pages`)
+            .get(`https://cie-backend-api.herokuapp.com/page/get_all_pages`)
             .then((res) => {
                 const fetchedData = res.data;
                 console.log(fetchedData);
                 this.setState({ fetchedData, loading: true });
             });
         this.unsubscribe = axios
-            .get(`http://localhost:5000/page/get_all_pages`)
+            .get(`https://cie-backend-api.herokuapp.com/page/get_all_pages`)
             .then((res) => {
                 const fetchedData = res.data;
                 console.log(fetchedData);
@@ -49,7 +49,7 @@ class ViewPages extends React.Component {
                 // https://cie-backend-api.herokuapp.com/
                 axios
                     .delete(
-                        `http://localhost:5000/page/delete_page/${_id}`
+                        `https://cie-backend-api.herokuapp.com/page/delete_page/${_id}`
                     )
                     .then((res) => {
                         console.log(res);

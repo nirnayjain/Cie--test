@@ -118,7 +118,7 @@ class EditPage extends React.Component {
         const { _id } = this.props.match.params;
         console.log(_id);
         // https://cie-backend-api.herokuapp.com/
-        let res = await axios.get(`http://localhost:5000/page/get_page_ById/${_id}`);
+        let res = await axios.get(`https://cie-backend-api.herokuapp.com/page/get_page_ById/${_id}`);
         console.log(res.data);
         const post = {
             title: res.data.title,
@@ -199,7 +199,7 @@ class EditPage extends React.Component {
         // https://cie-backend-api.herokuapp.com/
         axios
             .put(
-                `http://localhost:5000/page/edit_page/${_id}`,
+                `https://cie-backend-api.herokuapp.com/page/edit_page/${_id}`,
                 data
             )
             .then((res) => {

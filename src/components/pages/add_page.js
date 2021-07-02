@@ -191,7 +191,7 @@ class AddNewPage extends React.Component {
         };
         axios
             .post(
-                "http://localhost:5000/page/add_page",
+                "https://cie-backend-api.herokuapp.com/page/add_page",
                 data
             )
             .then(function (response) {

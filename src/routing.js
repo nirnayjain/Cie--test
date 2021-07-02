@@ -121,6 +121,9 @@ import AddSocialMedia from "./components/site_preferences/add_socialmedia";
 import AddCompliances from "./components/site_preferences/add_compliances";
 import AddNewCompliance from "./components/site_preferences/add_new_compliance";
 import EditCompliance from "./components/site_preferences/edit_compliance";
+import AddNewPage from "./components/pages/add_page";
+import ViewPages from "./components/pages/pages";
+import EditPage from "./components/pages/edit_page";
 
 function Routing() {
   return (
@@ -264,6 +267,10 @@ function Routing() {
         <Route exact path="/add_compliance" component={AddCompliances}></Route>
         <Route exact path="/add_new_compliance" component={AddNewCompliance}></Route>
         <Route exact path="/edit_compliance/:_id" component={EditCompliance}></Route>
+        {/* Pages */}
+        <Route exact path="/all_pages" component={ViewPages}></Route>
+        <Route exact path="/add_page" component={AddNewPage}></Route>
+        <Route exact path="/edit_page/:_id" component={EditPage}></Route>
       </Switch>
     </Router>
   );
