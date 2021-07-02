@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import ReactPaginate from "react-paginate";
 import Loader from "react-loader-spinner";
+import Blog from "../blog/edit_blog";
 
 const PER_PAGE = 10;
 class Videos extends React.Component {
@@ -21,14 +22,14 @@ class Videos extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
+      .get(`https://cie-backend-api.herokuapp.com/video/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
         this.setState({ blogs, loading: true });
       });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
+      .get(`https://cie-backend-api.herokuapp.com/video/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -48,7 +49,7 @@ class Videos extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `https://cie-backend-api.herokuapp.com/blog/delete_blog1/${_id}`
+            `https://cie-backend-api.herokuapp.com/video/delete/${_id}`
           )
           .then((res) => {
             console.log(res);
@@ -78,14 +79,20 @@ class Videos extends React.Component {
             <td>
               <div className="limited-text">{blog.title}</div>
             </td>
-            <td>{blog.category}</td>
-            <td>{today.toDateString()}</td>
+            <td><video
+                                                            width="100px"
+                                                            height="70px"
+                                                        >
+                                                          <source src={blog.Video} type="video/mp4"/>
+                                                          </video>
+                                                        </td>
+            <td>  {new Date(Date.now(blog.createdAt)).toDateString()}</td>
             <td>
-              <Link to={`/view_article/${blog._id}`}>
+              <Link to={`/view_video/${blog._id}`}>
                 <span className="btn">View</span>
               </Link>
 
-              <Link to={`/edit_article/${blog._id}`}>
+              <Link to={`/edit_video/${blog._id}`}>
                 <span className="btn">Edit</span>
               </Link>
               <span
@@ -107,7 +114,7 @@ class Videos extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Videos</div>
+            <div className="admin-head">Video Gallery</div>
             <div className="admin-data">
               {this.state.loading ? (
                 <>

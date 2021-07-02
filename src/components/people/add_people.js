@@ -5,18 +5,19 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
-class AddVideos extends React.Component {
+class AddPeople extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      Thumbnail:"",
+      name: "",
+      Photo:"",
+      designation:"",
       theme: "snow",
       mobile_message: "",
       validError: false,
       date: Date.now(),
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onFileChange = this.onFileChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -117,9 +118,6 @@ class AddVideos extends React.Component {
   //   //   });
   // }
 
-  handleChange(html) {
-    this.setState({ description: html });
-  }
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -132,31 +130,32 @@ class AddVideos extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ Thumbnail: e.target.files[0] });
+    this.setState({ Photo: e.target.files[0] });
   }
   handleSubmit(e) {
     e.preventDefault();
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
-      formdata.append("title", this.state.title);
-      formdata.append("Video", this.state.Thumbnail);
+      formdata.append("name", this.state.name);
+      formdata.append("designation", this.state.designation);
+      formdata.append("Photo", this.state.Photo);
       axios
         .post(
-          "https://cie-backend-api.herokuapp.com/video/save",
+          "https://cie-backend-api.herokuapp.com/people/save",
           formdata
         )
         .then((response)=> {
           // handle success
 
           console.log(response.data);
-          this.props.history.push("/videos");
+          this.props.history.push("/people");
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-     
+      
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -169,7 +168,7 @@ class AddVideos extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Videos - Add New</div>
+            <div className="admin-head">People - Add New</div>
             <div className="admin-data">
               <div className="container-fluid p-0">
                 <form
@@ -180,37 +179,55 @@ class AddVideos extends React.Component {
                     <div className="col-lg-12 p-0"></div>
                     <div className="col-lg-12 p-0">
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Title</label>
+                        <label className="col-lg-2 p-0">Name</label>
                         <input
                           className="form-control col-lg-10"
-                          name="title"
+                          name="name"
                           onChange={this.onChange}
-                          value={this.state.title}
+                          value={this.state.name}
                           type="text"
                           onfocus="this.placeholder = 'Menu Name'"
                           onblur="this.placeholder = ''"
                           placeholder=""
                         />
                         {this.validator.message(
-                          "Title",
-                          this.state.title,
+                          "name",
+                          this.state.name,
                           "required|whitespace|min:1|max:150"
                         )}
                         {this.state.mobile_message}
                       </div>
-
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Video</label>
+                        <label className="col-lg-2 p-0">Designation</label>
+                        <input
+                          className="form-control col-lg-10"
+                          name="designation"
+                          onChange={this.onChange}
+                          value={this.state.designation}
+                          type="text"
+                          onfocus="this.placeholder = 'Menu Name'"
+                          onblur="this.placeholder = ''"
+                          placeholder=""
+                        />
+                        {this.validator.message(
+                          "designation",
+                          this.state.designation,
+                          "required|whitespace|min:1|max:150"
+                        )}
+                        {this.state.mobile_message}
+                      </div>
+                      <div className="form-group tags-field row m-0">
+                        <label className="col-lg-2 p-0">Photo</label>
                         <input
                           type="file"
                           onChange={this.onFileChange}
-                          name="file"
+                          name="Photo"
                           className="form-control col-lg-10"
                         />
 
                         {this.validator.message(
-                          "Thumbnail",
-                          this.state.Thumbnail,
+                          "Photo",
+                          this.state.Photo,
                           "required"
                         )}
                       </div>
@@ -240,4 +257,4 @@ class AddVideos extends React.Component {
   }
 }
 
-export default AddVideos;
+export default AddPeople;

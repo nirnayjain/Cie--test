@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 import Loader from "react-loader-spinner";
 
 const PER_PAGE = 10;
-class Press extends React.Component {
+class People extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,14 +21,14 @@ class Press extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/press/fetch`)
+      .get(`https://cie-backend-api.herokuapp.com/people/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
         this.setState({ blogs, loading: true });
       });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/press/fetch`)
+      .get(`https://cie-backend-api.herokuapp.com/people/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -48,7 +48,7 @@ class Press extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `https://cie-backend-api.herokuapp.com/press/delete/${_id}`
+            `https://cie-backend-api.herokuapp.com/people/delete/${_id}`
           )
           .then((res) => {
             console.log(res);
@@ -76,15 +76,22 @@ class Press extends React.Component {
           <tr key={index}>
             <td>{index + 1}</td>
             <td>
-              <div className="limited-text">{blog.title}</div>
+              <div className="limited-text">{blog.name}</div>
             </td>
-            <td>  {new Date(Date.now(blog.createdAt)).toDateString()}</td>
             <td>
-              <Link to={`/view_press/${blog._id}`}>
+              <div className="limited-text">{blog.designation}</div>
+            </td>
+            <td><img
+                                                            src={blog.photo}
+                                                            width="100px"
+                                                            height="70px"
+                                                        /></td>
+            <td>
+              <Link to={`/view_people/${blog._id}`}>
                 <span className="btn">View</span>
               </Link>
 
-              <Link to={`/edit_press/${blog._id}`}>
+              <Link to={`/edit_people/${blog._id}`}>
                 <span className="btn">Edit</span>
               </Link>
               <span
@@ -106,12 +113,12 @@ class Press extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Press Release</div>
+            <div className="admin-head">Key People</div>
             <div className="admin-data">
               {this.state.loading ? (
                 <>
                   <div className="col-lg-12 p-0 text-right mb-30">
-                    <a href="/add_press">
+                    <a href="/add_people">
                       <button className="button button-contactForm boxed-btn">
                         + Add New
                       </button>
@@ -123,8 +130,9 @@ class Press extends React.Component {
                       <thead>
                         <tr>
                           <th>S.No</th>
-                          <th>Title</th>
-                          <th>Added On</th>
+                          <th>Name</th>
+                          <th>Designation</th>
+                          <th>Photo</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -166,4 +174,4 @@ class Press extends React.Component {
   }
 }
 
-export default Press;
+export default People;

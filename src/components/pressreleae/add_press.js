@@ -10,7 +10,6 @@ class AddPress extends React.Component {
     super(props);
     this.state = {
       title: "",
-      category: "",
       description: "",
       image: "",
       theme: "snow",
@@ -166,25 +165,24 @@ class AddPress extends React.Component {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
-      formdata.append("category", this.state.category);
       formdata.append("description", this.state.description);
-      formdata.append("file", this.state.image);
-      formdata.append("date", this.state.date);
+      formdata.append("Thumbnail", this.state.image);
       axios
         .post(
-          "https://cie-backend-api.herokuapp.com/blog/AddBlog1",
+          "https://cie-backend-api.herokuapp.com/press/save",
           formdata
         )
-        .then(function (response) {
+        .then((response)=> {
           // handle success
 
           console.log(response.data);
+          this.props.history.push("/press");
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-      this.props.history.push("/article");
+    
     } else {
       this.validator.showMessages();
       this.forceUpdate();

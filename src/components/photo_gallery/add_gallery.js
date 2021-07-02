@@ -10,9 +10,7 @@ class AddGallery extends React.Component {
     super(props);
     this.state = {
       title: "",
-      category: "",
-      description: "",
-      image: "",
+      Thumbnail:"",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -109,15 +107,15 @@ class AddGallery extends React.Component {
     });
   }
 
-  componentDidMount() {
-    // axios
-    //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
-    //   .then((res) => {
-    //     const blogcategories = res.data;
-    //     console.log(blogcategories);
-    //     this.setState({ blogcategories });
-    //   });
-  }
+  // componentDidMount() {
+  //   // axios
+  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .then((res) => {
+  //   //     const blogcategories = res.data;
+  //   //     console.log(blogcategories);
+  //   //     this.setState({ blogcategories });
+  //   //   });
+  // }
 
   handleChange(html) {
     this.setState({ description: html });
@@ -134,7 +132,7 @@ class AddGallery extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ image: e.target.files[0] });
+    this.setState({ Thumbnail: e.target.files[0] });
   }
   //   handleSubmit(event) {
   //     event.preventDefault();
@@ -166,25 +164,23 @@ class AddGallery extends React.Component {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
-      formdata.append("category", this.state.category);
-      formdata.append("description", this.state.description);
-      formdata.append("file", this.state.image);
-      formdata.append("date", this.state.date);
+      formdata.append("Thumbnail", this.state.Thumbnail);
       axios
         .post(
-          "https://cie-backend-api.herokuapp.com/blog/AddBlog1",
+          "https://cie-backend-api.herokuapp.com/photo/save",
           formdata
         )
-        .then(function (response) {
+        .then((response)=> {
           // handle success
 
           console.log(response.data);
+          this.props.history.push("/gallery");
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-      this.props.history.push("/article");
+      
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -237,8 +233,8 @@ class AddGallery extends React.Component {
                         />
 
                         {this.validator.message(
-                          "Image",
-                          this.state.image,
+                          "Thumbnail",
+                          this.state.Thumbnail,
                           "required"
                         )}
                       </div>

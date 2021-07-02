@@ -5,13 +5,15 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
-class AddVideos extends React.Component {
+class EditPress extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      Thumbnail:"",
+      description: "",
+      image: "",
       theme: "snow",
+      thumbnail:"",
       mobile_message: "",
       validError: false,
       date: Date.now(),
@@ -107,15 +109,17 @@ class AddVideos extends React.Component {
     });
   }
 
-  // componentDidMount() {
-  //   // axios
-  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
-  //   //   .then((res) => {
-  //   //     const blogcategories = res.data;
-  //   //     console.log(blogcategories);
-  //   //     this.setState({ blogcategories });
-  //   //   });
-  // }
+  componentDidMount() {
+    const id  = this.props.match.params.id;
+    console.log(id);
+    axios
+        .get(`https://cie-backend-api.herokuapp.com/press/fetch/${id}`)
+        .then((res) => {
+            const data = res.data;
+            console.log(data);
+            this.setState({ title:data.title,description:data.description,thumbnail:data.Image });
+        });
+}
 
   handleChange(html) {
     this.setState({ description: html });
@@ -132,31 +136,32 @@ class AddVideos extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ Thumbnail: e.target.files[0] });
+    this.setState({ image: e.target.files[0] });
   }
   handleSubmit(e) {
+    const id = this.props.match.params.id;
     e.preventDefault();
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
-      formdata.append("Video", this.state.Thumbnail);
+      formdata.append("description", this.state.description);
+      formdata.append("Thumbnail", this.state.image);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/video/save",
+        .put(
+          `https://cie-backend-api.herokuapp.com/press/save/${id}`,
           formdata
         )
         .then((response)=> {
           // handle success
-
+          this.props.history.push("/press");
           console.log(response.data);
-          this.props.history.push("/videos");
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-     
+      
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -169,7 +174,7 @@ class AddVideos extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Videos - Add New</div>
+            <div className="admin-head">Press - Edit</div>
             <div className="admin-data">
               <div className="container-fluid p-0">
                 <form
@@ -200,17 +205,39 @@ class AddVideos extends React.Component {
                       </div>
 
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Video</label>
+                        <label className="col-lg-2 p-0">Image</label>
                         <input
                           type="file"
                           onChange={this.onFileChange}
                           name="file"
-                          className="form-control col-lg-10"
+                          className="form-control col-lg-7"
+                        />
+                     
+                        {this.validator.message(
+                          "Image",
+                          this.state.image,
+                          "required"
+                        )}
+                      </div>
+                      <img className="logoImg col-lg-3"  src={this.state.thumbnail} alt="Frontend Img">
+                                                    </img>
+                      <div className="form-group tags-field row m-0">
+                        <label className="col-lg-2 p-0">Description</label>
+
+                        <ReactQuill
+                          className=" col-lg-10 height"
+                          theme={this.state.theme}
+                          onChange={this.handleChange}
+                          value={this.state.description}
+                          modules={EditPress.modules}
+                          formats={EditPress.formats}
+                          bounds={".app"}
+                          placeholder={this.props.placeholder}
                         />
 
                         {this.validator.message(
-                          "Thumbnail",
-                          this.state.Thumbnail,
+                          "Description",
+                          this.state.description,
                           "required"
                         )}
                       </div>
@@ -239,5 +266,44 @@ class AddVideos extends React.Component {
     );
   }
 }
+EditPress.modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "image", "video"],
+    ["clean"],
+  ],
+  clipboard: {
+    matchVisual: false,
+  },
+};
 
-export default AddVideos;
+EditPress.formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+];
+
+EditPress.propTypes = {
+  placeholder: PropTypes.string,
+};
+
+export default EditPress;

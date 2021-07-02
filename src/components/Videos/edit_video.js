@@ -5,12 +5,13 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
-class AddVideos extends React.Component {
+class EditVideo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
       Thumbnail:"",
+      image:"",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -107,15 +108,17 @@ class AddVideos extends React.Component {
     });
   }
 
-  // componentDidMount() {
-  //   // axios
-  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
-  //   //   .then((res) => {
-  //   //     const blogcategories = res.data;
-  //   //     console.log(blogcategories);
-  //   //     this.setState({ blogcategories });
-  //   //   });
-  // }
+  componentDidMount() {
+    const id  = this.props.match.params.id;
+    console.log(id);
+    axios
+        .get(`https://cie-backend-api.herokuapp.com/video/fetch/${id}`)
+        .then((res) => {
+            const data = res.data;
+            console.log(data);
+            this.setState({ title:data.title,image:data.Video });
+        });
+}
 
   handleChange(html) {
     this.setState({ description: html });
@@ -134,23 +137,47 @@ class AddVideos extends React.Component {
   onFileChange(e) {
     this.setState({ Thumbnail: e.target.files[0] });
   }
+  //   handleSubmit(event) {
+  //     event.preventDefault();
+  //     if (this.validator.allValid()) {
+  //       const post = {
+  //         title: this.state.title,
+  //         category: this.state.category,
+  //         description: this.state.description,
+  //       };
+
+  //       console.log(post);
+  //       axios
+  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .then((res) => {
+  //           console.log(res);
+  //           console.log(res.data);
+  //         });
+
+  //       this.props.history.push("/article");
+  //     } else {
+  //       this.validator.showMessages();
+  //       this.forceUpdate();
+  //     }
+  //   }
+
   handleSubmit(e) {
     e.preventDefault();
+    const id = this.props.match.params.id;
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
-      formdata.append("Video", this.state.Thumbnail);
+      formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/video/save",
+        .put(
+          `https://cie-backend-api.herokuapp.com/video/save/${id}`,
           formdata
         )
         .then((response)=> {
           // handle success
-
+          this.props.history.push("/video");
           console.log(response.data);
-          this.props.history.push("/videos");
         })
         .catch(function (error) {
           // handle error
@@ -169,7 +196,7 @@ class AddVideos extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Videos - Add New</div>
+            <div className="admin-head">Video - Edit</div>
             <div className="admin-data">
               <div className="container-fluid p-0">
                 <form
@@ -200,7 +227,7 @@ class AddVideos extends React.Component {
                       </div>
 
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Video</label>
+                        <label className="col-lg-2 p-0">Thumbnail</label>
                         <input
                           type="file"
                           onChange={this.onFileChange}
@@ -214,6 +241,8 @@ class AddVideos extends React.Component {
                           "required"
                         )}
                       </div>
+                      <img className="logoImg col-lg-3"  src={this.state.image} alt="Frontend Img">
+                                                    </img>
                     </div>
 
                     <div className="col-lg-12 p-0">
@@ -240,4 +269,4 @@ class AddVideos extends React.Component {
   }
 }
 
-export default AddVideos;
+export default EditVideo;

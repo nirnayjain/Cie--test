@@ -21,14 +21,14 @@ class Gallery extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
+      .get(`https://cie-backend-api.herokuapp.com/photo/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
         this.setState({ blogs, loading: true });
       });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
+      .get(`https://cie-backend-api.herokuapp.com/photo/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -48,7 +48,7 @@ class Gallery extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `https://cie-backend-api.herokuapp.com/blog/delete_blog1/${_id}`
+            `https://cie-backend-api.herokuapp.com/photo/delete/${_id}`
           )
           .then((res) => {
             console.log(res);
@@ -78,14 +78,18 @@ class Gallery extends React.Component {
             <td>
               <div className="limited-text">{blog.title}</div>
             </td>
-            <td>{blog.category}</td>
-            <td>{today.toDateString()}</td>
+            <td><img
+                                                            src={blog.Thumbnail}
+                                                            width="100px"
+                                                            height="70px"
+                                                        /></td>
+            <td>  {new Date(Date.now(blog.createdAt)).toDateString()}</td>
             <td>
-              <Link to={`/view_article/${blog._id}`}>
+              <Link to={`/view_gallery/${blog._id}`}>
                 <span className="btn">View</span>
               </Link>
 
-              <Link to={`/edit_article/${blog._id}`}>
+              <Link to={`/edit_gallery/${blog._id}`}>
                 <span className="btn">Edit</span>
               </Link>
               <span
