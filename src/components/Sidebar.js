@@ -133,6 +133,16 @@ function Sidebar() {
                     </li>
                     <li>
                       {" "}
+                      <a href="/people">
+                        <span>
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Key People
+                        </span>
+                        <b className="gw-arrow" />
+                      </a>
+                    </li>
+                    <li>
+                      {" "}
                       <a href="/press">
                         <span>
                           <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}

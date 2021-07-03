@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
-class AddPress extends React.Component {
+class EditPress extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,7 @@ class AddPress extends React.Component {
       description: "",
       image: "",
       theme: "snow",
+      thumbnail:"",
       mobile_message: "",
       validError: false,
       date: Date.now(),
@@ -109,14 +110,16 @@ class AddPress extends React.Component {
   }
 
   componentDidMount() {
-    // axios
-    //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
-    //   .then((res) => {
-    //     const blogcategories = res.data;
-    //     console.log(blogcategories);
-    //     this.setState({ blogcategories });
-    //   });
-  }
+    const id  = this.props.match.params.id;
+    console.log(id);
+    axios
+        .get(`https://cie-backend-api.herokuapp.com/press/fetch/${id}`)
+        .then((res) => {
+            const data = res.data;
+            console.log(data);
+            this.setState({ title:data.title,description:data.description,thumbnail:data.Image });
+        });
+}
 
   handleChange(html) {
     this.setState({ description: html });
@@ -135,31 +138,8 @@ class AddPress extends React.Component {
   onFileChange(e) {
     this.setState({ image: e.target.files[0] });
   }
-  //   handleSubmit(event) {
-  //     event.preventDefault();
-  //     if (this.validator.allValid()) {
-  //       const post = {
-  //         title: this.state.title,
-  //         category: this.state.category,
-  //         description: this.state.description,
-  //       };
-
-  //       console.log(post);
-  //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
-  //         .then((res) => {
-  //           console.log(res);
-  //           console.log(res.data);
-  //         });
-
-  //       this.props.history.push("/article");
-  //     } else {
-  //       this.validator.showMessages();
-  //       this.forceUpdate();
-  //     }
-  //   }
-
   handleSubmit(e) {
+    const id = this.props.match.params.id;
     e.preventDefault();
     if (this.validator.allValid()) {
       console.log(this.state);
@@ -168,21 +148,20 @@ class AddPress extends React.Component {
       formdata.append("description", this.state.description);
       formdata.append("Thumbnail", this.state.image);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/press/save",
+        .put(
+          `https://cie-backend-api.herokuapp.com/press/save/${id}`,
           formdata
         )
-        .then((response) => {
+        .then((response)=> {
           // handle success
-
-          console.log(response.data);
           this.props.history.push("/press");
+          console.log(response.data);
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-
+      
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -195,7 +174,7 @@ class AddPress extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Press - Add New</div>
+            <div className="admin-head">Press - Edit</div>
             <div className="admin-data">
               <div className="container-fluid p-0">
                 <form
@@ -231,15 +210,17 @@ class AddPress extends React.Component {
                           type="file"
                           onChange={this.onFileChange}
                           name="file"
-                          className="form-control col-lg-10"
+                          className="form-control col-lg-7"
                         />
-
+                     
                         {this.validator.message(
                           "Image",
                           this.state.image,
                           "required"
                         )}
                       </div>
+                      <img className="logoImg col-lg-3"  src={this.state.thumbnail} alt="Frontend Img">
+                                                    </img>
                       <div className="form-group tags-field row m-0">
                         <label className="col-lg-2 p-0">Description</label>
 
@@ -248,8 +229,8 @@ class AddPress extends React.Component {
                           theme={this.state.theme}
                           onChange={this.handleChange}
                           value={this.state.description}
-                          modules={AddPress.modules}
-                          formats={AddPress.formats}
+                          modules={EditPress.modules}
+                          formats={EditPress.formats}
                           bounds={".app"}
                           placeholder={this.props.placeholder}
                         />
@@ -285,7 +266,7 @@ class AddPress extends React.Component {
     );
   }
 }
-AddPress.modules = {
+EditPress.modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }, { font: [] }],
     [{ size: [] }],
@@ -304,7 +285,7 @@ AddPress.modules = {
   },
 };
 
-AddPress.formats = [
+EditPress.formats = [
   "header",
   "font",
   "size",
@@ -321,8 +302,8 @@ AddPress.formats = [
   "video",
 ];
 
-AddPress.propTypes = {
+EditPress.propTypes = {
   placeholder: PropTypes.string,
 };
 
-export default AddPress;
+export default EditPress;

@@ -92,14 +92,26 @@ import AddEvent from "./components/events/add_new_event";
 //Gallery
 import Gallery from "./components/photo_gallery/gallery";
 import AddGallery from "./components/photo_gallery/add_gallery";
+import ViewGallery from "./components/photo_gallery/view_gallery";
+import EditGallery from "./components/photo_gallery/edit_gallery";
 
 //Videos
 import Videos from "./components/Videos/videos";
 import AddVideos from "./components/Videos/add_videos";
+import ViewVideo from "./components/Videos/view_video";
+import EditVideo from "./components/Videos/edit_video";
 
 //press
 import Press from "./components/pressreleae/press";
 import AddPress from "./components/pressreleae/add_press";
+import ViewPress from "./components/pressreleae/view_press";
+import EditPress from "./components/pressreleae/edit_press";
+
+// people
+import people from "./components/people/people";
+import AddPeople from "./components/people/add_people";
+import ViewPeople from "./components/people/view_people";
+import EditPeople from "./components/people/edit_people";
 //testimonials
 import Testimonial from "./components/testimonial/view_testimonial";
 import AddTestimonial from "./components/testimonial/add_testimonial";
@@ -124,6 +136,7 @@ import EditCompliance from "./components/site_preferences/edit_compliance";
 import AddNewPage from "./components/pages/add_page";
 import ViewPages from "./components/pages/pages";
 import EditPage from "./components/pages/edit_page";
+import People from "./components/people/people";
 
 function Routing() {
   return (
@@ -237,12 +250,18 @@ function Routing() {
         {/* photo_gallery */}
         <Route exact path="/gallery" component={Gallery}></Route>
         <Route exact path="/add_gallery" component={AddGallery}></Route>
+        <Route exact path="/view_gallery/:id" component={ViewGallery}></Route>
+        <Route exact path="/edit_gallery/:id" component={EditGallery}></Route>
         {/* Videos */}
         <Route exact path="/videos" component={Videos}></Route>
         <Route exact path="/add_videos" component={AddVideos}></Route>
+        <Route exact path="/view_video/:id" component={ViewVideo}></Route>
+        <Route exact path="/edit_video/:id" component={EditVideo}></Route>
         {/* pressreleae */}
         <Route exact path="/press" component={Press}></Route>
         <Route exact path="/add_press" component={AddPress}></Route>
+        <Route exact path="/view_press/:id" component={ViewPress}></Route>
+        <Route exact path="/edit_press/:id" component={EditPress}></Route>
         {/* Events */}
         <Route exact path="/eventcategory" component={EventCategory}></Route>
         <Route exact path="/add_new_event" component={AddEvent}></Route>
@@ -271,6 +290,11 @@ function Routing() {
         <Route exact path="/all_pages" component={ViewPages}></Route>
         <Route exact path="/add_page" component={AddNewPage}></Route>
         <Route exact path="/edit_page/:_id" component={EditPage}></Route>
+        {/* people */}
+        <Route exact path="/people" component={People}></Route>
+        <Route exact path="/add_people" component={AddPeople}></Route>
+        <Route exact path="/view_people/:id" component={ViewPeople}></Route>
+        <Route exact path="/edit_people/:id" component={EditPeople}></Route>
       </Switch>
     </Router>
   );

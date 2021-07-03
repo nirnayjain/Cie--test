@@ -5,19 +5,19 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
-class AddPress extends React.Component {
+class AddPeople extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      description: "",
-      image: "",
+      name: "",
+      Photo:"",
+      designation:"",
       theme: "snow",
       mobile_message: "",
       validError: false,
       date: Date.now(),
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onFileChange = this.onFileChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -108,19 +108,16 @@ class AddPress extends React.Component {
     });
   }
 
-  componentDidMount() {
-    // axios
-    //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
-    //   .then((res) => {
-    //     const blogcategories = res.data;
-    //     console.log(blogcategories);
-    //     this.setState({ blogcategories });
-    //   });
-  }
+  // componentDidMount() {
+  //   // axios
+  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .then((res) => {
+  //   //     const blogcategories = res.data;
+  //   //     console.log(blogcategories);
+  //   //     this.setState({ blogcategories });
+  //   //   });
+  // }
 
-  handleChange(html) {
-    this.setState({ description: html });
-  }
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -133,56 +130,32 @@ class AddPress extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ image: e.target.files[0] });
+    this.setState({ Photo: e.target.files[0] });
   }
-  //   handleSubmit(event) {
-  //     event.preventDefault();
-  //     if (this.validator.allValid()) {
-  //       const post = {
-  //         title: this.state.title,
-  //         category: this.state.category,
-  //         description: this.state.description,
-  //       };
-
-  //       console.log(post);
-  //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
-  //         .then((res) => {
-  //           console.log(res);
-  //           console.log(res.data);
-  //         });
-
-  //       this.props.history.push("/article");
-  //     } else {
-  //       this.validator.showMessages();
-  //       this.forceUpdate();
-  //     }
-  //   }
-
   handleSubmit(e) {
     e.preventDefault();
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
-      formdata.append("title", this.state.title);
-      formdata.append("description", this.state.description);
-      formdata.append("Thumbnail", this.state.image);
+      formdata.append("name", this.state.name);
+      formdata.append("designation", this.state.designation);
+      formdata.append("Photo", this.state.Photo);
       axios
         .post(
-          "https://cie-backend-api.herokuapp.com/press/save",
+          "https://cie-backend-api.herokuapp.com/people/save",
           formdata
         )
-        .then((response) => {
+        .then((response)=> {
           // handle success
 
           console.log(response.data);
-          this.props.history.push("/press");
+          this.props.history.push("/people");
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-
+      
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -195,7 +168,7 @@ class AddPress extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Press - Add New</div>
+            <div className="admin-head">People - Add New</div>
             <div className="admin-data">
               <div className="container-fluid p-0">
                 <form
@@ -206,57 +179,55 @@ class AddPress extends React.Component {
                     <div className="col-lg-12 p-0"></div>
                     <div className="col-lg-12 p-0">
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Title</label>
+                        <label className="col-lg-2 p-0">Name</label>
                         <input
                           className="form-control col-lg-10"
-                          name="title"
+                          name="name"
                           onChange={this.onChange}
-                          value={this.state.title}
+                          value={this.state.name}
                           type="text"
                           onfocus="this.placeholder = 'Menu Name'"
                           onblur="this.placeholder = ''"
                           placeholder=""
                         />
                         {this.validator.message(
-                          "Title",
-                          this.state.title,
+                          "name",
+                          this.state.name,
                           "required|whitespace|min:1|max:150"
                         )}
                         {this.state.mobile_message}
                       </div>
-
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Image</label>
+                        <label className="col-lg-2 p-0">Designation</label>
+                        <input
+                          className="form-control col-lg-10"
+                          name="designation"
+                          onChange={this.onChange}
+                          value={this.state.designation}
+                          type="text"
+                          onfocus="this.placeholder = 'Menu Name'"
+                          onblur="this.placeholder = ''"
+                          placeholder=""
+                        />
+                        {this.validator.message(
+                          "designation",
+                          this.state.designation,
+                          "required|whitespace|min:1|max:150"
+                        )}
+                        {this.state.mobile_message}
+                      </div>
+                      <div className="form-group tags-field row m-0">
+                        <label className="col-lg-2 p-0">Photo</label>
                         <input
                           type="file"
                           onChange={this.onFileChange}
-                          name="file"
+                          name="Photo"
                           className="form-control col-lg-10"
                         />
 
                         {this.validator.message(
-                          "Image",
-                          this.state.image,
-                          "required"
-                        )}
-                      </div>
-                      <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Description</label>
-
-                        <ReactQuill
-                          className=" col-lg-10 height"
-                          theme={this.state.theme}
-                          onChange={this.handleChange}
-                          value={this.state.description}
-                          modules={AddPress.modules}
-                          formats={AddPress.formats}
-                          bounds={".app"}
-                          placeholder={this.props.placeholder}
-                        />
-
-                        {this.validator.message(
-                          "Description",
-                          this.state.description,
+                          "Photo",
+                          this.state.Photo,
                           "required"
                         )}
                       </div>
@@ -285,44 +256,5 @@ class AddPress extends React.Component {
     );
   }
 }
-AddPress.modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
 
-AddPress.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
-
-AddPress.propTypes = {
-  placeholder: PropTypes.string,
-};
-
-export default AddPress;
+export default AddPeople;

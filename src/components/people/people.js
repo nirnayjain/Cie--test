@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 import Loader from "react-loader-spinner";
 
 const PER_PAGE = 10;
-class Gallery extends React.Component {
+class People extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,14 +21,14 @@ class Gallery extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/photo/fetch`)
+      .get(`https://cie-backend-api.herokuapp.com/people/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
         this.setState({ blogs, loading: true });
       });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/photo/fetch`)
+      .get(`https://cie-backend-api.herokuapp.com/people/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -48,7 +48,7 @@ class Gallery extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `https://cie-backend-api.herokuapp.com/photo/delete/${_id}`
+            `https://cie-backend-api.herokuapp.com/people/delete/${_id}`
           )
           .then((res) => {
             console.log(res);
@@ -76,20 +76,22 @@ class Gallery extends React.Component {
           <tr key={index}>
             <td>{index + 1}</td>
             <td>
-              <div className="limited-text">{blog.title}</div>
+              <div className="limited-text">{blog.name}</div>
+            </td>
+            <td>
+              <div className="limited-text">{blog.designation}</div>
             </td>
             <td><img
-              src={blog.Thumbnail}
-              width="100px"
-              height="70px"
-            /></td>
-            <td>  {new Date(Date.now(blog.createdAt)).toDateString()}</td>
+                                                            src={blog.photo}
+                                                            width="100px"
+                                                            height="70px"
+                                                        /></td>
             <td>
-              <Link to={`/view_gallery/${blog._id}`}>
+              <Link to={`/view_people/${blog._id}`}>
                 <span className="btn">View</span>
               </Link>
 
-              <Link to={`/edit_gallery/${blog._id}`}>
+              <Link to={`/edit_people/${blog._id}`}>
                 <span className="btn">Edit</span>
               </Link>
               <span
@@ -111,12 +113,12 @@ class Gallery extends React.Component {
         <Sidebar></Sidebar>
         <div className="admin-wrapper col-12">
           <div className="admin-content">
-            <div className="admin-head">Photo Gallery</div>
+            <div className="admin-head">Key People</div>
             <div className="admin-data">
               {this.state.loading ? (
                 <>
                   <div className="col-lg-12 p-0 text-right mb-30">
-                    <a href="/add_gallery">
+                    <a href="/add_people">
                       <button className="button button-contactForm boxed-btn">
                         + Add New
                       </button>
@@ -128,9 +130,9 @@ class Gallery extends React.Component {
                       <thead>
                         <tr>
                           <th>S.No</th>
-                          <th>Title</th>
-                          <th>Thumbnail</th>
-                          <th>Added On</th>
+                          <th>Name</th>
+                          <th>Designation</th>
+                          <th>Photo</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -172,4 +174,4 @@ class Gallery extends React.Component {
   }
 }
 
-export default Gallery;
+export default People;

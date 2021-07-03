@@ -21,14 +21,14 @@ class Press extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
+      .get(`https://cie-backend-api.herokuapp.com/press/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
         this.setState({ blogs, loading: true });
       });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
+      .get(`https://cie-backend-api.herokuapp.com/press/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -48,7 +48,7 @@ class Press extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `https://cie-backend-api.herokuapp.com/blog/delete_blog1/${_id}`
+            `https://cie-backend-api.herokuapp.com/press/delete/${_id}`
           )
           .then((res) => {
             console.log(res);
@@ -78,14 +78,13 @@ class Press extends React.Component {
             <td>
               <div className="limited-text">{blog.title}</div>
             </td>
-            <td>{blog.category}</td>
-            <td>{today.toDateString()}</td>
+            <td>  {new Date(Date.now(blog.createdAt)).toDateString()}</td>
             <td>
-              <Link to={`/view_article/${blog._id}`}>
+              <Link to={`/view_press/${blog._id}`}>
                 <span className="btn">View</span>
               </Link>
 
-              <Link to={`/edit_article/${blog._id}`}>
+              <Link to={`/edit_press/${blog._id}`}>
                 <span className="btn">Edit</span>
               </Link>
               <span

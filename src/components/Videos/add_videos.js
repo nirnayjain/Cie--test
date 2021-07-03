@@ -10,9 +10,7 @@ class AddVideos extends React.Component {
     super(props);
     this.state = {
       title: "",
-      category: "",
-      description: "",
-      image: "",
+      Thumbnail: "",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -109,15 +107,15 @@ class AddVideos extends React.Component {
     });
   }
 
-  componentDidMount() {
-    // axios
-    //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
-    //   .then((res) => {
-    //     const blogcategories = res.data;
-    //     console.log(blogcategories);
-    //     this.setState({ blogcategories });
-    //   });
-  }
+  // componentDidMount() {
+  //   // axios
+  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .then((res) => {
+  //   //     const blogcategories = res.data;
+  //   //     console.log(blogcategories);
+  //   //     this.setState({ blogcategories });
+  //   //   });
+  // }
 
   handleChange(html) {
     this.setState({ description: html });
@@ -134,57 +132,31 @@ class AddVideos extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ image: e.target.files[0] });
+    this.setState({ Thumbnail: e.target.files[0] });
   }
-  //   handleSubmit(event) {
-  //     event.preventDefault();
-  //     if (this.validator.allValid()) {
-  //       const post = {
-  //         title: this.state.title,
-  //         category: this.state.category,
-  //         description: this.state.description,
-  //       };
-
-  //       console.log(post);
-  //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
-  //         .then((res) => {
-  //           console.log(res);
-  //           console.log(res.data);
-  //         });
-
-  //       this.props.history.push("/article");
-  //     } else {
-  //       this.validator.showMessages();
-  //       this.forceUpdate();
-  //     }
-  //   }
-
   handleSubmit(e) {
     e.preventDefault();
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
-      formdata.append("category", this.state.category);
-      formdata.append("description", this.state.description);
-      formdata.append("file", this.state.image);
-      formdata.append("date", this.state.date);
+      formdata.append("Video", this.state.Thumbnail);
       axios
         .post(
-          "https://cie-backend-api.herokuapp.com/blog/AddBlog1",
+          "https://cie-backend-api.herokuapp.com/video/save",
           formdata
         )
-        .then(function (response) {
+        .then((response) => {
           // handle success
 
           console.log(response.data);
+          this.props.history.push("/videos");
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-      this.props.history.push("/article");
+
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -228,7 +200,7 @@ class AddVideos extends React.Component {
                       </div>
 
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Thumbnail</label>
+                        <label className="col-lg-2 p-0">Video</label>
                         <input
                           type="file"
                           onChange={this.onFileChange}
@@ -237,8 +209,8 @@ class AddVideos extends React.Component {
                         />
 
                         {this.validator.message(
-                          "Image",
-                          this.state.image,
+                          "Thumbnail",
+                          this.state.Thumbnail,
                           "required"
                         )}
                       </div>
@@ -263,7 +235,7 @@ class AddVideos extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
