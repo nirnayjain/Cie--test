@@ -40,77 +40,6 @@ function Sidebar() {
                         Menu
                       </Link>
                     </li>
-                    {/* <li className="init-arrow-down"> */}
-                    {/* <li>
-                      {" "}
-                      <a href="#">
-                        <span>
-                          <i className="fa fa-home" aria-hidden="true"></i>
-                          Home Page
-                        </span>
-                        <b className="gw-arrow" />
-                      </a>
-                      <ul
-                        className="gw-submenu sidebarUl"
-                        style={{ display: "block", listStyleType: "inherit" }}
-                      >
-                        {/* <li>
-                          {" "}
-                          <a href="home_section_1" style={{ color: "white" }}>
-                            Slider
-                          </a>{" "}
-                        </li> */}
-                    {/* <li>
-                          {" "}
-                          <a
-                            href="/home1/608b912efcc7860015dce5b1"
-                            style={{ color: "white" }}
-                          >
-                            <i className="fa fa-dot-circle-o dotIcon"></i>
-                            Section 1 Text
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/testimonials" style={{ color: "white" }}>
-                            <i className="fa fa-dot-circle-o dotIcon"></i>
-                            Testimonials
-                          </a>{" "}
-                        </li>
-
-                        <li>
-                          {" "}
-                          <a
-                            href="/home_section_1_1"
-                            style={{ color: "white" }}
-                          >
-                            <i className="fa fa-dot-circle-o dotIcon"></i>
-                            Section 1 Videos
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/home_section_2" style={{ color: "white" }}>
-                            <i className="fa fa-dot-circle-o dotIcon"></i>
-                            Section 2
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/home_section_3" style={{ color: "white" }}>
-                            <i className="fa fa-dot-circle-o dotIcon"></i>
-                            Section 3
-                          </a>{" "}
-                        </li> */}
-                    {/* <li>
-                          {" "}
-                          <a href="/home_section_4" style={{ color: "white" }}>
-                            <i className="fa fa-dot-circle-o dotIcon"></i>
-                            Media Presence
-                          </a>{" "}
-                        </li>
-                      </ul>
-                    </li>   */}
                     <li>
                       {" "}
                       <a href="/gallery">
@@ -151,7 +80,18 @@ function Sidebar() {
                         <b className="gw-arrow" />
                       </a>
                     </li>
+                    {/* gov websites */}
                     <li>
+                      {" "}
+                      <a href="/websites">
+                        <span>
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Government Websites
+                        </span>
+                        <b className="gw-arrow" />
+                      </a>
+                    </li>
+                    {/* <li>
                       {" "}
                       <a href="#">
                         <span>
@@ -177,10 +117,10 @@ function Sidebar() {
                           </a>{" "}
                         </li>
                       </ul>
-                    </li>
-                    {/* event and its types */}
+                    </li> */}
+                    {/*Gov websites*/}
 
-                    <li>
+                    {/* <li>
                       {" "}
                       <a href="#">
                         <span>
@@ -201,7 +141,10 @@ function Sidebar() {
                         </li>
                         <li>
                           {" "}
-                          <a href="/upcomming_events" style={{ color: "white" }}>
+                          <a
+                            href="/upcomming_events"
+                            style={{ color: "white" }}
+                          >
                             Upcoming Courses
                           </a>{" "}
                         </li>
@@ -224,7 +167,7 @@ function Sidebar() {
                           </a>{" "}
                         </li>
                       </ul>
-                    </li>
+                    </li> */}
                     <li>
                       {" "}
                       <a href="#">
@@ -262,15 +205,8 @@ function Sidebar() {
                             Compliance
                           </a>{" "}
                         </li>
-
                       </ul>
                     </li>
-                    {/* <li>
-                      <Link to="/">
-                        <i className="fa fa-upload" aria-hidden="true" /> Site Preferences
-                      </Link>
-                    </li> */}
-                    {/* post*/}
                     <li>
                       {" "}
                       <a href="/all_pages">
@@ -289,13 +225,6 @@ function Sidebar() {
                         <i className="fa fa-upload" aria-hidden="true" /> Posts
                       </Link>
                     </li>
-
-                    {/* <li>
-                      <Link to="/changepassword">
-                        <i class="fa fa-book fa-fw" aria-hidden="true"></i>
-                        Change Password
-                      </Link>
-                    </li> */}
                     <li>
                       <Link
                         to=""
@@ -309,89 +238,6 @@ function Sidebar() {
                         Logout {name}
                       </Link>
                     </li>
-                    {/* <li className="init-arrow-down">
-                      {" "}
-                      <a href="#">
-                        <span>
-                          <i className="fa fa-file" aria-hidden="true" /> Pages
-                        </span>
-                        <b className="gw-arrow" />
-                      </a>
-                      <ul className="gw-submenu">
-                        <li>
-                          {" "}
-                          <a href="create-new.html" style={{ color: "white" }}>
-                            Create New
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a
-                            href="pages-drafts.html"
-                            style={{ color: "white" }}
-                          >
-                            Drafts
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a
-                            href="pages-published.html"
-                            style={{ color: "white" }}
-                          >
-                            Published
-                          </a>{" "}
-                        </li>
-                      </ul>
-                    </li> */}
-                    {/* <li class="init-un-active">  */}
-                    {/* <li>
-                      <Link to="/contact">
-                        <i className="fa fa-wpforms" aria-hidden="true" />{" "}
-                        Contact Form
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/medialibrary">
-                        <i className="fa fa-file-image-o" aria-hidden="true" />{" "}
-                        Media Library
-                      </Link>
-                    </li>
-                    <li className="init-arrow-down init-un-active">
-                      <Link to="/settin">
-                        <i className="fa fa-cog" aria-hidden="true" />
-                        Settings
-                        <b className="gw-arrow" />
-                      </Link>
-                      <ul className="gw-submenu">
-                        <li>
-                          {" "}
-                          <a href="general-settings.html">General</a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="social-media.html">Social Media</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <Link to="/profile">
-                        <i className="fa fa-user-o" aria-hidden="true" />
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/changepassword">
-                        <i className="fa fa-unlock-alt" aria-hidden="true" />
-                        Change Password
-                      </Link>
-                    </li>
-                    <li>
-                      <a href="login.html">
-                        <i className="fa fa-sign-out" aria-hidden="true" />
-                        Logout
-                      </a>
-                    </li> */}
                   </ul>
                 </div>
               </div>

@@ -112,6 +112,12 @@ import people from "./components/people/people";
 import AddPeople from "./components/people/add_people";
 import ViewPeople from "./components/people/view_people";
 import EditPeople from "./components/people/edit_people";
+
+//Gov Websites
+import Gov from "./components/gov_websites/gov";
+import AddGov from "./components/gov_websites/add_gov";
+import EditGov from "./components/gov_websites/edit_gov";
+import ViewGov from "./components/gov_websites/view_gov";
 //testimonials
 import Testimonial from "./components/testimonial/view_testimonial";
 import AddTestimonial from "./components/testimonial/add_testimonial";
@@ -269,11 +275,31 @@ function Routing() {
         <Route exact path="/edit_event/:_id" component={EditEvent}></Route>
         <Route exact path="/event_types" component={EventTypes}></Route>
         <Route exact path="/event_category" component={EventCategory}></Route>
-        <Route exact path="/add_new_event_type" component={AddEventType}></Route>
-        <Route exact path="/edit_event_type/:_id" component={EditEventType}></Route>
-        <Route exact path="/view_event_type/:_id" component={ViewEventType}></Route>
-        <Route exact path="/edit_event_cat/:_id" component={EditEventCat}></Route>
-        <Route exact path="/view_event_cat/:_id" component={ViewEventCat}></Route>
+        <Route
+          exact
+          path="/add_new_event_type"
+          component={AddEventType}
+        ></Route>
+        <Route
+          exact
+          path="/edit_event_type/:_id"
+          component={EditEventType}
+        ></Route>
+        <Route
+          exact
+          path="/view_event_type/:_id"
+          component={ViewEventType}
+        ></Route>
+        <Route
+          exact
+          path="/edit_event_cat/:_id"
+          component={EditEventCat}
+        ></Route>
+        <Route
+          exact
+          path="/view_event_cat/:_id"
+          component={ViewEventCat}
+        ></Route>
         <Route exact path="/add_new_event_cat" component={AddEventCat}></Route>
         <Route exact path="/past_events" component={EventPast}></Route>
         <Route exact path="/upcomming_events" component={EventUpcoming}></Route>
@@ -284,8 +310,16 @@ function Routing() {
         <Route exact path="/add_address" component={AddAddress}></Route>
         <Route exact path="/add_socialmedia" component={AddSocialMedia}></Route>
         <Route exact path="/add_compliance" component={AddCompliances}></Route>
-        <Route exact path="/add_new_compliance" component={AddNewCompliance}></Route>
-        <Route exact path="/edit_compliance/:_id" component={EditCompliance}></Route>
+        <Route
+          exact
+          path="/add_new_compliance"
+          component={AddNewCompliance}
+        ></Route>
+        <Route
+          exact
+          path="/edit_compliance/:_id"
+          component={EditCompliance}
+        ></Route>
         {/* Pages */}
         <Route exact path="/all_pages" component={ViewPages}></Route>
         <Route exact path="/add_page" component={AddNewPage}></Route>
@@ -295,6 +329,11 @@ function Routing() {
         <Route exact path="/add_people" component={AddPeople}></Route>
         <Route exact path="/view_people/:id" component={ViewPeople}></Route>
         <Route exact path="/edit_people/:id" component={EditPeople}></Route>
+        {/* Websited */}
+        <Route exact path="/websites" component={Gov}></Route>
+        <Route exact path="/add_websites" component={AddGov}></Route>
+        <Route exact path="/view_websites/:id" component={ViewGov}></Route>
+        <Route exact path="/edit_websites/:id" component={EditGov}></Route>
       </Switch>
     </Router>
   );
