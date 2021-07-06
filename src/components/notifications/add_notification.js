@@ -134,7 +134,7 @@ class AddNotification extends React.Component {
       formdata.append("Thumbnail", this.state.image);
       axios
         .post(
-          "http://localhost:5000/notification/save",
+          "https://cie-backend-api.herokuapp.com/notification/save",
           formdata
         )
         .then((response) => {

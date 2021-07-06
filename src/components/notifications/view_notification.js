@@ -19,7 +19,7 @@ class ViewNotification extends React.Component {
         const id = this.props.match.params.id;
         console.log(id);
         axios
-            .get(`http://localhost:5000/notification/fetch/${id}`)
+            .get(`https://cie-backend-api.herokuapp.com/notification/fetch/${id}`)
             .then((res) => {
                 console.log(res.data);
                 const post = {

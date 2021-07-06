@@ -113,7 +113,7 @@ class EditNotification extends React.Component {
     const id  = this.props.match.params.id;
     console.log(id);
     axios
-        .get(`http://localhost:5000/notification/fetch/${id}`)
+        .get(`https://cie-backend-api.herokuapp.com/notification/fetch/${id}`)
         .then((res) => {
             const data = res.data;
             console.log(data);
@@ -149,7 +149,7 @@ class EditNotification extends React.Component {
       formdata.append("Thumbnail", this.state.image);
       axios
         .put(
-          `http://localhost:5000/notification/save/${id}`,
+          `https://cie-backend-api.herokuapp.com/notification/save/${id}`,
           formdata
         )
         .then((response)=> {

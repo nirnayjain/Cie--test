@@ -21,14 +21,14 @@ class Notification extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:5000/notification/fetch`)
+      .get(`https://cie-backend-api.herokuapp.com/notification/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
         this.setState({ blogs, loading: true });
       });
     this.unsubscribe = axios
-      .get(`http://localhost:5000/notification/fetch`)
+      .get(`https://cie-backend-api.herokuapp.com/notification/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -48,7 +48,7 @@ class Notification extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `http://localhost:5000/notification/delete/${_id}`
+            `https://cie-backend-api.herokuapp.com/notification/delete/${_id}`
           )
           .then((res) => {
             console.log(res);
