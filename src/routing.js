@@ -118,6 +118,11 @@ import Gov from "./components/gov_websites/gov";
 import AddGov from "./components/gov_websites/add_gov";
 import EditGov from "./components/gov_websites/edit_gov";
 import ViewGov from "./components/gov_websites/view_gov";
+// notification
+import Notification from "./components/notifications/notification";
+import AddNotification from "./components/notifications/add_notification";
+import EditNotification from "./components/notifications/edit_notification";
+import ViewNotification from "./components/notifications/view_notification";
 //testimonials
 import Testimonial from "./components/testimonial/view_testimonial";
 import AddTestimonial from "./components/testimonial/add_testimonial";
@@ -268,6 +273,11 @@ function Routing() {
         <Route exact path="/add_press" component={AddPress}></Route>
         <Route exact path="/view_press/:id" component={ViewPress}></Route>
         <Route exact path="/edit_press/:id" component={EditPress}></Route>
+        {/* notification */}
+        <Route exact path="/notification" component={Notification}></Route>
+        <Route exact path="/add_notification" component={AddNotification}></Route>
+        <Route exact path="/view_notification/:id" component={ViewNotification}></Route>
+        <Route exact path="/edit_notification/:id" component={EditNotification}></Route>
         {/* Events */}
         <Route exact path="/eventcategory" component={EventCategory}></Route>
         <Route exact path="/add_new_event" component={AddEvent}></Route>

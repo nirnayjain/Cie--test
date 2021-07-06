@@ -80,6 +80,16 @@ function Sidebar() {
                         <b className="gw-arrow" />
                       </a>
                     </li>
+                    <li>
+                      {" "}
+                      <a href="/notification">
+                        <span>
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Notification
+                        </span>
+                        <b className="gw-arrow" />
+                      </a>
+                    </li>
                     {/* gov websites */}
                     <li>
                       {" "}
@@ -91,83 +101,6 @@ function Sidebar() {
                         <b className="gw-arrow" />
                       </a>
                     </li>
-                    {/* <li>
-                      {" "}
-                      <a href="#">
-                        <span>
-                          <i
-                            className="fa fa-rss-square"
-                            aria-hidden="true"
-                          ></i>{" "}
-                          Blog
-                        </span>
-                        <b className="gw-arrow" />
-                      </a>
-                      <ul className="gw-submenu" style={{ display: "block" }}>
-                        <li>
-                          {" "}
-                          <a href="/article" style={{ color: "white" }}>
-                            Articles
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/blogcategory" style={{ color: "white" }}>
-                            Category
-                          </a>{" "}
-                        </li>
-                      </ul>
-                    </li> */}
-                    {/*Gov websites*/}
-
-                    {/* <li>
-                      {" "}
-                      <a href="#">
-                        <span>
-                          <i
-                            className="fa fa-rss-square"
-                            aria-hidden="true"
-                          ></i>{" "}
-                          Vocational courses
-                        </span>
-                        <b className="gw-arrow" />
-                      </a>
-                      <ul className="gw-submenu" style={{ display: "block" }}>
-                        <li>
-                          {" "}
-                          <a href="/add_new_event" style={{ color: "white" }}>
-                            Add New Course
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a
-                            href="/upcomming_events"
-                            style={{ color: "white" }}
-                          >
-                            Upcoming Courses
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/past_events" style={{ color: "white" }}>
-                            Past Courses
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/event_category" style={{ color: "white" }}>
-                            Course Category
-                          </a>{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <a href="/event_types" style={{ color: "white" }}>
-                            Course Types
-                          </a>{" "}
-                        </li>
-                      </ul>
-                    </li> */}
                     <li>
                       {" "}
                       <a href="#">
