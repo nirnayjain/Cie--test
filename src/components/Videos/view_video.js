@@ -70,10 +70,11 @@ class ViewVideo extends React.Component {
                                                         <b>Thumbnail</b>
                                                     </td>
                                                     <td>
-                                                        <img
+                                                        <video
                                                             src={this.state.thumbnail}
-                                                            width="100px"
-                                                            height="70px"
+                                                            width="200px"
+                                                            height="100px"
+                                                            controls
                                                         />
                                                     </td>
                                                 </tr>
