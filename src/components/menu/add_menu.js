@@ -8,6 +8,7 @@ class AddMenu extends React.Component {
     this.state = {
       menu: "",
       description: "Default Description",
+      url:"",
       data: Date.now(),
       mobile_message: "",
       validError: false,
@@ -115,6 +116,7 @@ class AddMenu extends React.Component {
       const menu = {
         menu: this.state.menu,
         description: this.state.description,
+        url:this.state.url,
         date: Date.now(),
       };
       console.log(menu);
@@ -183,6 +185,25 @@ class AddMenu extends React.Component {
                           "Menu Name",
                           this.state.menu,
                           "required|whitespace|min:1|max:20"
+                        )}
+                        {this.state.mobile_message}
+                      </div>
+                      <div className="form-group tags-field row m-0">
+                        <label className="col-lg-2 p-0">Menu URL(OPTIONAL)</label>
+                        <input
+                          className="form-control col-lg-10"
+                          name="url"
+                          onChange={this.handleChange}
+                          value={this.state.url}
+                          type="text"
+                          onfocus="this.placeholder = 'Menu Name'"
+                          onblur="this.placeholder = ''"
+                          placeholder="Alt Text"
+                        />
+                        {this.validator.message(
+                          "Menu Name",
+                          this.state.url,
+                          "required|whitespace|min:1|max:50"
                         )}
                         {this.state.mobile_message}
                       </div>

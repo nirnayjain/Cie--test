@@ -9,6 +9,7 @@ class EditMenu extends React.Component {
     this.state = {
       menu: "",
       description: "",
+      url:"",
       date: Date.now(),
       mobile_message: "",
       validError: false,
@@ -114,12 +115,14 @@ class EditMenu extends React.Component {
           menu: res.data.menu,
           description: res.data.description,
           date: res.data.date,
+          url:res.data.url
         };
         console.log(menu.menu);
         this.setState({
           menu: menu.menu,
           description: menu.description,
           date: menu.date,
+          url:postMessage.url,
           loading: true,
         });
       });
@@ -139,15 +142,18 @@ class EditMenu extends React.Component {
         menu: this.state.menu,
         description: this.state.description,
         date: this.state.date,
+        url:this.state.url
       };
       axios
         .put(
           `https://cie-backend-api.herokuapp.com/admin/update_menu_patch/${_id}`,
           menu
         )
-        .then((res) => console.log(res.data));
+        .then((res) => {console.log(res.data)
+          this.props.history.push("/menu");}
+          );
       this.forceUpdate();
-      this.props.history.push("/menu");
+     
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -194,6 +200,25 @@ class EditMenu extends React.Component {
                             " Menu Name",
                             this.state.menu,
                             "required|whitespace|min:1|max:20"
+                          )}
+                          {this.state.mobile_message}
+                        </div>
+                        <div className="form-group tags-field row m-0">
+                          <label className="col-lg-2 p-0"> Menu URL(OPTIONAL)</label>
+                          <input
+                            className="form-control col-lg-10"
+                            name="url"
+                            onChange={this.handleChange}
+                            value={this.state.url}
+                            type="text"
+                            onfocus="this.placeholder = 'Menu Name'"
+                            onblur="this.placeholder = ''"
+                            placeholder=""
+                          />
+                          {this.validator.message(
+                            "url",
+                            this.state.url,
+                            "required|whitespace|min:1|max:200"
                           )}
                           {this.state.mobile_message}
                         </div>
