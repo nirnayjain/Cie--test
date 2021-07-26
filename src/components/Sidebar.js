@@ -52,6 +52,16 @@ function Sidebar() {
                     </li>
                     <li>
                       {" "}
+                      <Link to="/carousal">
+                        <span>
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Carousal Images
+                        </span>
+                        <b className="gw-arrow" />
+                      </Link>
+                    </li>
+                    <li>
+                      {" "}
                       <a href="/videos">
                         <span>
                           <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
