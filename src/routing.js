@@ -142,6 +142,10 @@ import AddNewPage from "./components/pages/add_page";
 import ViewPages from "./components/pages/pages";
 import EditPage from "./components/pages/edit_page";
 import People from "./components/people/people";
+import Carousal from "./components/carousal/carousal";
+import AddCarousal from "./components/carousal/add_carousal";
+import ViewCarousal from "./components/carousal/view_carousal";
+import EditCarousal from "./components/carousal/edit_carousal";
 
 function Routing() {
   return (
@@ -252,6 +256,11 @@ function Routing() {
         <Route exact path="/add_gallery" component={AddGallery}></Route>
         <Route exact path="/view_gallery/:id" component={ViewGallery}></Route>
         <Route exact path="/edit_gallery/:id" component={EditGallery}></Route>
+        {/* carousal */}
+        <Route exact path="/carousal" component={Carousal}></Route>
+        <Route exact path="/add_carousal" component={AddCarousal}></Route>
+        <Route exact path="/view_carousal/:id" component={ViewCarousal}></Route>
+        <Route exact path="/edit_carousal/:id" component={EditCarousal}></Route>
         {/* Videos */}
         <Route exact path="/videos" component={Videos}></Route>
         <Route exact path="/add_videos" component={AddVideos}></Route>
