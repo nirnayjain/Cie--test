@@ -20,12 +20,6 @@ import AddSubMenu from "./components/sub_menu/add_sub_menu";
 import SubMenu from "./components/sub_menu/sub_menu";
 import EditSubMenu from "./components/sub_menu/edit_sub_menu";
 import ViewSubMenu from "./components/sub_menu/view_sub_menu";
-
-//Post
-import Post from "./components/post/Post";
-import Addpost from "./components/post/add_post";
-import EditPost from "./components/post/edit_post";
-import ViewPost from "./components/post/view_post";
 //Home1
 // import EditHome1 from "./components/home1/edit_home1";
 import AddHome1 from "./components/home1/add_home1";
@@ -171,11 +165,6 @@ function Routing() {
         <Route exact path="/sub_menu" component={SubMenu}></Route>
         <Route exact path="/edit_sub_menu/:_id" component={EditSubMenu}></Route>
         <Route exact path="/view_sub_menu/:_id" component={ViewSubMenu}></Route>
-        {/* Post */}
-        <Route exact path="/post" component={Post}></Route>
-        <Route exact path="/add_post" component={Addpost}></Route>
-        <Route exact path="/edit_post/:_id" component={EditPost}></Route>
-        <Route exact path="/view_post/:_id" component={ViewPost}></Route>
         {/* AddHome1 */}
 
         <Route exact path="/home_section_1" component={Home1}></Route>

@@ -184,7 +184,7 @@ class AddMenu extends React.Component {
                         {this.validator.message(
                           "Menu Name",
                           this.state.menu,
-                          "required|whitespace|min:1|max:20"
+                          "required|whitespace|min:1|max:30"
                         )}
                         {this.state.mobile_message}
                       </div>
@@ -203,7 +203,7 @@ class AddMenu extends React.Component {
                         {this.validator.message(
                           "Menu Name",
                           this.state.url,
-                          "required|whitespace|min:1|max:50"
+                          "required|whitespace|min:1|max:100"
                         )}
                         {this.state.mobile_message}
                       </div>

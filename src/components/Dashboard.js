@@ -46,11 +46,8 @@ class Post extends React.Component {
                 <div className="col-md-6 col-xl-4 dashboard">
                   <div className="card mb-3 h-100">
                     <div className="text-white dashboard_box bg-color-2">
-                      <div className="widget-heading">
-                        <p>
-                          <img src="../assets/img/icon/enquiry-icon-two.png" />
-                        </p>
-                        Total Posts<span>{this.state.posts.length}</span>
+                      <div className="widget-heading" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+                        <span>Welcome TO C.I.E</span>
                       </div>
                     </div>
                   </div>

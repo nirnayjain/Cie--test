@@ -154,11 +154,6 @@ function Sidebar() {
                       </a>
                     </li>
                     <li>
-                      <Link to="/post">
-                        <i className="fa fa-upload" aria-hidden="true" /> Posts
-                      </Link>
-                    </li>
-                    <li>
                       <Link
                         to=""
                         onClick={() => {
