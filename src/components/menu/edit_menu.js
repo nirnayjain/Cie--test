@@ -218,7 +218,7 @@ class EditMenu extends React.Component {
                           {this.validator.message(
                             "url",
                             this.state.url,
-                            "required|whitespace|min:1|max:200"
+                            "whitespace|min:1|max:100"
                           )}
                           {this.state.mobile_message}
                         </div>

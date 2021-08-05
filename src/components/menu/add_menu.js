@@ -201,30 +201,12 @@ class AddMenu extends React.Component {
                           placeholder="Alt Text"
                         />
                         {this.validator.message(
-                          "Menu Name",
+                          "Menu URL",
                           this.state.url,
-                          "required|whitespace|min:1|max:100"
+                          "whitespace|min:1|max:100"
                         )}
                         {this.state.mobile_message}
                       </div>
-                      {/* <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Description</label>
-                        <textarea
-                          className="form-control col-lg-10"
-                          name="description"
-                          onChange={this.handleChange}
-                          value={this.state.description}
-                          type="text"
-                          onfocus="this.placeholder = 'Menu Name'"
-                          onblur="this.placeholder = ''"
-                          placeholder=""
-                        />
-                        {this.validator.message(
-                          "Description",
-                          this.state.description,
-                          "required|whitespace|min:40|max:200"
-                        )}
-                      </div> */}
                     </div>
 
                     <div className="col-lg-12 p-0">
