@@ -19,7 +19,6 @@ class EditPress extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onFileChange = this.onFileChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validator = new SimpleReactValidator({
       className: "text-danger",
