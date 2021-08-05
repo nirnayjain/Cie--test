@@ -11,7 +11,6 @@ class AddPress extends React.Component {
     this.state = {
       title: "",
       description: "",
-      image: "",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -131,10 +130,6 @@ class AddPress extends React.Component {
     if (newTheme === "core") newTheme = null;
     this.setState({ theme: newTheme });
   }
-
-  onFileChange(e) {
-    this.setState({ image: e.target.files[0] });
-  }
   //   handleSubmit(event) {
   //     event.preventDefault();
   //     if (this.validator.allValid()) {
@@ -166,7 +161,6 @@ class AddPress extends React.Component {
       const formdata = new FormData();
       formdata.append("title", this.state.title);
       formdata.append("description", this.state.description);
-      formdata.append("Thumbnail", this.state.image);
       axios
         .post(
           "https://cie-backend-api.herokuapp.com/press/save",
@@ -223,22 +217,6 @@ class AddPress extends React.Component {
                           "required|whitespace|min:1|max:150"
                         )}
                         {this.state.mobile_message}
-                      </div>
-
-                      <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Image</label>
-                        <input
-                          type="file"
-                          onChange={this.onFileChange}
-                          name="file"
-                          className="form-control col-lg-10"
-                        />
-
-                        {this.validator.message(
-                          "Image",
-                          this.state.image,
-                          "required"
-                        )}
                       </div>
                       <div className="form-group tags-field row m-0">
                         <label className="col-lg-2 p-0">Description</label>

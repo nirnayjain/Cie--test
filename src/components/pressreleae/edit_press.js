@@ -11,7 +11,6 @@ class EditPress extends React.Component {
     this.state = {
       title: "",
       description: "",
-      image: "",
       theme: "snow",
       thumbnail:"",
       mobile_message: "",
@@ -117,7 +116,7 @@ class EditPress extends React.Component {
         .then((res) => {
             const data = res.data;
             console.log(data);
-            this.setState({ title:data.title,description:data.description,thumbnail:data.Image });
+            this.setState({ title:data.title,description:data.description});
         });
 }
 
@@ -134,10 +133,6 @@ class EditPress extends React.Component {
     if (newTheme === "core") newTheme = null;
     this.setState({ theme: newTheme });
   }
-
-  onFileChange(e) {
-    this.setState({ image: e.target.files[0] });
-  }
   handleSubmit(e) {
     const id = this.props.match.params.id;
     e.preventDefault();
@@ -146,7 +141,6 @@ class EditPress extends React.Component {
       const formdata = new FormData();
       formdata.append("title", this.state.title);
       formdata.append("description", this.state.description);
-      formdata.append("Thumbnail", this.state.image);
       axios
         .put(
           `https://cie-backend-api.herokuapp.com/press/save/${id}`,
@@ -203,24 +197,6 @@ class EditPress extends React.Component {
                         )}
                         {this.state.mobile_message}
                       </div>
-
-                      <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Image</label>
-                        <input
-                          type="file"
-                          onChange={this.onFileChange}
-                          name="file"
-                          className="form-control col-lg-7"
-                        />
-                     
-                        {this.validator.message(
-                          "Image",
-                          this.state.image,
-                          "required"
-                        )}
-                      </div>
-                      <img className="logoImg col-lg-3"  src={this.state.thumbnail} alt="Frontend Img">
-                                                    </img>
                       <div className="form-group tags-field row m-0">
                         <label className="col-lg-2 p-0">Description</label>
 
