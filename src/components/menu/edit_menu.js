@@ -113,7 +113,6 @@ class EditMenu extends React.Component {
         console.log(res.data);
         const menu = {
           menu: res.data.menu,
-          description: res.data.description,
           date: res.data.date,
           url:res.data.url
         };
