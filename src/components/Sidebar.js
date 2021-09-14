@@ -164,6 +164,19 @@ function Sidebar() {
                       </a>
                     </li>
                     <li>
+                      {" "}
+                      <a href="/settings">
+                        <span>
+                          <i
+                            className="fa fa-rss-square"
+                            aria-hidden="true"
+                          ></i>{" "}
+                          Settings
+                        </span>
+                        <b className="gw-arrow" />
+                      </a>
+                    </li>
+                    <li>
                       <Link
                         to=""
                         onClick={() => {

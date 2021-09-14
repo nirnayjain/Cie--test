@@ -273,9 +273,21 @@ function Routing() {
         <Route exact path="/edit_press/:id" component={EditPress}></Route>
         {/* notification */}
         <Route exact path="/notification" component={Notification}></Route>
-        <Route exact path="/add_notification" component={AddNotification}></Route>
-        <Route exact path="/view_notification/:id" component={ViewNotification}></Route>
-        <Route exact path="/edit_notification/:id" component={EditNotification}></Route>
+        <Route
+          exact
+          path="/add_notification"
+          component={AddNotification}
+        ></Route>
+        <Route
+          exact
+          path="/view_notification/:id"
+          component={ViewNotification}
+        ></Route>
+        <Route
+          exact
+          path="/edit_notification/:id"
+          component={EditNotification}
+        ></Route>
         {/* Events */}
         <Route exact path="/eventcategory" component={EventCategory}></Route>
         <Route exact path="/add_new_event" component={AddEvent}></Route>
@@ -342,6 +354,7 @@ function Routing() {
         <Route exact path="/add_websites" component={AddGov}></Route>
         <Route exact path="/view_websites/:id" component={ViewGov}></Route>
         <Route exact path="/edit_websites/:id" component={EditGov}></Route>
+        <Route exact path="/settings" component={Changepassword}></Route>
       </Switch>
     </Router>
   );

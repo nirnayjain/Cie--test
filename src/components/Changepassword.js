@@ -6,21 +6,12 @@ import { isAutheticated } from "../auth";
 
 function Changepassword() {
   const {
-    user: { name, _id, email },
+    user: { _id },
   } = isAutheticated();
 
-  const [Password, setPassword] = useState({
-    password: "",
-    passwordnew: "",
-  });
-
-  const handleChange = (e) => {
-    setPassword({ password: e.target.value });
-  };
-
-  const handleChang = (e) => {
-    setPassword({ passwordnew: e.target.value });
-  };
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const updatepassword = (e) => {
     e.preventDefault();
@@ -28,18 +19,15 @@ function Changepassword() {
     axios
       .post("https://cie-backend-api.herokuapp.com/admin/changepassword", {
         userid: _id,
-        password: Password.password,
-        passwordnew: Password.passwordnew,
+        password,
+        email,
+        passwordnew: newPassword,
       })
       .then(function (response) {
-        // handle success
-
-        console.log(response.data);
         alert(response.data.Error);
         setPassword(response.data);
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       });
   };
@@ -59,14 +47,23 @@ function Changepassword() {
                 <div className="row m-0">
                   <div className="col-lg-12 p-0">
                     <div className="form-group tags-field row m-0">
+                      <label className="col-lg-2 p-0">Update Email</label>
+                      <input
+                        className="form-control col-lg-6"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        type="email"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-lg-12 p-0">
+                    <div className="form-group tags-field row m-0">
                       <label className="col-lg-2 p-0">Current Password</label>
                       <input
                         className="form-control col-lg-6"
-                        onChange={handleChange}
-                        value={Password.password}
+                        value={password}
                         type="password"
-                        onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = ''"
+                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="*******"
                       />
                     </div>
@@ -76,11 +73,9 @@ function Changepassword() {
                       <label className="col-lg-2 p-0">New Password</label>
                       <input
                         className="form-control col-lg-6"
-                        onChange={handleChang}
-                        value={Password.passwordnew}
+                        value={newPassword}
                         type="password"
-                        onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = ''"
+                        onChange={(e) => setNewPassword(e.target.value)}
                         placeholder="*******"
                       />
                     </div>
@@ -91,7 +86,7 @@ function Changepassword() {
                       <label className="col-lg-2 p-0" />
                       <div className="col-lg-6 p-0">
                         <button className="button button-contactForm boxed-btn">
-                          Save Password
+                          Update
                         </button>
                       </div>
                     </div>
