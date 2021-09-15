@@ -10,8 +10,8 @@ class AddPeople extends React.Component {
     super(props);
     this.state = {
       name: "",
-      Photo:"",
-      designation:"",
+      Photo: "",
+      designation: "",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -110,7 +110,7 @@ class AddPeople extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -141,11 +141,8 @@ class AddPeople extends React.Component {
       formdata.append("designation", this.state.designation);
       formdata.append("Photo", this.state.Photo);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/people/save",
-          formdata
-        )
-        .then((response)=> {
+        .post("https://api.cie.telangana.gov.in/people/save", formdata)
+        .then((response) => {
           // handle success
 
           console.log(response.data);
@@ -155,7 +152,6 @@ class AddPeople extends React.Component {
           // handle error
           console.log(error);
         });
-      
     } else {
       this.validator.showMessages();
       this.forceUpdate();

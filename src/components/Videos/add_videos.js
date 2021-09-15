@@ -109,7 +109,7 @@ class AddVideos extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -142,10 +142,7 @@ class AddVideos extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Video", this.state.Thumbnail);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/video/save",
-          formdata
-        )
+        .post("https://api.cie.telangana.gov.in/video/save", formdata)
         .then((response) => {
           // handle success
 
@@ -156,7 +153,6 @@ class AddVideos extends React.Component {
           // handle error
           console.log(error);
         });
-
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -235,7 +231,7 @@ class AddVideos extends React.Component {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }

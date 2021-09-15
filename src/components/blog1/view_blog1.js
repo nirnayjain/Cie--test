@@ -20,7 +20,7 @@ class ViewBlog1 extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/update_blog1/${_id}`)
+      .get(`https://api.cie.telangana.gov.in/blog/update_blog1/${_id}`)
       .then((res) => {
         console.log(res.data);
         const post = {

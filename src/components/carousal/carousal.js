@@ -20,15 +20,13 @@ class Carousal extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/carousal/fetch`)
-      .then((res) => {
-        const blogs = res.data.reverse();
-        console.log(blogs);
-        this.setState({ blogs, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/carousal/fetch`).then((res) => {
+      const blogs = res.data.reverse();
+      console.log(blogs);
+      this.setState({ blogs, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/carousal/fetch`)
+      .get(`https://api.cie.telangana.gov.in/carousal/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -47,9 +45,7 @@ class Carousal extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/carousal/delete/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/carousal/delete/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);
@@ -78,12 +74,10 @@ class Carousal extends React.Component {
             <td>
               <div className="limited-text">{blog.title}</div>
             </td>
-            <td><img
-              src={blog.Thumbnail}
-              width="100px"
-              height="70px"
-            /></td>
-            <td>  {new Date(Date.now(blog.createdAt)).toDateString()}</td>
+            <td>
+              <img src={blog.Thumbnail} width="100px" height="70px" />
+            </td>
+            <td> {new Date(Date.now(blog.createdAt)).toDateString()}</td>
             <td>
               <Link to={`/view_carousal/${blog._id}`}>
                 <span className="btn">View</span>

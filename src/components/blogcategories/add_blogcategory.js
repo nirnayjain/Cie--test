@@ -115,10 +115,7 @@ class AddBlogCategory extends React.Component {
       };
       console.log(menu);
       axios
-        .post(
-          `https://cie-backend-api.herokuapp.com/blog/AddBlogCategory`,
-          menu
-        )
+        .post(`https://api.cie.telangana.gov.in/blog/AddBlogCategory`, menu)
         .then((res) => {
           console.log(res);
           console.log(res.data);

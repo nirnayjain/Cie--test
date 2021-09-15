@@ -12,8 +12,8 @@ class EditCarousal extends React.Component {
     super(props);
     this.state = {
       title: "",
-      Thumbnail:"",
-      image:"",
+      Thumbnail: "",
+      image: "",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -111,16 +111,16 @@ class EditCarousal extends React.Component {
   }
 
   componentDidMount() {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     console.log(id);
     axios
-        .get(`https://cie-backend-api.herokuapp.com/carousal/fetch/${id}`)
-        .then((res) => {
-            const data = res.data;
-            console.log(data);
-            this.setState({ title:data.title,image:data.Thumbnail });
-        });
-}
+      .get(`https://api.cie.telangana.gov.in/carousal/fetch/${id}`)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        this.setState({ title: data.title, image: data.Thumbnail });
+      });
+  }
 
   handleChange(html) {
     this.setState({ description: html });
@@ -150,7 +150,7 @@ class EditCarousal extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -172,12 +172,9 @@ class EditCarousal extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .put(
-          `https://cie-backend-api.herokuapp.com/carousal/save/${id}`,
-          formdata
-        )
-        .then((response)=> {
-          // handle success          
+        .put(`https://api.cie.telangana.gov.in/carousal/save/${id}`, formdata)
+        .then((response) => {
+          // handle success
           this.props.history.push("/carousal");
           console.log(response.data);
         })
@@ -185,7 +182,6 @@ class EditCarousal extends React.Component {
           // handle error
           console.log(error);
         });
-     
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -236,15 +232,18 @@ class EditCarousal extends React.Component {
                           name="file"
                           className="form-control col-lg-5"
                         />
-                       
+
                         {this.validator.message(
                           "Thumbnail",
                           this.state.Thumbnail,
                           "required"
                         )}
                       </div>
-                      <img className="logoImg"  src={this.state.image} alt="Frontend Img">
-                                                    </img>
+                      <img
+                        className="logoImg"
+                        src={this.state.image}
+                        alt="Frontend Img"
+                      ></img>
                     </div>
 
                     <div className="col-lg-12 p-0">

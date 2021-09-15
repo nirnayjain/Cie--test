@@ -368,7 +368,7 @@ class EditHome1 extends React.Component {
   componentDidMount() {
     axios
       .get(
-        `https://cie-backend-api.herokuapp.com/home/update_home1/608b912efcc7860015dce5b1`
+        `https://api.cie.telangana.gov.in/home/update_home1/608b912efcc7860015dce5b1`
       )
       .then((res) => {
         console.log(res.data);
@@ -402,7 +402,7 @@ class EditHome1 extends React.Component {
 
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/home/update_home1_patch/608b912efcc7860015dce5b1`,
+          `https://api.cie.telangana.gov.in/home/update_home1_patch/608b912efcc7860015dce5b1`,
           menu
         )
         .then((res) => console.log(res.data));

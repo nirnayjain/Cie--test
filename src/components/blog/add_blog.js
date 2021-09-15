@@ -115,7 +115,7 @@ class AddBlog extends React.Component {
       };
       console.log(blog);
       axios
-        .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog`, blog)
+        .post(`https://api.cie.telangana.gov.in/blog/AddBlog`, blog)
         .then((res) => {
           console.log(res);
           console.log(res.data);

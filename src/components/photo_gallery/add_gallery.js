@@ -109,7 +109,7 @@ class AddGallery extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -145,7 +145,7 @@ class AddGallery extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -166,10 +166,7 @@ class AddGallery extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/photo/save",
-          formdata
-        )
+        .post("https://api.cie.telangana.gov.in/photo/save", formdata)
         .then((response) => {
           // handle success
 
@@ -180,7 +177,6 @@ class AddGallery extends React.Component {
           // handle error
           console.log(error);
         });
-
     } else {
       this.validator.showMessages();
       this.forceUpdate();

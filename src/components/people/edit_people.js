@@ -10,8 +10,8 @@ class EditPeople extends React.Component {
     super(props);
     this.state = {
       name: "",
-      Photo:"",
-      designation:"",
+      Photo: "",
+      designation: "",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -109,16 +109,20 @@ class EditPeople extends React.Component {
   }
 
   componentDidMount() {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     console.log(id);
     axios
-        .get(`https://cie-backend-api.herokuapp.com/people/fetch/${id}`)
-        .then((res) => {
-            const data = res.data;
-            console.log(data);
-            this.setState({ name:data.name,Photo:data.photo,designation:data.designation });
+      .get(`https://api.cie.telangana.gov.in/people/fetch/${id}`)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        this.setState({
+          name: data.name,
+          Photo: data.photo,
+          designation: data.designation,
         });
-}
+      });
+  }
 
   onChange(event) {
     this.setState({
@@ -145,7 +149,7 @@ class EditPeople extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -166,13 +170,10 @@ class EditPeople extends React.Component {
       const formdata = new FormData();
       formdata.append("name", this.state.name);
       formdata.append("Photo", this.state.Photo);
-      formdata.append("designation",this.state.designation);
+      formdata.append("designation", this.state.designation);
       axios
-        .put(
-          `https://cie-backend-api.herokuapp.com/people/save/${id}`,
-          formdata
-        )
-        .then((response)=> {
+        .put(`https://api.cie.telangana.gov.in/people/save/${id}`, formdata)
+        .then((response) => {
           // handle success
           this.props.history.push("/people");
           console.log(response.data);
@@ -181,7 +182,6 @@ class EditPeople extends React.Component {
           // handle error
           console.log(error);
         });
-     
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -251,15 +251,18 @@ class EditPeople extends React.Component {
                           name="Photo"
                           className="form-control col-lg-5"
                         />
-                       
+
                         {this.validator.message(
                           "Photo",
                           this.state.Photo,
                           "required"
                         )}
                       </div>
-                      <img className="logoImg"  src={this.state.Photo} alt="Frontend Img">
-                                                    </img>
+                      <img
+                        className="logoImg"
+                        src={this.state.Photo}
+                        alt="Frontend Img"
+                      ></img>
                     </div>
 
                     <div className="col-lg-12 p-0">

@@ -106,13 +106,11 @@ class AddSubMenu extends React.Component {
     });
   }
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/menus`)
-      .then((res) => {
-        const menus = res.data;
-        this.setState({ menus });
-        console.log(menus);
-      });
+    axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+      const menus = res.data;
+      this.setState({ menus });
+      console.log(menus);
+    });
   }
   handleChange(event) {
     this.setState({
@@ -134,7 +132,7 @@ class AddSubMenu extends React.Component {
       // console.log(this.state.image);
 
       axios
-        .post(`https://cie-backend-api.herokuapp.com/admin/add_sub_menu`, data)
+        .post(`https://api.cie.telangana.gov.in/admin/add_sub_menu`, data)
         .then((res) => {
           console.log(res);
           console.log(res.data);
@@ -199,7 +197,7 @@ class AddSubMenu extends React.Component {
   //       menu: e.target.value,
   //     });
   //     if (this.state.validError != true) {
-  //       axios.get(`https://cie-backend-api.herokuapp.com/admin/menus`).then((res) => {
+  //       axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
   //         if (this.state.menu > 0) {
   //           this.setState({
   //             mobile_message: "Menu already exist",

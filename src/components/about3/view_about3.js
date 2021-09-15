@@ -12,9 +12,7 @@ class ViewAbout3 extends React.Component {
     console.log(_id);
 
     axios
-      .get(
-        `https://cie-backend-api.herokuapp.com/about/update_about3/${_id}`
-      )
+      .get(`https://api.cie.telangana.gov.in/about/update_about3/${_id}`)
       .then((res) => {
         console.log(res.data);
         const about3 = {

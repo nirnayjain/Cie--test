@@ -112,9 +112,7 @@ class ViewSubMenu extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(
-        `https://cie-backend-api.herokuapp.com/admin/update_sub_menu/${_id}`
-      )
+      .get(`https://api.cie.telangana.gov.in/admin/update_sub_menu/${_id}`)
       .then((res) => {
         console.log(res.data);
         const submenu = {
@@ -137,13 +135,11 @@ class ViewSubMenu extends React.Component {
     this.menu();
   }
   menu() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/menus`)
-      .then((res) => {
-        const menus = res.data;
-        this.setState({ menus });
-        console.log(menus);
-      });
+    axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+      const menus = res.data;
+      this.setState({ menus });
+      console.log(menus);
+    });
   }
 
   handleChange(event) {
@@ -165,7 +161,7 @@ class ViewSubMenu extends React.Component {
       };
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/admin/update_sub_menu_patch/${_id}`,
+          `https://api.cie.telangana.gov.in/admin/update_sub_menu_patch/${_id}`,
           submenu
         )
         .then((res) => console.log(res.data));

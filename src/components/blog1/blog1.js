@@ -20,15 +20,13 @@ class Blog1 extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
-      .then((res) => {
-        const blogs = res.data.reverse();
-        console.log(blogs);
-        this.setState({ blogs, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/blog/Blog1s`).then((res) => {
+      const blogs = res.data.reverse();
+      console.log(blogs);
+      this.setState({ blogs, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/Blog1s`)
+      .get(`https://api.cie.telangana.gov.in/blog/Blog1s`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -47,9 +45,7 @@ class Blog1 extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/blog/delete_blog1/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/blog/delete_blog1/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);

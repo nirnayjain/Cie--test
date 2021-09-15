@@ -19,7 +19,7 @@ class ViewGov extends React.Component {
     console.log(id);
     // https://trw-backend-api.herokuapp.com/
     axios
-      .get(`https://cie-backend-api.herokuapp.com/websites/fetch/${id}`)
+      .get(`https://api.cie.telangana.gov.in/websites/fetch/${id}`)
       .then((res) => {
         console.log(res.data);
         const post = {

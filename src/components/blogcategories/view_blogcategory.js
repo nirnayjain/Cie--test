@@ -105,9 +105,7 @@ class ViewBlogCategory extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(
-        `https://cie-backend-api.herokuapp.com/blog/update_blogcategory/${_id}`
-      )
+      .get(`https://api.cie.telangana.gov.in/blog/update_blogcategory/${_id}`)
       .then((res) => {
         console.log(res.data);
         const menu = {
@@ -136,7 +134,7 @@ class ViewBlogCategory extends React.Component {
       };
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/blog/update_blogcategory_patch/${_id}`,
+          `https://api.cie.telangana.gov.in/blog/update_blogcategory_patch/${_id}`,
           blogcategory
         )
         .then((res) => console.log(res.data));

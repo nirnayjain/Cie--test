@@ -12,7 +12,7 @@ class EditNotification extends React.Component {
       title: "",
       description: "",
       theme: "snow",
-      thumbnail:"",
+      thumbnail: "",
       mobile_message: "",
       validError: false,
       date: Date.now(),
@@ -108,16 +108,16 @@ class EditNotification extends React.Component {
   }
 
   componentDidMount() {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     console.log(id);
     axios
-        .get(`https://cie-backend-api.herokuapp.com/notification/fetch/${id}`)
-        .then((res) => {
-            const data = res.data;
-            console.log(data);
-            this.setState({ title:data.title,description:data.description});
-        });
-}
+      .get(`https://api.cie.telangana.gov.in/notification/fetch/${id}`)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        this.setState({ title: data.title, description: data.description });
+      });
+  }
 
   handleChange(html) {
     this.setState({ description: html });
@@ -142,10 +142,10 @@ class EditNotification extends React.Component {
       formdata.append("description", this.state.description);
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/notification/save/${id}`,
+          `https://api.cie.telangana.gov.in/notification/save/${id}`,
           formdata
         )
-        .then((response)=> {
+        .then((response) => {
           // handle success
           this.props.history.push("/notification");
           console.log(response.data);
@@ -154,7 +154,6 @@ class EditNotification extends React.Component {
           // handle error
           console.log(error);
         });
-      
     } else {
       this.validator.showMessages();
       this.forceUpdate();

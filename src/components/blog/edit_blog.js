@@ -133,7 +133,7 @@ class Blog extends React.Component {
       };
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/blog/update_blog_patch/608a5f3bb23d99001525b0ce`,
+          `https://api.cie.telangana.gov.in/blog/update_blog_patch/608a5f3bb23d99001525b0ce`,
           menu
         )
         .then((res) => console.log(res.data));

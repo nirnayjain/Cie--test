@@ -110,7 +110,7 @@ class AddGOV extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -146,7 +146,7 @@ class AddGOV extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -168,7 +168,7 @@ class AddGOV extends React.Component {
       formdata.append("logo", this.state.logo);
       formdata.append("url", this.state.url);
       axios
-        .post("https://cie-backend-api.herokuapp.com/websites/save", formdata)
+        .post("https://api.cie.telangana.gov.in/websites/save", formdata)
         .then((response) => {
           // handle success
 

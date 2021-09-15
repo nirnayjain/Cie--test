@@ -106,7 +106,7 @@ class ViewMenu extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/update_menu/${_id}`)
+      .get(`https://api.cie.telangana.gov.in/admin/update_menu/${_id}`)
       .then((res) => {
         console.log(res.data);
         const menu = {
@@ -140,7 +140,7 @@ class ViewMenu extends React.Component {
       };
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/admin/update_menu_patch/${_id}`,
+          `https://api.cie.telangana.gov.in/admin/update_menu_patch/${_id}`,
           menu
         )
         .then((res) => console.log(res.data));
@@ -156,18 +156,16 @@ class ViewMenu extends React.Component {
       menu: e.target.value,
     });
     if (this.state.validError != true) {
-      axios
-        .get(`https://cie-backend-api.herokuapp.com/admin/menus`)
-        .then((res) => {
-          if (this.state.menu > 1) {
-            this.setState({
-              mobile_message: "Menu already exist",
-              validError: false,
-            });
-          } else {
-            this.setState({ mobile_message: "", validError: true });
-          }
-        });
+      axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+        if (this.state.menu > 1) {
+          this.setState({
+            mobile_message: "Menu already exist",
+            validError: false,
+          });
+        } else {
+          this.setState({ mobile_message: "", validError: true });
+        }
+      });
     }
   }
 

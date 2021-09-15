@@ -20,7 +20,7 @@ function Login() {
 
   const Lo = () => {
     axios
-      .post("https://cie-backend-api.herokuapp.com/admin/users/login", {
+      .post("https://api.cie.telangana.gov.in/admin/users/login", {
         email: email,
         password: password,
       })

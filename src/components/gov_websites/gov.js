@@ -20,15 +20,13 @@ class GOV extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/websites/fetch`)
-      .then((res) => {
-        const blogs = res.data.reverse();
-        console.log(blogs);
-        this.setState({ blogs, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/websites/fetch`).then((res) => {
+      const blogs = res.data.reverse();
+      console.log(blogs);
+      this.setState({ blogs, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/websites/fetch`)
+      .get(`https://api.cie.telangana.gov.in/websites/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -47,9 +45,7 @@ class GOV extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/websites/delete/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/websites/delete/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);

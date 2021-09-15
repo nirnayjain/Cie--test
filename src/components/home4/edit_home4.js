@@ -112,7 +112,7 @@ class EditHome4 extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(`https://cie-backend-api.herokuapp.com/home/update_home4/${_id}`)
+      .get(`https://api.cie.telangana.gov.in/home/update_home4/${_id}`)
       .then((res) => {
         console.log(res.data);
         const home4 = {
@@ -153,7 +153,7 @@ class EditHome4 extends React.Component {
 
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/home/update_home4_patch/${_id}`,
+          `https://api.cie.telangana.gov.in/home/update_home4_patch/${_id}`,
           formdata
         )
         .then((res) => console.log(res.data));

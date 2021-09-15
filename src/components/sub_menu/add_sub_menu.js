@@ -107,13 +107,11 @@ class AddSubMenu extends React.Component {
     });
   }
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/menus`)
-      .then((res) => {
-        const menus = res.data;
-        this.setState({ menus });
-        console.log(menus);
-      });
+    axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+      const menus = res.data;
+      this.setState({ menus });
+      console.log(menus);
+    });
   }
   handleChange(event) {
     this.setState({
@@ -131,10 +129,7 @@ class AddSubMenu extends React.Component {
       formdata.append("menu", this.state.menu);
       // formdata.append("file", this.state.image);
       axios
-        .post(
-          `https://cie-backend-api.herokuapp.com/admin/add_sub_menu`,
-          formdata
-        )
+        .post(`https://api.cie.telangana.gov.in/admin/add_sub_menu`, formdata)
         .then(function (response) {
           // handle success
 

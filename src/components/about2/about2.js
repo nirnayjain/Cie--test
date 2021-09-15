@@ -18,15 +18,13 @@ class About2 extends React.Component {
     this.handlePageClick = this.handlePageClick.bind(this);
   }
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/about/about2s`)
-      .then((res) => {
-        const about2s = res.data;
-        console.log(about2s);
-        this.setState({ about2s, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/about/about2s`).then((res) => {
+      const about2s = res.data;
+      console.log(about2s);
+      this.setState({ about2s, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/about/about2s`)
+      .get(`https://api.cie.telangana.gov.in/about/about2s`)
       .then((res) => {
         const about2s = res.data;
         console.log(about2s);
@@ -45,9 +43,7 @@ class About2 extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/about/delete_about2/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/about/delete_about2/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);

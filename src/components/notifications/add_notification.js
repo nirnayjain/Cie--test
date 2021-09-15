@@ -126,10 +126,7 @@ class AddNotification extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("description", this.state.description);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/notification/save",
-          formdata
-        )
+        .post("https://api.cie.telangana.gov.in/notification/save", formdata)
         .then((response) => {
           // handle success
 
@@ -140,7 +137,6 @@ class AddNotification extends React.Component {
           // handle error
           console.log(error);
         });
-
     } else {
       this.validator.showMessages();
       this.forceUpdate();

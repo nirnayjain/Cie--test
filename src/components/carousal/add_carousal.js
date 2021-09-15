@@ -110,7 +110,7 @@ class AddCarousal extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -146,7 +146,7 @@ class AddCarousal extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -167,10 +167,7 @@ class AddCarousal extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/carousal/save",
-          formdata
-        )
+        .post("https://api.cie.telangana.gov.in/carousal/save", formdata)
         .then((response) => {
           // handle success
 
@@ -181,7 +178,6 @@ class AddCarousal extends React.Component {
           // handle error
           console.log(error);
         });
-
     } else {
       this.validator.showMessages();
       this.forceUpdate();

@@ -19,15 +19,13 @@ class Home4 extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/home/home4s`)
-      .then((res) => {
-        const home4s = res.data;
-        console.log(home4s);
-        this.setState({ home4s, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/home/home4s`).then((res) => {
+      const home4s = res.data;
+      console.log(home4s);
+      this.setState({ home4s, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/home/home4s`)
+      .get(`https://api.cie.telangana.gov.in/home/home4s`)
       .then((res) => {
         const home4s = res.data;
         console.log(home4s);
@@ -46,9 +44,7 @@ class Home4 extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/home/delete_home4/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/home/delete_home4/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);

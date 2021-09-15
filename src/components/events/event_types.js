@@ -21,14 +21,14 @@ class EventTypes extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/get_event_type`)
+      .get(`https://api.cie.telangana.gov.in/blog/get_event_type`)
       .then((res) => {
         const types = res.data;
         console.log(types);
         this.setState({ types, loading: true });
       });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/get_event_type`)
+      .get(`https://api.cie.telangana.gov.in/blog/get_event_type`)
       .then((res) => {
         const types = res.data;
         console.log(types);
@@ -46,11 +46,9 @@ class EventTypes extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        // https://cie-backend-api.herokuapp.com/
+        // https://api.cie.telangana.gov.in/
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/blog/delete_type/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/blog/delete_type/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);

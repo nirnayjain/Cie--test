@@ -111,7 +111,7 @@ class AddBlog1 extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
       .then((res) => {
         const blogcategories = res.data;
         console.log(blogcategories);
@@ -147,7 +147,7 @@ class AddBlog1 extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -171,10 +171,7 @@ class AddBlog1 extends React.Component {
       formdata.append("file", this.state.image);
       formdata.append("date", this.state.date);
       axios
-        .post(
-          "https://cie-backend-api.herokuapp.com/blog/AddBlog1",
-          formdata
-        )
+        .post("https://api.cie.telangana.gov.in/blog/AddBlog1", formdata)
         .then(function (response) {
           // handle success
 

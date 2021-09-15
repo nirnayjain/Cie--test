@@ -20,14 +20,14 @@ class BlogCategory extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
       .then((res) => {
         const blogcategories = res.data;
         console.log(blogcategories);
         this.setState({ blogcategories, loading: true });
       });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
       .then((res) => {
         const blogcategories = res.data;
         console.log(blogcategories);
@@ -47,7 +47,7 @@ class BlogCategory extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `https://cie-backend-api.herokuapp.com/blog/delete_blogcategory/${_id}`
+            `https://api.cie.telangana.gov.in/blog/delete_blogcategory/${_id}`
           )
           .then((res) => {
             console.log(res);

@@ -115,7 +115,7 @@ class EditBlog1 extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/update_blog1/${_id}`)
+      .get(`https://api.cie.telangana.gov.in/blog/update_blog1/${_id}`)
       .then((res) => {
         console.log(res.data);
         const post = {
@@ -137,7 +137,7 @@ class EditBlog1 extends React.Component {
       });
 
     axios
-      .get(`https://cie-backend-api.herokuapp.com/blog/blogcategorys`)
+      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
       .then((res) => {
         const blogcategories = res.data;
         console.log(blogcategories);
@@ -172,7 +172,7 @@ class EditBlog1 extends React.Component {
   //       };
   //       axios
   //         .put(
-  //           `https://cie-backend-api.herokuapp.com/blog/update_blog1_patch/${_id}`,
+  //           `https://api.cie.telangana.gov.in/blog/update_blog1_patch/${_id}`,
   //           post
   //         )
   //         .then((res) => console.log(res.data));
@@ -188,7 +188,7 @@ class EditBlog1 extends React.Component {
     const { _id } = this.props.match.params;
     e.preventDefault();
     if (this.validator.allValid()) {
-      console.log(this.state)
+      console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
       formdata.append("category", this.state.category);
@@ -198,7 +198,7 @@ class EditBlog1 extends React.Component {
 
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/blog/update_blog1_patch/${_id}`,
+          `https://api.cie.telangana.gov.in/blog/update_blog1_patch/${_id}`,
           formdata
         )
         .then((res) => console.log(res.data));

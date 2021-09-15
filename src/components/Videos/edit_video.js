@@ -10,8 +10,8 @@ class EditVideo extends React.Component {
     super(props);
     this.state = {
       title: "",
-      Thumbnail:"",
-      image:"",
+      Thumbnail: "",
+      image: "",
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -109,16 +109,16 @@ class EditVideo extends React.Component {
   }
 
   componentDidMount() {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     console.log(id);
     axios
-        .get(`https://cie-backend-api.herokuapp.com/video/fetch/${id}`)
-        .then((res) => {
-            const data = res.data;
-            console.log(data);
-            this.setState({ title:data.title,image:data.Video });
-        });
-}
+      .get(`https://api.cie.telangana.gov.in/video/fetch/${id}`)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        this.setState({ title: data.title, image: data.Video });
+      });
+  }
 
   handleChange(html) {
     this.setState({ description: html });
@@ -148,7 +148,7 @@ class EditVideo extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -170,11 +170,8 @@ class EditVideo extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .put(
-          `https://cie-backend-api.herokuapp.com/video/save/${id}`,
-          formdata
-        )
-        .then((response)=> {
+        .put(`https://api.cie.telangana.gov.in/video/save/${id}`, formdata)
+        .then((response) => {
           // handle success
           this.props.history.push("/video");
           console.log(response.data);
@@ -183,7 +180,6 @@ class EditVideo extends React.Component {
           // handle error
           console.log(error);
         });
-     
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -241,8 +237,11 @@ class EditVideo extends React.Component {
                           "required"
                         )}
                       </div>
-                      <img className="logoImg col-lg-3"  src={this.state.image} alt="Frontend Img">
-                                                    </img>
+                      <img
+                        className="logoImg col-lg-3"
+                        src={this.state.image}
+                        alt="Frontend Img"
+                      ></img>
                     </div>
 
                     <div className="col-lg-12 p-0">

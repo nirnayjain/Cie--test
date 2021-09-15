@@ -9,7 +9,7 @@ class EditMenu extends React.Component {
     this.state = {
       menu: "",
       description: "",
-      url:"",
+      url: "",
       date: Date.now(),
       mobile_message: "",
       validError: false,
@@ -108,20 +108,20 @@ class EditMenu extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/update_menu/${_id}`)
+      .get(`https://api.cie.telangana.gov.in/admin/update_menu/${_id}`)
       .then((res) => {
         console.log(res.data);
         const menu = {
           menu: res.data.menu,
           date: res.data.date,
-          url:res.data.url
+          url: res.data.url,
         };
         console.log(menu.menu);
         this.setState({
           menu: menu.menu,
           description: menu.description,
           date: menu.date,
-          url:postMessage.url,
+          url: postMessage.url,
           loading: true,
         });
       });
@@ -141,18 +141,18 @@ class EditMenu extends React.Component {
         menu: this.state.menu,
         description: this.state.description,
         date: this.state.date,
-        url:this.state.url
+        url: this.state.url,
       };
       axios
         .put(
-          `https://cie-backend-api.herokuapp.com/admin/update_menu_patch/${_id}`,
+          `https://api.cie.telangana.gov.in/admin/update_menu_patch/${_id}`,
           menu
         )
-        .then((res) => {console.log(res.data)
-          this.props.history.push("/menu");}
-          );
+        .then((res) => {
+          console.log(res.data);
+          this.props.history.push("/menu");
+        });
       this.forceUpdate();
-     
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -203,7 +203,10 @@ class EditMenu extends React.Component {
                           {this.state.mobile_message}
                         </div>
                         <div className="form-group tags-field row m-0">
-                          <label className="col-lg-2 p-0"> Menu URL(OPTIONAL)</label>
+                          <label className="col-lg-2 p-0">
+                            {" "}
+                            Menu URL(OPTIONAL)
+                          </label>
                           <input
                             className="form-control col-lg-10"
                             name="url"

@@ -19,15 +19,13 @@ class Menu extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/menus`)
-      .then((res) => {
-        const menus = res.data;
-        console.log(menus);
-        this.setState({ menus, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+      const menus = res.data;
+      console.log(menus);
+      this.setState({ menus, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/menus`)
+      .get(`https://api.cie.telangana.gov.in/admin/menus`)
       .then((res) => {
         const menus = res.data;
         console.log(menus);
@@ -50,9 +48,7 @@ class Menu extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/admin/delete_menu/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/admin/delete_menu/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);

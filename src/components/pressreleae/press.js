@@ -20,15 +20,13 @@ class Press extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/press/fetch`)
-      .then((res) => {
-        const blogs = res.data.reverse();
-        console.log(blogs);
-        this.setState({ blogs, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/press/fetch`).then((res) => {
+      const blogs = res.data.reverse();
+      console.log(blogs);
+      this.setState({ blogs, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/press/fetch`)
+      .get(`https://api.cie.telangana.gov.in/press/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -47,9 +45,7 @@ class Press extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/press/delete/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/press/delete/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);
@@ -78,7 +74,7 @@ class Press extends React.Component {
             <td>
               <div className="limited-text">{blog.title}</div>
             </td>
-            <td>  {new Date(Date.now(blog.createdAt)).toDateString()}</td>
+            <td> {new Date(Date.now(blog.createdAt)).toDateString()}</td>
             <td>
               <Link to={`/view_press/${blog._id}`}>
                 <span className="btn">View</span>

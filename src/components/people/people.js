@@ -20,15 +20,13 @@ class People extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/people/fetch`)
-      .then((res) => {
-        const blogs = res.data.reverse();
-        console.log(blogs);
-        this.setState({ blogs, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/people/fetch`).then((res) => {
+      const blogs = res.data.reverse();
+      console.log(blogs);
+      this.setState({ blogs, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/people/fetch`)
+      .get(`https://api.cie.telangana.gov.in/people/fetch`)
       .then((res) => {
         const blogs = res.data.reverse();
         console.log(blogs);
@@ -47,9 +45,7 @@ class People extends React.Component {
       if (willDelete) {
         console.log(_id);
         axios
-          .delete(
-            `https://cie-backend-api.herokuapp.com/people/delete/${_id}`
-          )
+          .delete(`https://api.cie.telangana.gov.in/people/delete/${_id}`)
           .then((res) => {
             console.log(res);
             console.log(res.data);
@@ -81,11 +77,9 @@ class People extends React.Component {
             <td>
               <div className="limited-text">{blog.designation}</div>
             </td>
-            <td><img
-                                                            src={blog.photo}
-                                                            width="100px"
-                                                            height="70px"
-                                                        /></td>
+            <td>
+              <img src={blog.photo} width="100px" height="70px" />
+            </td>
             <td>
               <Link to={`/view_people/${blog._id}`}>
                 <span className="btn">View</span>

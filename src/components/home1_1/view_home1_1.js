@@ -17,9 +17,7 @@ class ViewHome1_1 extends React.Component {
     const { _id } = this.props.match.params;
     console.log(_id);
     axios
-      .get(
-        `https://cie-backend-api.herokuapp.com/home/update_home1_1/${_id}`
-      )
+      .get(`https://api.cie.telangana.gov.in/home/update_home1_1/${_id}`)
       .then((res) => {
         console.log(res.data);
         const home1_1 = {

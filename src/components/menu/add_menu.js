@@ -8,7 +8,7 @@ class AddMenu extends React.Component {
     this.state = {
       menu: "",
       description: "Default Description",
-      url:"",
+      url: "",
       data: Date.now(),
       mobile_message: "",
       validError: false,
@@ -116,19 +116,18 @@ class AddMenu extends React.Component {
       const menu = {
         menu: this.state.menu,
         description: this.state.description,
-        url:this.state.url,
+        url: this.state.url,
         date: Date.now(),
       };
       console.log(menu);
       // s://trw-backend-api.herokuapp.com
       axios
-        .post(`https://cie-backend-api.herokuapp.com/admin/add_menu`, menu)
+        .post(`https://api.cie.telangana.gov.in/admin/add_menu`, menu)
         .then((res) => {
           console.log(res);
           console.log(res.data);
           this.props.history.push("/menu");
         });
-
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -139,18 +138,16 @@ class AddMenu extends React.Component {
       menu: e.target.value,
     });
     if (this.state.validError != true) {
-      axios
-        .get(`https://cie-backend-api.herokuapp.com/admin/menus`)
-        .then((res) => {
-          if (this.state.menu > 0) {
-            this.setState({
-              mobile_message: "Menu already exist",
-              validError: false,
-            });
-          } else {
-            this.setState({ mobile_message: "", validError: true });
-          }
-        });
+      axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+        if (this.state.menu > 0) {
+          this.setState({
+            mobile_message: "Menu already exist",
+            validError: false,
+          });
+        } else {
+          this.setState({ mobile_message: "", validError: true });
+        }
+      });
     }
   }
   render() {
@@ -189,7 +186,9 @@ class AddMenu extends React.Component {
                         {this.state.mobile_message}
                       </div>
                       <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Menu URL(OPTIONAL)</label>
+                        <label className="col-lg-2 p-0">
+                          Menu URL(OPTIONAL)
+                        </label>
                         <input
                           className="form-control col-lg-10"
                           name="url"

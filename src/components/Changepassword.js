@@ -17,7 +17,7 @@ function Changepassword() {
     e.preventDefault();
 
     axios
-      .post("https://cie-backend-api.herokuapp.com/admin/changepassword", {
+      .post("https://api.cie.telangana.gov.in/admin/changepassword", {
         userid: _id,
         password,
         email,

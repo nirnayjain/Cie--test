@@ -117,7 +117,7 @@ class EditPage extends React.Component {
   async componentDidMount() {
     const { _id } = this.props.match.params;
     let res = await axios.get(
-      `https://cie-backend-api.herokuapp.com/page/get_page_ById/${_id}`
+      `https://api.cie.telangana.gov.in/page/get_page_ById/${_id}`
     );
     const post = {
       title: res.data.title,
@@ -132,12 +132,12 @@ class EditPage extends React.Component {
       submenu: post.submenu,
     });
     let menuRes = await axios.get(
-      `https://cie-backend-api.herokuapp.com/admin/menus`
+      `https://api.cie.telangana.gov.in/admin/menus`
     );
     const menus = menuRes.data.filter((item) => item.menu !== "HOME" && item);
     this.setState({ menus });
     let submenuRes = await axios.get(
-      `https://cie-backend-api.herokuapp.com/admin/submenus`
+      `https://api.cie.telangana.gov.in/admin/submenus`
     );
     const submenus = submenuRes.data;
     this.setState({ submenus });
@@ -177,7 +177,7 @@ class EditPage extends React.Component {
   //       };
   //       axios
   //         .put(
-  //           `https://cie-backend-api.herokuapp.com/blog/update_blog1_patch/${_id}`,
+  //           `https://api.cie.telangana.gov.in/blog/update_blog1_patch/${_id}`,
   //           post
   //         )
   //         .then((res) => console.log(res.data));
@@ -200,9 +200,9 @@ class EditPage extends React.Component {
       submenu: this.state.submenu,
     };
 
-    // https://cie-backend-api.herokuapp.com/
+    // https://api.cie.telangana.gov.in/
     axios
-      .put(`https://cie-backend-api.herokuapp.com/page/edit_page/${_id}`, data)
+      .put(`https://api.cie.telangana.gov.in/page/edit_page/${_id}`, data)
       .then((res) => {
         console.log(res.data);
         this.props.history.push("/all_pages");

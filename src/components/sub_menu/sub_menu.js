@@ -19,15 +19,13 @@ class SubMenu extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/submenus`)
-      .then((res) => {
-        const submenus = res.data;
-        console.log(submenus);
-        this.setState({ submenus, loading: true });
-      });
+    axios.get(`https://api.cie.telangana.gov.in/admin/submenus`).then((res) => {
+      const submenus = res.data;
+      console.log(submenus);
+      this.setState({ submenus, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://cie-backend-api.herokuapp.com/admin/submenus`)
+      .get(`https://api.cie.telangana.gov.in/admin/submenus`)
       .then((res) => {
         const submenus = res.data;
         console.log(submenus);
@@ -36,7 +34,7 @@ class SubMenu extends React.Component {
   }
   // componentDidMount() {
   //   axios
-  //     .get(`https://cie-backend-api.herokuapp.com/admin/submenus`)
+  //     .get(`https://api.cie.telangana.gov.in/admin/submenus`)
   //     .then((res) => {
   //       const submenus = res.data;
   //       console.log(submenus);
@@ -56,7 +54,7 @@ class SubMenu extends React.Component {
         console.log(_id);
         axios
           .delete(
-            `https://cie-backend-api.herokuapp.com/admin/delete_sub_menu/${_id}`
+            `https://api.cie.telangana.gov.in/admin/delete_sub_menu/${_id}`
           )
           .then((res) => {
             console.log(res);

@@ -11,7 +11,7 @@ class Post extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://cie-backend-api.herokuapp.com/Posts`).then((res) => {
+    axios.get(`https://api.cie.telangana.gov.in/Posts`).then((res) => {
       const posts = res.data;
       console.log(posts);
       this.setState({ posts });
@@ -46,7 +46,14 @@ class Post extends React.Component {
                 <div className="col-md-6 col-xl-4 dashboard">
                   <div className="card mb-3 h-100">
                     <div className="text-white dashboard_box bg-color-2">
-                      <div className="widget-heading" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      <div
+                        className="widget-heading"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
                         <span>Welcome TO C.I.E</span>
                       </div>
                     </div>

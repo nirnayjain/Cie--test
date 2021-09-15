@@ -12,7 +12,7 @@ class EditPress extends React.Component {
       title: "",
       description: "",
       theme: "snow",
-      thumbnail:"",
+      thumbnail: "",
       mobile_message: "",
       validError: false,
       date: Date.now(),
@@ -108,16 +108,16 @@ class EditPress extends React.Component {
   }
 
   componentDidMount() {
-    const id  = this.props.match.params.id;
+    const id = this.props.match.params.id;
     console.log(id);
     axios
-        .get(`https://cie-backend-api.herokuapp.com/press/fetch/${id}`)
-        .then((res) => {
-            const data = res.data;
-            console.log(data);
-            this.setState({ title:data.title,description:data.description});
-        });
-}
+      .get(`https://api.cie.telangana.gov.in/press/fetch/${id}`)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        this.setState({ title: data.title, description: data.description });
+      });
+  }
 
   handleChange(html) {
     this.setState({ description: html });
@@ -141,11 +141,8 @@ class EditPress extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("description", this.state.description);
       axios
-        .put(
-          `https://cie-backend-api.herokuapp.com/press/save/${id}`,
-          formdata
-        )
-        .then((response)=> {
+        .put(`https://api.cie.telangana.gov.in/press/save/${id}`, formdata)
+        .then((response) => {
           // handle success
           this.props.history.push("/press");
           console.log(response.data);
@@ -154,7 +151,6 @@ class EditPress extends React.Component {
           // handle error
           console.log(error);
         });
-      
     } else {
       this.validator.showMessages();
       this.forceUpdate();

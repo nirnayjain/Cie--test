@@ -112,7 +112,7 @@ class EditGov extends React.Component {
     const id = this.props.match.params.id;
     console.log(id);
     axios
-      .get(`https://cie-backend-api.herokuapp.com/websites/fetch/${id}`)
+      .get(`https://api.cie.telangana.gov.in/websites/fetch/${id}`)
       .then((res) => {
         const data = res.data;
         console.log(data);
@@ -148,7 +148,7 @@ class EditGov extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://cie-backend-api.herokuapp.com/blog/AddBlog1`, post)
+  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -171,10 +171,7 @@ class EditGov extends React.Component {
       formdata.append("logo", this.state.logo);
       formdata.append("url", this.state.url);
       axios
-        .put(
-          `https://cie-backend-api.herokuapp.com/websites/save/${id}`,
-          formdata
-        )
+        .put(`https://api.cie.telangana.gov.in/websites/save/${id}`, formdata)
         .then((response) => {
           // handle success
           this.props.history.push("/websites");
