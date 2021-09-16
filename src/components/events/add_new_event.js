@@ -115,7 +115,7 @@ class AddEvent extends React.Component {
   }
 
   componentDidMount() {
-    // https://api.cie.telangana.gov.in
+    // https://api.cie.telangana.gov.in/
     axios
       .get(`https://api.cie.telangana.gov.in/blog/get_event_cat`)
       .then((res) => {
@@ -123,7 +123,7 @@ class AddEvent extends React.Component {
         console.log(eventCategories);
         this.setState({ eventCategories });
       });
-    // https://api.cie.telangana.gov.in
+    // https://api.cie.telangana.gov.in/
     axios
       .get(`https://api.cie.telangana.gov.in/blog/get_event_type`)
       .then((res) => {
