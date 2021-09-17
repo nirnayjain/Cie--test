@@ -141,7 +141,10 @@ class EditPress extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("description", this.state.description);
       axios
-        .put(`https://api.cie.telangana.gov.in/press/save/${id}`, formdata)
+        .put(`https://api.cie.telangana.gov.in/press/save/${id}`, {
+          title: this.state.title,
+          description: this.state.description,
+        })
         .then((response) => {
           // handle success
           this.props.history.push("/press");

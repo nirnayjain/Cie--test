@@ -156,12 +156,11 @@ class AddPress extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.validator.allValid()) {
-      console.log(this.state);
-      const formdata = new FormData();
-      formdata.append("title", this.state.title);
-      formdata.append("description", this.state.description);
       axios
-        .post("https://api.cie.telangana.gov.in/press/save", formdata)
+        .post("https://api.cie.telangana.gov.in/press/save", {
+          title: this.state.title,
+          description: this.state.description,
+        })
         .then((response) => {
           // handle success
 

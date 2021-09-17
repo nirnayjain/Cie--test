@@ -173,7 +173,7 @@ class EditVideo extends React.Component {
         .put(`https://api.cie.telangana.gov.in/video/save/${id}`, formdata)
         .then((response) => {
           // handle success
-          this.props.history.push("/video");
+          this.props.history.push("/videos");
           console.log(response.data);
         })
         .catch(function (error) {

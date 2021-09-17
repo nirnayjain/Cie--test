@@ -173,7 +173,7 @@ class EditGallery extends React.Component {
         .put(`https://api.cie.telangana.gov.in/photo/save/${id}`, formdata)
         .then((response) => {
           // handle success
-          this.props.history.push("/gallery");
+          this.props.history.goBack();
           console.log(response.data);
         })
         .catch(function (error) {

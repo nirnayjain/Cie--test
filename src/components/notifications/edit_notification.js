@@ -137,14 +137,12 @@ class EditNotification extends React.Component {
     e.preventDefault();
     if (this.validator.allValid()) {
       console.log(this.state);
-      const formdata = new FormData();
-      formdata.append("title", this.state.title);
-      formdata.append("description", this.state.description);
+
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/notification/save/${id}`,
-          formdata
-        )
+        .put(`https://api.cie.telangana.gov.in/notification/save/${id}`, {
+          title: this.state.title,
+          description: this.state.description,
+        })
         .then((response) => {
           // handle success
           this.props.history.push("/notification");

@@ -122,11 +122,11 @@ class AddNotification extends React.Component {
     e.preventDefault();
     if (this.validator.allValid()) {
       console.log(this.state);
-      const formdata = new FormData();
-      formdata.append("title", this.state.title);
-      formdata.append("description", this.state.description);
       axios
-        .post("https://api.cie.telangana.gov.in/notification/save", formdata)
+        .post("https://api.cie.telangana.gov.in/notification/save", {
+          title: this.state.title,
+          description: this.state.description,
+        })
         .then((response) => {
           // handle success
 
