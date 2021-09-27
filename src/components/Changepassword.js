@@ -17,7 +17,7 @@ function Changepassword() {
     e.preventDefault();
 
     axios
-      .post("https://api.cie.telangana.gov.in/admin/changepassword", {
+      .post("admin/changepassword", {
         userid: _id,
         password,
         email,

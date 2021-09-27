@@ -124,7 +124,7 @@ class AddHome2 extends React.Component {
 
       axios
         .post(
-          "https://api.cie.telangana.gov.in/home/AddHome2",
+          "home/AddHome2",
 
           formdata
         )
@@ -161,7 +161,7 @@ class AddHome2 extends React.Component {
   //       console.log(submenu);
   //       axios
   //         .post(
-  //           `https://api.cie.telangana.gov.in/admin/add_sub_menu`,
+  //           `admin/add_sub_menu`,
   //           submenu
   //         )
   //         .then((res) => {

@@ -19,21 +19,17 @@ class ViewPages extends React.Component {
     this.handlePageClick = this.handlePageClick.bind(this);
   }
   componentDidMount() {
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/page/get_all_pages`)
-      .then((res) => {
-        const fetchedData = res.data;
-        console.log(fetchedData);
-        this.setState({ fetchedData, loading: true });
-      });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/page/get_all_pages`)
-      .then((res) => {
-        const fetchedData = res.data;
-        console.log(fetchedData);
-        this.setState({ fetchedData, loading: true });
-      });
+    //
+    axios.get(`page/get_all_pages`).then((res) => {
+      const fetchedData = res.data;
+      console.log(fetchedData);
+      this.setState({ fetchedData, loading: true });
+    });
+    this.unsubscribe = axios.get(`page/get_all_pages`).then((res) => {
+      const fetchedData = res.data;
+      console.log(fetchedData);
+      this.setState({ fetchedData, loading: true });
+    });
   }
 
   deleteItem(_id) {
@@ -46,13 +42,11 @@ class ViewPages extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        // https://api.cie.telangana.gov.in/
-        axios
-          .delete(`https://api.cie.telangana.gov.in/page/delete_page/${_id}`)
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        //
+        axios.delete(`page/delete_page/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

@@ -112,7 +112,7 @@ class EditSubMenu extends React.Component {
   //   console.log(_id);
   //   axios
   //     .get(
-  //       `https://api.cie.telangana.gov.in/admin/update_sub_menu/${_id}`
+  //       `admin/update_sub_menu/${_id}`
   //     )
   //     .then((res) => {
   //       console.log(res.data);
@@ -126,31 +126,29 @@ class EditSubMenu extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/admin/update_sub_menu/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const submenu = {
-          submenu: res.data.submenu,
-          // description: res.data.description,
-          // description1: res.data.description1,
-          // image: res.data.image,
-          menu: res.data.menu,
-        };
-        console.log(submenu.sub_menu);
-        this.setState({
-          submenu: submenu.submenu,
-          // description: submenu.description,
-          // description1: submenu.description1,
-          // image: submenu.image,
-          menu: submenu.menu,
-          loading: true,
-        });
+    axios.get(`admin/update_sub_menu/${_id}`).then((res) => {
+      console.log(res.data);
+      const submenu = {
+        submenu: res.data.submenu,
+        // description: res.data.description,
+        // description1: res.data.description1,
+        // image: res.data.image,
+        menu: res.data.menu,
+      };
+      console.log(submenu.sub_menu);
+      this.setState({
+        submenu: submenu.submenu,
+        // description: submenu.description,
+        // description1: submenu.description1,
+        // image: submenu.image,
+        menu: submenu.menu,
+        loading: true,
       });
+    });
     this.menu();
   }
   menu() {
-    axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+    axios.get(`admin/menus`).then((res) => {
       const menus = res.data;
       this.setState({ menus });
       console.log(menus);
@@ -174,10 +172,7 @@ class EditSubMenu extends React.Component {
       formdata.append("menu", this.state.menu);
       // formdata.append("file", this.state.image);
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/admin/update_sub_menu_patch/${_id}`,
-          formdata
-        )
+        .put(`admin/update_sub_menu_patch/${_id}`, formdata)
 
         .then((res) => console.log(res.data));
 

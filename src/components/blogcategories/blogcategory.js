@@ -19,20 +19,16 @@ class BlogCategory extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
-      .then((res) => {
-        const blogcategories = res.data;
-        console.log(blogcategories);
-        this.setState({ blogcategories, loading: true });
-      });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
-      .then((res) => {
-        const blogcategories = res.data;
-        console.log(blogcategories);
-        this.setState({ blogcategories, loading: true });
-      });
+    axios.get(`blog/blogcategorys`).then((res) => {
+      const blogcategories = res.data;
+      console.log(blogcategories);
+      this.setState({ blogcategories, loading: true });
+    });
+    this.unsubscribe = axios.get(`blog/blogcategorys`).then((res) => {
+      const blogcategories = res.data;
+      console.log(blogcategories);
+      this.setState({ blogcategories, loading: true });
+    });
   }
 
   deleteItem(_id) {
@@ -45,14 +41,10 @@ class BlogCategory extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        axios
-          .delete(
-            `https://api.cie.telangana.gov.in/blog/delete_blogcategory/${_id}`
-          )
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        axios.delete(`blog/delete_blogcategory/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

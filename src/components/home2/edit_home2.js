@@ -110,26 +110,24 @@ class EditHome2 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/home/update_home2/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const home2 = {
-          title: res.data.title,
-          subtitle: res.data.subtitle,
-          description: res.data.description,
-          image: res.data.image,
-        };
-        console.log(home2.title);
-        this.setState({
-          title: home2.title,
-          subtitle: home2.subtitle,
-          description: home2.description,
+    axios.get(`home/update_home2/${_id}`).then((res) => {
+      console.log(res.data);
+      const home2 = {
+        title: res.data.title,
+        subtitle: res.data.subtitle,
+        description: res.data.description,
+        image: res.data.image,
+      };
+      console.log(home2.title);
+      this.setState({
+        title: home2.title,
+        subtitle: home2.subtitle,
+        description: home2.description,
 
-          image: home2.image,
-          loading: true,
-        });
+        image: home2.image,
+        loading: true,
       });
+    });
   }
 
   onFileChange(e) {
@@ -151,7 +149,7 @@ class EditHome2 extends React.Component {
 
   //     axios
   //       .post(
-  //         "https://api.cie.telangana.gov.in/home/AddHome2",
+  //         "home/AddHome2",
 
   //         formdata
   //       )
@@ -184,10 +182,7 @@ class EditHome2 extends React.Component {
       //     image: this.state.image,
       //   };
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/home/update_home2_patch/${_id}`,
-          formdata
-        )
+        .put(`home/update_home2_patch/${_id}`, formdata)
         .then((res) => console.log(res.data));
 
       this.props.history.push("/home_section_2");

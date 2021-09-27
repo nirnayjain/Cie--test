@@ -366,23 +366,19 @@ class EditHome1 extends React.Component {
     });
   }
   componentDidMount() {
-    axios
-      .get(
-        `https://api.cie.telangana.gov.in/home/update_home1/608b912efcc7860015dce5b1`
-      )
-      .then((res) => {
-        console.log(res.data);
-        const home1_1 = {
-          title: res.data.title,
-          subtitle: res.data.subtitle,
-        };
-        console.log(home1_1.title);
-        this.setState({
-          title: home1_1.title,
-          subtitle: home1_1.subtitle,
-          loading: true,
-        });
+    axios.get(`home/update_home1/608b912efcc7860015dce5b1`).then((res) => {
+      console.log(res.data);
+      const home1_1 = {
+        title: res.data.title,
+        subtitle: res.data.subtitle,
+      };
+      console.log(home1_1.title);
+      this.setState({
+        title: home1_1.title,
+        subtitle: home1_1.subtitle,
+        loading: true,
       });
+    });
   }
 
   handleChange(event) {
@@ -401,10 +397,7 @@ class EditHome1 extends React.Component {
       console.log(menu);
 
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/home/update_home1_patch/608b912efcc7860015dce5b1`,
-          menu
-        )
+        .put(`home/update_home1_patch/608b912efcc7860015dce5b1`, menu)
         .then((res) => console.log(res.data));
       this.setState({ mobile_message: "Text Updated Sucessfully" });
     } else {

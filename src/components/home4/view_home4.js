@@ -15,25 +15,23 @@ class ViewHome4 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/home/update_home4/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const home4 = {
-          title: res.data.title,
-          description: res.data.description,
-          image: res.data.image,
-          url: res.data.url,
-        };
-        console.log(home4.title);
-        this.setState({
-          title: home4.title,
-          description: home4.description,
-          url: home4.url,
-          image: home4.image,
-          loading: true,
-        });
+    axios.get(`home/update_home4/${_id}`).then((res) => {
+      console.log(res.data);
+      const home4 = {
+        title: res.data.title,
+        description: res.data.description,
+        image: res.data.image,
+        url: res.data.url,
+      };
+      console.log(home4.title);
+      this.setState({
+        title: home4.title,
+        description: home4.description,
+        url: home4.url,
+        image: home4.image,
+        loading: true,
       });
+    });
   }
 
   render() {

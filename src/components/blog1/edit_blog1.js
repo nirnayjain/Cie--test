@@ -114,35 +114,31 @@ class EditBlog1 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/update_blog1/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const post = {
-          title: res.data.title,
-          category: res.data.category,
-          image: res.data.image,
-          description: res.data.description,
-          date: res.data.date,
-        };
-        console.log(post.title);
-        this.setState({
-          title: post.title,
-          category: post.category,
-          image: post.image,
-          description: post.description,
-          date: post.date,
-          loading: true,
-        });
+    axios.get(`blog/update_blog1/${_id}`).then((res) => {
+      console.log(res.data);
+      const post = {
+        title: res.data.title,
+        category: res.data.category,
+        image: res.data.image,
+        description: res.data.description,
+        date: res.data.date,
+      };
+      console.log(post.title);
+      this.setState({
+        title: post.title,
+        category: post.category,
+        image: post.image,
+        description: post.description,
+        date: post.date,
+        loading: true,
       });
+    });
 
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
-      .then((res) => {
-        const blogcategories = res.data;
-        console.log(blogcategories);
-        this.setState({ blogcategories });
-      });
+    axios.get(`blog/blogcategorys`).then((res) => {
+      const blogcategories = res.data;
+      console.log(blogcategories);
+      this.setState({ blogcategories });
+    });
   }
 
   handleChange(html) {
@@ -172,7 +168,7 @@ class EditBlog1 extends React.Component {
   //       };
   //       axios
   //         .put(
-  //           `https://api.cie.telangana.gov.in/blog/update_blog1_patch/${_id}`,
+  //           `blog/update_blog1_patch/${_id}`,
   //           post
   //         )
   //         .then((res) => console.log(res.data));
@@ -197,10 +193,7 @@ class EditBlog1 extends React.Component {
       formdata.append("date", Date.now());
 
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/blog/update_blog1_patch/${_id}`,
-          formdata
-        )
+        .put(`blog/update_blog1_patch/${_id}`, formdata)
         .then((res) => console.log(res.data));
 
       // this.props.history.push("/article");

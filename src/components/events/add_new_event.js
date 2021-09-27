@@ -115,22 +115,18 @@ class AddEvent extends React.Component {
   }
 
   componentDidMount() {
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_event_cat`)
-      .then((res) => {
-        const eventCategories = res.data;
-        console.log(eventCategories);
-        this.setState({ eventCategories });
-      });
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_event_type`)
-      .then((res) => {
-        const eventTypes = res.data;
-        console.log(eventTypes);
-        this.setState({ eventTypes });
-      });
+    //
+    axios.get(`blog/get_event_cat`).then((res) => {
+      const eventCategories = res.data;
+      console.log(eventCategories);
+      this.setState({ eventCategories });
+    });
+    //
+    axios.get(`blog/get_event_type`).then((res) => {
+      const eventTypes = res.data;
+      console.log(eventTypes);
+      this.setState({ eventTypes });
+    });
   }
 
   handleChange(html) {
@@ -161,7 +157,7 @@ class AddEvent extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddEvent`, post)
+  //         .post(`blog/AddEvent`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -186,7 +182,7 @@ class AddEvent extends React.Component {
       formdata.append("file", this.state.image);
       formdata.append("date", this.state.DateTime);
       axios
-        .post("https://api.cie.telangana.gov.in/blog/AddEvent", formdata)
+        .post("blog/AddEvent", formdata)
         .then(function (response) {
           // handle success
 

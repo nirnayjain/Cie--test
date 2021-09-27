@@ -111,17 +111,15 @@ class EditPeople extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     console.log(id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/people/fetch/${id}`)
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        this.setState({
-          name: data.name,
-          Photo: data.photo,
-          designation: data.designation,
-        });
+    axios.get(`people/fetch/${id}`).then((res) => {
+      const data = res.data;
+      console.log(data);
+      this.setState({
+        name: data.name,
+        Photo: data.photo,
+        designation: data.designation,
       });
+    });
   }
 
   onChange(event) {
@@ -149,7 +147,7 @@ class EditPeople extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
+  //         .post(`blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -172,7 +170,7 @@ class EditPeople extends React.Component {
       formdata.append("Photo", this.state.Photo);
       formdata.append("designation", this.state.designation);
       axios
-        .put(`https://api.cie.telangana.gov.in/people/save/${id}`, formdata)
+        .put(`people/save/${id}`, formdata)
         .then((response) => {
           // handle success
           this.props.history.push("/people");

@@ -132,10 +132,7 @@ class Blog extends React.Component {
         url: this.state.url,
       };
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/blog/update_blog_patch/608a5f3bb23d99001525b0ce`,
-          menu
-        )
+        .put(`blog/update_blog_patch/608a5f3bb23d99001525b0ce`, menu)
         .then((res) => console.log(res.data));
       this.forceUpdate();
       this.props.history.push("/blog");

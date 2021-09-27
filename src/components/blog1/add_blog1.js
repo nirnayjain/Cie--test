@@ -110,13 +110,11 @@ class AddBlog1 extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
-      .then((res) => {
-        const blogcategories = res.data;
-        console.log(blogcategories);
-        this.setState({ blogcategories });
-      });
+    axios.get(`blog/blogcategorys`).then((res) => {
+      const blogcategories = res.data;
+      console.log(blogcategories);
+      this.setState({ blogcategories });
+    });
   }
 
   handleChange(html) {
@@ -147,7 +145,7 @@ class AddBlog1 extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
+  //         .post(`blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -171,7 +169,7 @@ class AddBlog1 extends React.Component {
       formdata.append("file", this.state.image);
       formdata.append("date", this.state.date);
       axios
-        .post("https://api.cie.telangana.gov.in/blog/AddBlog1", formdata)
+        .post("blog/AddBlog1", formdata)
         .then(function (response) {
           // handle success
 

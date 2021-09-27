@@ -101,20 +101,18 @@ class ViewEventCat extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_event_catById/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const menu = {
-          event_category: res.data.event_category,
-        };
+    //
+    axios.get(`blog/get_event_catById/${_id}`).then((res) => {
+      console.log(res.data);
+      const menu = {
+        event_category: res.data.event_category,
+      };
 
-        this.setState({
-          event_category: menu.event_category,
-          loading: true,
-        });
+      this.setState({
+        event_category: menu.event_category,
+        loading: true,
       });
+    });
   }
 
   render() {

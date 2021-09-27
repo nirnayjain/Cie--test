@@ -117,10 +117,8 @@ class EditCompliance extends React.Component {
   async componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    // https://api.cie.telangana.gov.in/
-    let res = await axios.get(
-      `https://api.cie.telangana.gov.in/compliance/get_compliance_ById/${_id}`
-    );
+    //
+    let res = await axios.get(`compliance/get_compliance_ById/${_id}`);
     console.log(res.data);
     const post = {
       title: res.data.title,
@@ -160,7 +158,7 @@ class EditCompliance extends React.Component {
   //       };
   //       axios
   //         .put(
-  //           `https://api.cie.telangana.gov.in/blog/update_blog1_patch/${_id}`,
+  //           `blog/update_blog1_patch/${_id}`,
   //           post
   //         )
   //         .then((res) => console.log(res.data));
@@ -180,16 +178,11 @@ class EditCompliance extends React.Component {
       description: this.state.description,
     };
 
-    // https://api.cie.telangana.gov.in/
-    axios
-      .put(
-        `https://api.cie.telangana.gov.in/compliance/edit_compliance/${_id}`,
-        data
-      )
-      .then((res) => {
-        console.log(res.data);
-        this.props.history.push("/add_compliance");
-      });
+    //
+    axios.put(`compliance/edit_compliance/${_id}`, data).then((res) => {
+      console.log(res.data);
+      this.props.history.push("/add_compliance");
+    });
   }
 
   render() {

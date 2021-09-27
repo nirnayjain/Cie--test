@@ -18,24 +18,22 @@ class ViewGov extends React.Component {
     const id = this.props.match.params.id;
     console.log(id);
     // https://trw-backend-api.herokuapp.com/
-    axios
-      .get(`https://api.cie.telangana.gov.in/websites/fetch/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        const post = {
-          name: res.data.name,
-          logo: res.data.logo,
-          url: res.data.url,
-          loading: true,
-        };
-        console.log(post);
-        this.setState({
-          name: res.data.name,
-          logo: res.data.logo,
-          url: res.data.url,
-          loading: true,
-        });
+    axios.get(`websites/fetch/${id}`).then((res) => {
+      console.log(res.data);
+      const post = {
+        name: res.data.name,
+        logo: res.data.logo,
+        url: res.data.url,
+        loading: true,
+      };
+      console.log(post);
+      this.setState({
+        name: res.data.name,
+        logo: res.data.logo,
+        url: res.data.url,
+        loading: true,
       });
+    });
   }
 
   render() {

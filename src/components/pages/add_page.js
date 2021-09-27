@@ -115,12 +115,12 @@ class AddNewPage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+    axios.get(`admin/menus`).then((res) => {
       const menus = res.data.filter((item) => item.menu !== "HOME" && item);
       console.log(menus);
       this.setState({ menus });
     });
-    axios.get(`https://api.cie.telangana.gov.in/admin/submenus`).then((res) => {
+    axios.get(`admin/submenus`).then((res) => {
       const submenus = res.data;
       console.log(submenus);
       this.setState({ submenus });
@@ -163,7 +163,7 @@ class AddNewPage extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddEvent`, post)
+  //         .post(`blog/AddEvent`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -186,7 +186,7 @@ class AddNewPage extends React.Component {
       submenu: this.state.submenu,
     };
     axios
-      .post("https://api.cie.telangana.gov.in/page/add_page", data)
+      .post("page/add_page", data)
       .then(function (response) {
         // handle success
         console.log(response.data);

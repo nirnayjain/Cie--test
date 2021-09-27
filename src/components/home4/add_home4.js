@@ -125,7 +125,7 @@ class AddHome4 extends React.Component {
 
       axios
         .post(
-          "https://api.cie.telangana.gov.in/home/AddHome4",
+          "home/AddHome4",
 
           formdata
         )

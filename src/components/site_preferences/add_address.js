@@ -109,9 +109,7 @@ class AddAddress extends React.Component {
     });
   }
   async componentDidMount() {
-    let res = await axios.get(
-      "https://api.cie.telangana.gov.in/address/fetch_address"
-    );
+    let res = await axios.get("address/fetch_address");
     // const fetchedData = res.data;
     this.setState({
       name: res.data[0]?.name,
@@ -143,7 +141,7 @@ class AddAddress extends React.Component {
       pincode: this.state.pincode,
     };
     axios
-      .post("https://api.cie.telangana.gov.in/address/add_address", data)
+      .post("address/add_address", data)
       .then(function (response) {
         // handle success
         console.log(response.data);

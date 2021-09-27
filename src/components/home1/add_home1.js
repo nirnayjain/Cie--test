@@ -122,7 +122,7 @@
 //       console.log(this.state.video);
 //       axios
 //         .post(
-//           "https://api.cie.telangana.gov.in/home/AddHome1",
+//           "home/AddHome1",
 
 //           formdata
 //         )
@@ -354,12 +354,10 @@ class AddHome1 extends React.Component {
         subtitle: this.state.subtitle,
       };
       console.log(menu);
-      axios
-        .post(`https://api.cie.telangana.gov.in/home/AddHome1`, menu)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-        });
+      axios.post(`home/AddHome1`, menu).then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
 
       this.props.history.push("/menu");
     } else {

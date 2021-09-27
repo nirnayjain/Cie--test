@@ -105,23 +105,21 @@ class ViewMenu extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/admin/update_menu/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const menu = {
-          menu: res.data.menu,
-          description: res.data.description,
-          date: res.data.date,
-        };
-        console.log(menu.menu);
-        this.setState({
-          menu: menu.menu,
-          description: menu.description,
-          date: menu.date,
-          loading: true,
-        });
+    axios.get(`admin/update_menu/${_id}`).then((res) => {
+      console.log(res.data);
+      const menu = {
+        menu: res.data.menu,
+        description: res.data.description,
+        date: res.data.date,
+      };
+      console.log(menu.menu);
+      this.setState({
+        menu: menu.menu,
+        description: menu.description,
+        date: menu.date,
+        loading: true,
       });
+    });
   }
 
   handleChange(event) {
@@ -139,10 +137,7 @@ class ViewMenu extends React.Component {
         date: Date.now(),
       };
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/admin/update_menu_patch/${_id}`,
-          menu
-        )
+        .put(`admin/update_menu_patch/${_id}`, menu)
         .then((res) => console.log(res.data));
 
       this.props.history.push("/menu");
@@ -156,7 +151,7 @@ class ViewMenu extends React.Component {
       menu: e.target.value,
     });
     if (this.state.validError != true) {
-      axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+      axios.get(`admin/menus`).then((res) => {
         if (this.state.menu > 1) {
           this.setState({
             mobile_message: "Menu already exist",

@@ -110,13 +110,11 @@ class EditPress extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     console.log(id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/press/fetch/${id}`)
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        this.setState({ title: data.title, description: data.description });
-      });
+    axios.get(`press/fetch/${id}`).then((res) => {
+      const data = res.data;
+      console.log(data);
+      this.setState({ title: data.title, description: data.description });
+    });
   }
 
   handleChange(html) {
@@ -141,7 +139,7 @@ class EditPress extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("description", this.state.description);
       axios
-        .put(`https://api.cie.telangana.gov.in/press/save/${id}`, {
+        .put(`press/save/${id}`, {
           title: this.state.title,
           description: this.state.description,
         })

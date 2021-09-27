@@ -103,19 +103,17 @@ class EditEventType extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_event_typeById/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const menu = {
-          event_type: res.data.event_type,
-        };
+    axios.get(`blog/get_event_typeById/${_id}`).then((res) => {
+      console.log(res.data);
+      const menu = {
+        event_type: res.data.event_type,
+      };
 
-        this.setState({
-          event_type: menu.event_type,
-          loading: true,
-        });
+      this.setState({
+        event_type: menu.event_type,
+        loading: true,
       });
+    });
   }
 
   handleChange(event) {
@@ -131,12 +129,9 @@ class EditEventType extends React.Component {
       const blogcategory = {
         event_type: this.state.event_type,
       };
-      // https://api.cie.telangana.gov.in/
+      //
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/blog/update_event_type/${_id}`,
-          blogcategory
-        )
+        .put(`blog/update_event_type/${_id}`, blogcategory)
         .then((res) => console.log(res.data));
       this.forceUpdate();
       this.props.history.push("/event_types");

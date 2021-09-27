@@ -18,26 +18,24 @@ class ViewPress extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     console.log(id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/press/fetch/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        const post = {
-          title: res.data.title,
-          thumbnail: res.data.Image,
-          description: res.data.description,
-          AddedOn: res.data.createdAt,
-          loading: true,
-        };
-        console.log(post);
-        this.setState({
-          title: post.title,
-          thumbnail: post.thumbnail,
-          description: post.description,
-          AddedOn: post.createdAt,
-          loading: true,
-        });
+    axios.get(`press/fetch/${id}`).then((res) => {
+      console.log(res.data);
+      const post = {
+        title: res.data.title,
+        thumbnail: res.data.Image,
+        description: res.data.description,
+        AddedOn: res.data.createdAt,
+        loading: true,
+      };
+      console.log(post);
+      this.setState({
+        title: post.title,
+        thumbnail: post.thumbnail,
+        description: post.description,
+        AddedOn: post.createdAt,
+        loading: true,
       });
+    });
   }
 
   render() {

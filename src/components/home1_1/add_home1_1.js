@@ -119,7 +119,7 @@ class AddHome1_1 extends React.Component {
 
       axios
         .post(
-          "https://api.cie.telangana.gov.in/home/AddHome1_1",
+          "home/AddHome1_1",
 
           formdata
         )

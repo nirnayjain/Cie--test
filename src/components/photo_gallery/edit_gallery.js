@@ -111,13 +111,11 @@ class EditGallery extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     console.log(id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/photo/fetch/${id}`)
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        this.setState({ title: data.title, image: data.Thumbnail });
-      });
+    axios.get(`photo/fetch/${id}`).then((res) => {
+      const data = res.data;
+      console.log(data);
+      this.setState({ title: data.title, image: data.Thumbnail });
+    });
   }
 
   handleChange(html) {
@@ -148,7 +146,7 @@ class EditGallery extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
+  //         .post(`blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -170,7 +168,7 @@ class EditGallery extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .put(`https://api.cie.telangana.gov.in/photo/save/${id}`, formdata)
+        .put(`photo/save/${id}`, formdata)
         .then((response) => {
           // handle success
           this.props.history.goBack();

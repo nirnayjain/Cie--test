@@ -109,7 +109,7 @@ class AddGallery extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
+  //   //   .get(`blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -145,7 +145,7 @@ class AddGallery extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
+  //         .post(`blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -166,7 +166,7 @@ class AddGallery extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .post("https://api.cie.telangana.gov.in/photo/save", formdata)
+        .post("photo/save", formdata)
         .then((response) => {
           // handle success
 

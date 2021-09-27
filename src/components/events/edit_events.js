@@ -117,10 +117,8 @@ class EditEvent extends React.Component {
   async componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    // https://api.cie.telangana.gov.in/
-    let res = await axios.get(
-      `https://api.cie.telangana.gov.in/blog/get_event_ById/${_id}`
-    );
+    //
+    let res = await axios.get(`blog/get_event_ById/${_id}`);
     console.log(res.data);
     const post = {
       title: res.data.title,
@@ -140,15 +138,11 @@ class EditEvent extends React.Component {
       date: post.date,
       loading: true,
     });
-    let resCat = await axios.get(
-      `https://api.cie.telangana.gov.in/blog/get_event_cat`
-    );
+    let resCat = await axios.get(`blog/get_event_cat`);
     const eventCategories = resCat.data;
     console.log(eventCategories);
     this.setState({ eventCategories });
-    let resType = await axios.get(
-      `https://api.cie.telangana.gov.in/blog/get_event_type`
-    );
+    let resType = await axios.get(`blog/get_event_type`);
     const eventtypes = resType.data;
     console.log(eventtypes);
     this.setState({ eventtypes });
@@ -180,7 +174,7 @@ class EditEvent extends React.Component {
   //       };
   //       axios
   //         .put(
-  //           `https://api.cie.telangana.gov.in/blog/update_blog1_patch/${_id}`,
+  //           `blog/update_blog1_patch/${_id}`,
   //           post
   //         )
   //         .then((res) => console.log(res.data));
@@ -205,16 +199,11 @@ class EditEvent extends React.Component {
       formdata.append("file", this.state.image);
       formdata.append("date", this.state.date);
 
-      // https://api.cie.telangana.gov.in/
-      axios
-        .put(
-          `https://api.cie.telangana.gov.in/blog/update_event/${_id}`,
-          formdata
-        )
-        .then((res) => {
-          console.log(res.data);
-          window.history.back();
-        });
+      //
+      axios.put(`blog/update_event/${_id}`, formdata).then((res) => {
+        console.log(res.data);
+        window.history.back();
+      });
 
       // this.props.history.push("/article");
     } else {

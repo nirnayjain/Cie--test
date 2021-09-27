@@ -123,7 +123,7 @@ class AddAbout2 extends React.Component {
 
       axios
         .post(
-          "https://api.cie.telangana.gov.in/about/AddAbout2",
+          "about/AddAbout2",
 
           formdata
         )

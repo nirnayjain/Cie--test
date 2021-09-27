@@ -114,12 +114,10 @@ class AddBlog extends React.Component {
         url: this.state.url,
       };
       console.log(blog);
-      axios
-        .post(`https://api.cie.telangana.gov.in/blog/AddBlog`, blog)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-        });
+      axios.post(`blog/AddBlog`, blog).then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
 
       this.props.history.push("/blog");
     } else {

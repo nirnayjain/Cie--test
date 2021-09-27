@@ -20,20 +20,16 @@ class Testimonial extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://api.cie.telangana.gov.in/home/getTestimonials`)
-      .then((res) => {
-        const testimonialData = res.data;
-        console.log("testimonialData", testimonialData);
-        this.setState({ testimonialData, loading: true });
-      });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/home/getTestimonials`)
-      .then((res) => {
-        const testimonialData = res.data;
-        console.log(testimonialData);
-        this.setState({ testimonialData, loading: true });
-      });
+    axios.get(`home/getTestimonials`).then((res) => {
+      const testimonialData = res.data;
+      console.log("testimonialData", testimonialData);
+      this.setState({ testimonialData, loading: true });
+    });
+    this.unsubscribe = axios.get(`home/getTestimonials`).then((res) => {
+      const testimonialData = res.data;
+      console.log(testimonialData);
+      this.setState({ testimonialData, loading: true });
+    });
   }
 
   deleteItem(_id) {
@@ -47,14 +43,10 @@ class Testimonial extends React.Component {
       if (willDelete) {
         console.log(_id);
 
-        axios
-          .delete(
-            `https://api.cie.telangana.gov.in/home/delete_testimonial/${_id}`
-          )
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        axios.delete(`home/delete_testimonial/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

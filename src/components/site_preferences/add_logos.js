@@ -118,9 +118,7 @@ class AddLogos extends React.Component {
   //     });
   // }
   async componentDidMount() {
-    let res = await axios.get(
-      "https://api.cie.telangana.gov.in/logo/fetch_logo"
-    );
+    let res = await axios.get("logo/fetch_logo");
     const fetchedData = res.data;
     this.setState({ fetchedData });
   }
@@ -132,7 +130,7 @@ class AddLogos extends React.Component {
     formdata.append("backendImage", this.state.backendImage);
     this.setState({ loading: true });
     axios
-      .post("https://api.cie.telangana.gov.in/logo/add_logo", formdata)
+      .post("logo/add_logo", formdata)
       .then(function (response) {
         // handle success
         console.log(response.data);

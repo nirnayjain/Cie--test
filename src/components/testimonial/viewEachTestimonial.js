@@ -16,26 +16,24 @@ class ViewTestimonial extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/home/update_testimonial/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const testimonialData = {
-          title: res.data.title,
-          subtitle: res.data.subtitle,
-          description: res.data.description,
-          image: res.data.image,
-        };
-        console.log(testimonialData.title);
-        this.setState({
-          title: testimonialData.title,
-          subtitle: testimonialData.subtitle,
-          description: testimonialData.description,
+    axios.get(`home/update_testimonial/${_id}`).then((res) => {
+      console.log(res.data);
+      const testimonialData = {
+        title: res.data.title,
+        subtitle: res.data.subtitle,
+        description: res.data.description,
+        image: res.data.image,
+      };
+      console.log(testimonialData.title);
+      this.setState({
+        title: testimonialData.title,
+        subtitle: testimonialData.subtitle,
+        description: testimonialData.description,
 
-          image: testimonialData.image,
-          loading: true,
-        });
+        image: testimonialData.image,
+        loading: true,
       });
+    });
   }
 
   render() {

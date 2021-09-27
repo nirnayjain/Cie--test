@@ -101,20 +101,18 @@ class ViewEventType extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_event_typeById/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const menu = {
-          event_type: res.data.event_type,
-        };
+    //
+    axios.get(`blog/get_event_typeById/${_id}`).then((res) => {
+      console.log(res.data);
+      const menu = {
+        event_type: res.data.event_type,
+      };
 
-        this.setState({
-          event_type: menu.event_type,
-          loading: true,
-        });
+      this.setState({
+        event_type: menu.event_type,
+        loading: true,
       });
+    });
   }
 
   render() {

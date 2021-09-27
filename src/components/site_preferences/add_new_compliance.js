@@ -135,7 +135,7 @@ class AddNewCompliance extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddEvent`, post)
+  //         .post(`blog/AddEvent`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -155,7 +155,7 @@ class AddNewCompliance extends React.Component {
       description: this.state.description,
     };
     axios
-      .post("https://api.cie.telangana.gov.in/compliance/add_compliance", data)
+      .post("compliance/add_compliance", data)
       .then(function (response) {
         // handle success
         console.log(response.data);

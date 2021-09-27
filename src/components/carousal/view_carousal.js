@@ -19,24 +19,22 @@ class ViewCarousal extends React.Component {
     const id = this.props.match.params.id;
     console.log(id);
     // https://trw-backend-api.herokuapp.com/
-    axios
-      .get(`https://api.cie.telangana.gov.in/carousal/fetch/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        const post = {
-          title: res.data.title,
-          thumbnail: res.data.Thumbnail,
-          AddedOn: res.data.createdAt,
-          loading: true,
-        };
-        console.log(post);
-        this.setState({
-          title: post.title,
-          thumbnail: post.thumbnail,
-          AddedOn: post.createdAt,
-          loading: true,
-        });
+    axios.get(`carousal/fetch/${id}`).then((res) => {
+      console.log(res.data);
+      const post = {
+        title: res.data.title,
+        thumbnail: res.data.Thumbnail,
+        AddedOn: res.data.createdAt,
+        loading: true,
+      };
+      console.log(post);
+      this.setState({
+        title: post.title,
+        thumbnail: post.thumbnail,
+        AddedOn: post.createdAt,
+        loading: true,
       });
+    });
   }
 
   render() {

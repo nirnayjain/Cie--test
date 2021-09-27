@@ -20,30 +20,28 @@ class ViewEvents extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_event_ById/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const post = {
-          title: res.data.title,
-          description: res.data.description,
-          category: res.data.category,
-          type: res.data.type,
-          image: res.data.image,
-          date: res.data.date,
-        };
-        console.log(post);
-        this.setState({
-          title: post.title,
-          description: post.description,
-          category: post.category,
-          type: post.type,
-          image: post.image,
-          date: post.date,
-          loading: true,
-        });
+    //
+    axios.get(`blog/get_event_ById/${_id}`).then((res) => {
+      console.log(res.data);
+      const post = {
+        title: res.data.title,
+        description: res.data.description,
+        category: res.data.category,
+        type: res.data.type,
+        image: res.data.image,
+        date: res.data.date,
+      };
+      console.log(post);
+      this.setState({
+        title: post.title,
+        description: post.description,
+        category: post.category,
+        type: post.type,
+        image: post.image,
+        date: post.date,
+        loading: true,
       });
+    });
   }
 
   render() {

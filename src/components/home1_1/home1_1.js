@@ -19,18 +19,16 @@ class Home1_1 extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://api.cie.telangana.gov.in/home/home1_1s`).then((res) => {
+    axios.get(`home/home1_1s`).then((res) => {
       const home1_1s = res.data;
       console.log(home1_1s);
       this.setState({ home1_1s, loading: true });
     });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/home/home1_1s`)
-      .then((res) => {
-        const home1_1s = res.data;
-        console.log(home1_1s);
-        this.setState({ home1_1s, loading: true });
-      });
+    this.unsubscribe = axios.get(`home/home1_1s`).then((res) => {
+      const home1_1s = res.data;
+      console.log(home1_1s);
+      this.setState({ home1_1s, loading: true });
+    });
   }
 
   deleteItem(_id) {
@@ -43,12 +41,10 @@ class Home1_1 extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        axios
-          .delete(`https://api.cie.telangana.gov.in/home/delete_home1_1/${_id}`)
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        axios.delete(`home/delete_home1_1/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

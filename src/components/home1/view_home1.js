@@ -109,23 +109,21 @@ class ViewHome1 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/home/update_home1/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const home1_1 = {
-          title: res.data.title,
-          subtitle: res.data.subtitle,
-          video: res.data.video,
-        };
-        console.log(home1_1.title);
-        this.setState({
-          title: home1_1.title,
-          subtitle: home1_1.subtitle,
-          video: home1_1.video,
-          loading: true,
-        });
+    axios.get(`home/update_home1/${_id}`).then((res) => {
+      console.log(res.data);
+      const home1_1 = {
+        title: res.data.title,
+        subtitle: res.data.subtitle,
+        video: res.data.video,
+      };
+      console.log(home1_1.title);
+      this.setState({
+        title: home1_1.title,
+        subtitle: home1_1.subtitle,
+        video: home1_1.video,
+        loading: true,
       });
+    });
   }
 
   onFileChange(e) {
@@ -147,10 +145,7 @@ class ViewHome1 extends React.Component {
       formdata.append("video", this.state.video);
 
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/home/update_home1_patch/${_id}`,
-          formdata
-        )
+        .put(`home/update_home1_patch/${_id}`, formdata)
         .then((res) => console.log(res.data));
 
       this.props.history.push("/home_section_1");

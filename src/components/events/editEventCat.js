@@ -103,19 +103,17 @@ class EditEventCat extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_event_catById/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const menu = {
-          event_category: res.data.event_category,
-        };
+    axios.get(`blog/get_event_catById/${_id}`).then((res) => {
+      console.log(res.data);
+      const menu = {
+        event_category: res.data.event_category,
+      };
 
-        this.setState({
-          event_category: menu.event_category,
-          loading: true,
-        });
+      this.setState({
+        event_category: menu.event_category,
+        loading: true,
       });
+    });
   }
 
   handleChange(event) {
@@ -131,12 +129,9 @@ class EditEventCat extends React.Component {
       const blogcategory = {
         event_category: this.state.event_category,
       };
-      // https://api.cie.telangana.gov.in/
+      //
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/blog/update_event_cat/${_id}`,
-          blogcategory
-        )
+        .put(`blog/update_event_cat/${_id}`, blogcategory)
         .then((res) => console.log(res.data));
       this.forceUpdate();
       this.props.history.push("/event_category");

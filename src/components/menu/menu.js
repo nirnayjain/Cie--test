@@ -19,18 +19,16 @@ class Menu extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+    axios.get(`admin/menus`).then((res) => {
       const menus = res.data;
       console.log(menus);
       this.setState({ menus, loading: true });
     });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/admin/menus`)
-      .then((res) => {
-        const menus = res.data;
-        console.log(menus);
-        this.setState({ menus, loading: true });
-      });
+    this.unsubscribe = axios.get(`admin/menus`).then((res) => {
+      const menus = res.data;
+      console.log(menus);
+      this.setState({ menus, loading: true });
+    });
   }
   handlePageClick({ selected: selectedPage }) {
     this.setState({
@@ -47,12 +45,10 @@ class Menu extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        axios
-          .delete(`https://api.cie.telangana.gov.in/admin/delete_menu/${_id}`)
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        axios.delete(`admin/delete_menu/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

@@ -19,27 +19,25 @@ class ViewBlog1 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/update_blog1/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const post = {
-          title: res.data.title,
-          description: res.data.description,
-          category: res.data.category,
-          image: res.data.image,
-          date: res.data.date,
-        };
-        console.log(post.title);
-        this.setState({
-          title: post.title,
-          description: post.description,
-          category: post.category,
-          image: post.image,
-          date: post.date,
-          loading: true,
-        });
+    axios.get(`blog/update_blog1/${_id}`).then((res) => {
+      console.log(res.data);
+      const post = {
+        title: res.data.title,
+        description: res.data.description,
+        category: res.data.category,
+        image: res.data.image,
+        date: res.data.date,
+      };
+      console.log(post.title);
+      this.setState({
+        title: post.title,
+        description: post.description,
+        category: post.category,
+        image: post.image,
+        date: post.date,
+        loading: true,
       });
+    });
   }
 
   render() {

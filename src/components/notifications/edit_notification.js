@@ -110,13 +110,11 @@ class EditNotification extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     console.log(id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/notification/fetch/${id}`)
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        this.setState({ title: data.title, description: data.description });
-      });
+    axios.get(`notification/fetch/${id}`).then((res) => {
+      const data = res.data;
+      console.log(data);
+      this.setState({ title: data.title, description: data.description });
+    });
   }
 
   handleChange(html) {
@@ -139,7 +137,7 @@ class EditNotification extends React.Component {
       console.log(this.state);
 
       axios
-        .put(`https://api.cie.telangana.gov.in/notification/save/${id}`, {
+        .put(`notification/save/${id}`, {
           title: this.state.title,
           description: this.state.description,
         })

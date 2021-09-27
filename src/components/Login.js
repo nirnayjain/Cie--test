@@ -20,7 +20,7 @@ function Login() {
 
   const Lo = () => {
     axios
-      .post("https://api.cie.telangana.gov.in/admin/users/login", {
+      .post("admin/users/login", {
         email: email,
         password: password,
       })

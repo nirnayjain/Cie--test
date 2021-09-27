@@ -114,14 +114,12 @@ class AddEventType extends React.Component {
         event_type: this.state.event_type,
       };
       console.log(menu);
-      // https://api.cie.telangana.gov.in/
-      axios
-        .post(`https://api.cie.telangana.gov.in/blog/add_event_type`, menu)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          this.props.history.push("/event_types");
-        });
+      //
+      axios.post(`blog/add_event_type`, menu).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        this.props.history.push("/event_types");
+      });
     } else {
       this.validator.showMessages();
       this.forceUpdate();

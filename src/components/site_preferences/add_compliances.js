@@ -19,16 +19,14 @@ class AddCompliances extends React.Component {
     this.handlePageClick = this.handlePageClick.bind(this);
   }
   componentDidMount() {
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/compliance/get_all_compliances`)
-      .then((res) => {
-        const fetchedData = res.data;
-        console.log(fetchedData);
-        this.setState({ fetchedData, loading: true });
-      });
+    //
+    axios.get(`compliance/get_all_compliances`).then((res) => {
+      const fetchedData = res.data;
+      console.log(fetchedData);
+      this.setState({ fetchedData, loading: true });
+    });
     this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/compliance/get_all_compliances`)
+      .get(`compliance/get_all_compliances`)
       .then((res) => {
         const fetchedData = res.data;
         console.log(fetchedData);
@@ -46,15 +44,11 @@ class AddCompliances extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        // https://api.cie.telangana.gov.in/
-        axios
-          .delete(
-            `https://api.cie.telangana.gov.in/compliance/delete_compliance/${_id}`
-          )
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        //
+        axios.delete(`compliance/delete_compliance/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

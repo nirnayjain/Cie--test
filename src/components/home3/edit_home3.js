@@ -110,26 +110,24 @@ class EditHome3 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/home/update_home3/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const home3 = {
-          title: res.data.title,
-          subtitle: res.data.subtitle,
-          description: res.data.description,
-          image: res.data.image,
-        };
-        console.log(home3.title);
-        this.setState({
-          title: home3.title,
-          subtitle: home3.subtitle,
-          description: home3.description,
+    axios.get(`home/update_home3/${_id}`).then((res) => {
+      console.log(res.data);
+      const home3 = {
+        title: res.data.title,
+        subtitle: res.data.subtitle,
+        description: res.data.description,
+        image: res.data.image,
+      };
+      console.log(home3.title);
+      this.setState({
+        title: home3.title,
+        subtitle: home3.subtitle,
+        description: home3.description,
 
-          image: home3.image,
-          loading: true,
-        });
+        image: home3.image,
+        loading: true,
       });
+    });
   }
 
   onFileChange(e) {
@@ -151,7 +149,7 @@ class EditHome3 extends React.Component {
 
   //     axios
   //       .post(
-  //         "https://api.cie.telangana.gov.in/home/AddHome3",
+  //         "home/AddHome3",
 
   //         formdata
   //       )
@@ -184,10 +182,7 @@ class EditHome3 extends React.Component {
       //     image: this.state.image,
       //   };
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/home/update_home3_patch/${_id}`,
-          formdata
-        )
+        .put(`home/update_home3_patch/${_id}`, formdata)
         .then((res) => console.log(res.data));
 
       this.props.history.push("/home_section_3");

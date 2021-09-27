@@ -110,7 +110,7 @@ class AddCarousal extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
+  //   //   .get(`blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -146,7 +146,7 @@ class AddCarousal extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
+  //         .post(`blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -167,7 +167,7 @@ class AddCarousal extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .post("https://api.cie.telangana.gov.in/carousal/save", formdata)
+        .post("carousal/save", formdata)
         .then((response) => {
           // handle success
 

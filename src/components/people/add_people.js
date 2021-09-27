@@ -110,7 +110,7 @@ class AddPeople extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
+  //   //   .get(`blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -141,7 +141,7 @@ class AddPeople extends React.Component {
       formdata.append("designation", this.state.designation);
       formdata.append("Photo", this.state.Photo);
       axios
-        .post("https://api.cie.telangana.gov.in/people/save", formdata)
+        .post("people/save", formdata)
         .then((response) => {
           // handle success
 

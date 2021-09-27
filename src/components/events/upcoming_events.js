@@ -19,74 +19,66 @@ class EventUpcoming extends React.Component {
     this.handlePageClick = this.handlePageClick.bind(this);
   }
   componentDidMount() {
-    // https://api.cie.telangana.gov.in/
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_all_events`)
-      .then((res) => {
-        const events = res.data.map((item) => {
-          // console.log(moment(new Date(item.date).toLocaleString()))
+    //
+    axios.get(`blog/get_all_events`).then((res) => {
+      const events = res.data.map((item) => {
+        // console.log(moment(new Date(item.date).toLocaleString()))
+        if (new Date(item.date).getMonth() >= new Date(Date.now()).getMonth()) {
           if (
-            new Date(item.date).getMonth() >= new Date(Date.now()).getMonth()
+            new Date(item.date).getDate() === new Date(Date.now()).getDate()
           ) {
             if (
-              new Date(item.date).getDate() === new Date(Date.now()).getDate()
-            ) {
-              if (
-                new Date(item.date).getHours() > new Date(Date.now()).getHours()
-              ) {
-                return item;
-              } else {
-                return false;
-              }
-            } else if (
-              new Date(item.date).getDate() > new Date(Date.now()).getDate()
+              new Date(item.date).getHours() > new Date(Date.now()).getHours()
             ) {
               return item;
             } else {
               return false;
             }
+          } else if (
+            new Date(item.date).getDate() > new Date(Date.now()).getDate()
+          ) {
+            return item;
           } else {
             return false;
           }
-        });
-        const eventRes = res.data;
-        console.log(events);
-        console.log(eventRes);
-        this.setState({ events, loading: true });
+        } else {
+          return false;
+        }
       });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/blog/get_all_events`)
-      .then((res) => {
-        const events = res.data.map((item) => {
-          // console.log(moment(new Date(item.date).toLocaleString()))
+      const eventRes = res.data;
+      console.log(events);
+      console.log(eventRes);
+      this.setState({ events, loading: true });
+    });
+    this.unsubscribe = axios.get(`blog/get_all_events`).then((res) => {
+      const events = res.data.map((item) => {
+        // console.log(moment(new Date(item.date).toLocaleString()))
+        if (new Date(item.date).getMonth() >= new Date(Date.now()).getMonth()) {
           if (
-            new Date(item.date).getMonth() >= new Date(Date.now()).getMonth()
+            new Date(item.date).getDate() === new Date(Date.now()).getDate()
           ) {
             if (
-              new Date(item.date).getDate() === new Date(Date.now()).getDate()
-            ) {
-              if (
-                new Date(item.date).getHours() > new Date(Date.now()).getHours()
-              ) {
-                return item;
-              } else {
-                return false;
-              }
-            } else if (
-              new Date(item.date).getDate() > new Date(Date.now()).getDate()
+              new Date(item.date).getHours() > new Date(Date.now()).getHours()
             ) {
               return item;
             } else {
               return false;
             }
+          } else if (
+            new Date(item.date).getDate() > new Date(Date.now()).getDate()
+          ) {
+            return item;
           } else {
             return false;
           }
-        });
-        // const events = res.data;
-        console.log(events);
-        this.setState({ events, loading: true });
+        } else {
+          return false;
+        }
       });
+      // const events = res.data;
+      console.log(events);
+      this.setState({ events, loading: true });
+    });
   }
 
   deleteItem(_id) {
@@ -99,13 +91,11 @@ class EventUpcoming extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        // https://api.cie.telangana.gov.in/
-        axios
-          .delete(`https://api.cie.telangana.gov.in/blog/delete_event/${_id}`)
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        //
+        axios.delete(`blog/delete_event/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

@@ -110,9 +110,7 @@ class AddSocialMedia extends React.Component {
     });
   }
   async componentDidMount() {
-    let res = await axios.get(
-      "https://api.cie.telangana.gov.in/social/fetch_socialmedia"
-    );
+    let res = await axios.get("social/fetch_socialmedia");
     // const fetchedData = res.data;
     this.setState({
       twitter: res.data[0]?.twitter,
@@ -142,7 +140,7 @@ class AddSocialMedia extends React.Component {
       linkedIn: this.state.linkedIn,
     };
     axios
-      .post("https://api.cie.telangana.gov.in/social/add_social_media", data)
+      .post("social/add_social_media", data)
       .then(function (response) {
         // handle success
         console.log(response.data);

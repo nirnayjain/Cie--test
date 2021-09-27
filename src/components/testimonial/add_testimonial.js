@@ -124,7 +124,7 @@ class AddTestimonial extends React.Component {
       console.log(this.state);
       axios
         .post(
-          "https://api.cie.telangana.gov.in/home/AddTestimonial",
+          "home/AddTestimonial",
 
           formdata
         )
@@ -159,7 +159,7 @@ class AddTestimonial extends React.Component {
   //       console.log(submenu);
   //       axios
   //         .post(
-  //           `https://api.cie.telangana.gov.in/admin/add_sub_menu`,
+  //           `admin/add_sub_menu`,
   //           submenu
   //         )
   //         .then((res) => {

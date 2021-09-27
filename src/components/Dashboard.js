@@ -11,7 +11,7 @@ class Post extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://api.cie.telangana.gov.in/Posts`).then((res) => {
+    axios.get(`Posts`).then((res) => {
       const posts = res.data;
       console.log(posts);
       this.setState({ posts });

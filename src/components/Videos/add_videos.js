@@ -109,7 +109,7 @@ class AddVideos extends React.Component {
 
   // componentDidMount() {
   //   // axios
-  //   //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
+  //   //   .get(`blog/blogcategorys`)
   //   //   .then((res) => {
   //   //     const blogcategories = res.data;
   //   //     console.log(blogcategories);
@@ -142,7 +142,7 @@ class AddVideos extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Video", this.state.Thumbnail);
       axios
-        .post("https://api.cie.telangana.gov.in/video/save", formdata)
+        .post("video/save", formdata)
         .then((response) => {
           // handle success
 

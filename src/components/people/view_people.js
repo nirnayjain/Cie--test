@@ -18,24 +18,22 @@ class ViewPeople extends React.Component {
     const id = this.props.match.params.id;
     console.log(id);
     // https://trw-backend-api.herokuapp.com/
-    axios
-      .get(`https://api.cie.telangana.gov.in/people/fetch/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        const post = {
-          name: res.data.name,
-          Photo: res.data.photo,
-          designation: res.data.designation,
-          loading: true,
-        };
-        console.log(post);
-        this.setState({
-          name: post.name,
-          Photo: post.Photo,
-          designation: post.designation,
-          loading: true,
-        });
+    axios.get(`people/fetch/${id}`).then((res) => {
+      console.log(res.data);
+      const post = {
+        name: res.data.name,
+        Photo: res.data.photo,
+        designation: res.data.designation,
+        loading: true,
+      };
+      console.log(post);
+      this.setState({
+        name: post.name,
+        Photo: post.Photo,
+        designation: post.designation,
+        loading: true,
       });
+    });
   }
 
   render() {

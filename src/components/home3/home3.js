@@ -19,18 +19,16 @@ class Home3 extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://api.cie.telangana.gov.in/home/home3s`).then((res) => {
+    axios.get(`home/home3s`).then((res) => {
       const home3s = res.data;
       console.log(home3s);
       this.setState({ home3s, loading: true });
     });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/home/home3s`)
-      .then((res) => {
-        const home3s = res.data;
-        console.log(home3s);
-        this.setState({ home3s, loading: true });
-      });
+    this.unsubscribe = axios.get(`home/home3s`).then((res) => {
+      const home3s = res.data;
+      console.log(home3s);
+      this.setState({ home3s, loading: true });
+    });
   }
 
   deleteItem(_id) {
@@ -43,12 +41,10 @@ class Home3 extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        axios
-          .delete(`https://api.cie.telangana.gov.in/home/delete_home3/${_id}`)
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        axios.delete(`home/delete_home3/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

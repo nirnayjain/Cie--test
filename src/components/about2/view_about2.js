@@ -15,24 +15,22 @@ class ViewAbout2 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/about/update_about2/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const about2 = {
-          title: res.data.title,
-          description: res.data.description,
-          image: res.data.image,
-        };
-        console.log(about2.title);
-        this.setState({
-          title: about2.title,
-          description: about2.description,
+    axios.get(`about/update_about2/${_id}`).then((res) => {
+      console.log(res.data);
+      const about2 = {
+        title: res.data.title,
+        description: res.data.description,
+        image: res.data.image,
+      };
+      console.log(about2.title);
+      this.setState({
+        title: about2.title,
+        description: about2.description,
 
-          image: about2.image,
-          loading: true,
-        });
+        image: about2.image,
+        loading: true,
       });
+    });
   }
 
   render() {

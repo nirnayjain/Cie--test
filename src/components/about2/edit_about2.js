@@ -110,24 +110,22 @@ class EditAbout2 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/about/update_about2/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const about2 = {
-          title: res.data.title,
-          description: res.data.description,
-          image: res.data.image,
-        };
-        console.log(about2.title);
-        this.setState({
-          title: about2.title,
-          description: about2.description,
+    axios.get(`about/update_about2/${_id}`).then((res) => {
+      console.log(res.data);
+      const about2 = {
+        title: res.data.title,
+        description: res.data.description,
+        image: res.data.image,
+      };
+      console.log(about2.title);
+      this.setState({
+        title: about2.title,
+        description: about2.description,
 
-          image: about2.image,
-          loading: true,
-        });
+        image: about2.image,
+        loading: true,
       });
+    });
   }
 
   onFileChange(e) {
@@ -150,10 +148,7 @@ class EditAbout2 extends React.Component {
       formdata.append("file", this.state.image);
 
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/about/update_about2_patch/${_id}`,
-          formdata
-        )
+        .put(`about/update_about2_patch/${_id}`, formdata)
         .then((res) => console.log(res.data));
 
       this.props.history.push("/about_section_2");

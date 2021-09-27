@@ -113,13 +113,11 @@ class EditCarousal extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     console.log(id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/carousal/fetch/${id}`)
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        this.setState({ title: data.title, image: data.Thumbnail });
-      });
+    axios.get(`carousal/fetch/${id}`).then((res) => {
+      const data = res.data;
+      console.log(data);
+      this.setState({ title: data.title, image: data.Thumbnail });
+    });
   }
 
   handleChange(html) {
@@ -150,7 +148,7 @@ class EditCarousal extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
+  //         .post(`blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -172,7 +170,7 @@ class EditCarousal extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .put(`https://api.cie.telangana.gov.in/carousal/save/${id}`, formdata)
+        .put(`carousal/save/${id}`, formdata)
         .then((response) => {
           // handle success
           this.props.history.push("/carousal");

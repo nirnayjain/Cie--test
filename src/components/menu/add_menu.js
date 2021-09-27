@@ -121,13 +121,11 @@ class AddMenu extends React.Component {
       };
       console.log(menu);
       // s://trw-backend-api.herokuapp.com
-      axios
-        .post(`https://api.cie.telangana.gov.in/admin/add_menu`, menu)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          this.props.history.push("/menu");
-        });
+      axios.post(`admin/add_menu`, menu).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        this.props.history.push("/menu");
+      });
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -138,7 +136,7 @@ class AddMenu extends React.Component {
       menu: e.target.value,
     });
     if (this.state.validError != true) {
-      axios.get(`https://api.cie.telangana.gov.in/admin/menus`).then((res) => {
+      axios.get(`admin/menus`).then((res) => {
         if (this.state.menu > 0) {
           this.setState({
             mobile_message: "Menu already exist",

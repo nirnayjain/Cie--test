@@ -112,31 +112,29 @@ class EditAbout3 extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/about/update_about3/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const about3 = {
-          name: res.data.name,
-          designation: res.data.designation,
-          image: res.data.image,
-          twitter: res.data.twitter,
-          facebook: res.data.facebook,
-          google: res.data.google,
-          linkedIn: res.data.linkedIn ? res.data.linkedIn : "",
-        };
-        console.log(about3.title);
-        this.setState({
-          name: about3.name,
-          designation: about3.designation,
-          image: about3.image,
-          twitter: about3.twitter,
-          facebook: about3.facebook,
-          google: about3.google,
-          linkedIn: about3.linkedIn,
-          loading: true,
-        });
+    axios.get(`about/update_about3/${_id}`).then((res) => {
+      console.log(res.data);
+      const about3 = {
+        name: res.data.name,
+        designation: res.data.designation,
+        image: res.data.image,
+        twitter: res.data.twitter,
+        facebook: res.data.facebook,
+        google: res.data.google,
+        linkedIn: res.data.linkedIn ? res.data.linkedIn : "",
+      };
+      console.log(about3.title);
+      this.setState({
+        name: about3.name,
+        designation: about3.designation,
+        image: about3.image,
+        twitter: about3.twitter,
+        facebook: about3.facebook,
+        google: about3.google,
+        linkedIn: about3.linkedIn,
+        loading: true,
       });
+    });
   }
 
   onFileChange(e) {
@@ -162,10 +160,7 @@ class EditAbout3 extends React.Component {
       formdata.append("linkedIn", this.state.linkedIn);
 
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/about/update_about3_patch/${_id}`,
-          formdata
-        )
+        .put(`about/update_about3_patch/${_id}`, formdata)
         .then((res) => console.log(res.data));
 
       this.props.history.push("/about_section_3");

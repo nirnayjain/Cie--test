@@ -19,18 +19,16 @@ class Home2 extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://api.cie.telangana.gov.in/home/home2s`).then((res) => {
+    axios.get(`home/home2s`).then((res) => {
       const home2s = res.data;
       console.log("home2s", home2s);
       this.setState({ home2s, loading: true });
     });
-    this.unsubscribe = axios
-      .get(`https://api.cie.telangana.gov.in/home/home2s`)
-      .then((res) => {
-        const home2s = res.data;
-        console.log(home2s);
-        this.setState({ home2s, loading: true });
-      });
+    this.unsubscribe = axios.get(`home/home2s`).then((res) => {
+      const home2s = res.data;
+      console.log(home2s);
+      this.setState({ home2s, loading: true });
+    });
   }
 
   deleteItem(_id) {
@@ -43,12 +41,10 @@ class Home2 extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        axios
-          .delete(`https://api.cie.telangana.gov.in/home/delete_home2/${_id}`)
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
-          });
+        axios.delete(`home/delete_home2/${_id}`).then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
         this.componentDidMount();
       } else {
       }

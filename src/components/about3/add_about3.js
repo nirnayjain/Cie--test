@@ -129,7 +129,7 @@ class AddAbout3 extends React.Component {
       formdata.append("linkedIn", this.state.linkedIn);
 
       axios
-        .post("https://api.cie.telangana.gov.in/about/AddAbout3", formdata)
+        .post("about/AddAbout3", formdata)
         .then(function (response) {
           // handle success
           console.log(response.data);

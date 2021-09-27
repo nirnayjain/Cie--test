@@ -114,12 +114,10 @@ class AddBlogCategory extends React.Component {
         category: this.state.category,
       };
       console.log(menu);
-      axios
-        .post(`https://api.cie.telangana.gov.in/blog/AddBlogCategory`, menu)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-        });
+      axios.post(`blog/AddBlogCategory`, menu).then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
 
       this.props.history.push("/blogcategory");
     } else {

@@ -103,19 +103,17 @@ class EditBlogCategory extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/blog/update_blogcategory/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const menu = {
-          category: res.data.category,
-        };
-        console.log(menu.menu);
-        this.setState({
-          category: menu.category,
-          loading: true,
-        });
+    axios.get(`blog/update_blogcategory/${_id}`).then((res) => {
+      console.log(res.data);
+      const menu = {
+        category: res.data.category,
+      };
+      console.log(menu.menu);
+      this.setState({
+        category: menu.category,
+        loading: true,
       });
+    });
   }
 
   handleChange(event) {
@@ -132,10 +130,7 @@ class EditBlogCategory extends React.Component {
         category: this.state.category,
       };
       axios
-        .put(
-          `https://api.cie.telangana.gov.in/blog/update_blogcategory_patch/${_id}`,
-          blogcategory
-        )
+        .put(`blog/update_blogcategory_patch/${_id}`, blogcategory)
         .then((res) => console.log(res.data));
       this.forceUpdate();
       this.props.history.push("/blogcategory");

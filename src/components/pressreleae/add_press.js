@@ -108,7 +108,7 @@ class AddPress extends React.Component {
 
   componentDidMount() {
     // axios
-    //   .get(`https://api.cie.telangana.gov.in/blog/blogcategorys`)
+    //   .get(`blog/blogcategorys`)
     //   .then((res) => {
     //     const blogcategories = res.data;
     //     console.log(blogcategories);
@@ -140,7 +140,7 @@ class AddPress extends React.Component {
 
   //       console.log(post);
   //       axios
-  //         .post(`https://api.cie.telangana.gov.in/blog/AddBlog1`, post)
+  //         .post(`blog/AddBlog1`, post)
   //         .then((res) => {
   //           console.log(res);
   //           console.log(res.data);
@@ -157,7 +157,7 @@ class AddPress extends React.Component {
     e.preventDefault();
     if (this.validator.allValid()) {
       axios
-        .post("https://api.cie.telangana.gov.in/press/save", {
+        .post("press/save", {
           title: this.state.title,
           description: this.state.description,
         })

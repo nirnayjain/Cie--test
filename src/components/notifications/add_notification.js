@@ -123,7 +123,7 @@ class AddNotification extends React.Component {
     if (this.validator.allValid()) {
       console.log(this.state);
       axios
-        .post("https://api.cie.telangana.gov.in/notification/save", {
+        .post("notification/save", {
           title: this.state.title,
           description: this.state.description,
         })

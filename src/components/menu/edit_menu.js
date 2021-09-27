@@ -107,24 +107,22 @@ class EditMenu extends React.Component {
   componentDidMount() {
     const { _id } = this.props.match.params;
     console.log(_id);
-    axios
-      .get(`https://api.cie.telangana.gov.in/admin/update_menu/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        const menu = {
-          menu: res.data.menu,
-          date: res.data.date,
-          url: res.data.url,
-        };
-        console.log(menu.menu);
-        this.setState({
-          menu: menu.menu,
-          description: menu.description,
-          date: menu.date,
-          url: postMessage.url,
-          loading: true,
-        });
+    axios.get(`admin/update_menu/${_id}`).then((res) => {
+      console.log(res.data);
+      const menu = {
+        menu: res.data.menu,
+        date: res.data.date,
+        url: res.data.url,
+      };
+      console.log(menu.menu);
+      this.setState({
+        menu: menu.menu,
+        description: menu.description,
+        date: menu.date,
+        url: postMessage.url,
+        loading: true,
       });
+    });
   }
 
   handleChange(event) {
@@ -143,15 +141,10 @@ class EditMenu extends React.Component {
         date: this.state.date,
         url: this.state.url,
       };
-      axios
-        .put(
-          `https://api.cie.telangana.gov.in/admin/update_menu_patch/${_id}`,
-          menu
-        )
-        .then((res) => {
-          console.log(res.data);
-          this.props.history.push("/menu");
-        });
+      axios.put(`admin/update_menu_patch/${_id}`, menu).then((res) => {
+        console.log(res.data);
+        this.props.history.push("/menu");
+      });
       this.forceUpdate();
     } else {
       this.validator.showMessages();
