@@ -132,9 +132,13 @@ class EditPage extends React.Component {
     let menuRes = await axios.get(`admin/menus`);
     const menus = menuRes.data.filter((item) => item.menu !== "HOME" && item);
     this.setState({ menus });
-    let submenuRes = await axios.get(`admin/submenus`);
-    const submenus = submenuRes.data;
-    this.setState({ submenus });
+    axios.get(`admin/submenus`).then((res) => {
+      const submenus = res.data.filter((e) => {
+        console.log(e);
+        return e.menu === this.state.menu;
+      });
+      this.setState({ submenus });
+    });
   }
   handleChange(html) {
     this.setState({ description: html });
@@ -142,13 +146,19 @@ class EditPage extends React.Component {
   onChange(event) {
     if (event.target.name === "menu") {
       this.setState({
-        [event.target.name]: event.target.value,
+        menu: event.target.value,
         submenu: "",
+      });
+      axios.get(`admin/submenus`).then((res) => {
+        const submenus = res.data.filter((e) => {
+          console.log(e);
+          return e.menu === this.state.menu;
+        });
+        this.setState({ submenus });
       });
     } else {
       this.setState({
         [event.target.name]: event.target.value,
-        menu: "",
       });
     }
   }
@@ -159,29 +169,6 @@ class EditPage extends React.Component {
     if (newTheme === "core") newTheme = null;
     this.setState({ theme: newTheme });
   }
-
-  //   handleSubmit(e) {
-  //     const { _id } = this.props.match.params;
-  //     e.preventDefault();
-  //     if (this.validator.allValid()) {
-  //       const post = {
-  //         title: this.state.title,
-  //         category: this.state.category,
-  //         description: this.state.description,
-  //       };
-  //       axios
-  //         .put(
-  //           `blog/update_blog1_patch/${_id}`,
-  //           post
-  //         )
-  //         .then((res) => console.log(res.data));
-
-  //       this.props.history.push("/article");
-  //     } else {
-  //       this.validator.showMessages();
-  //       this.forceUpdate();
-  //     }
-  //   }
 
   handleSubmit(e) {
     const { _id } = this.props.match.params;
@@ -246,12 +233,6 @@ class EditPage extends React.Component {
                               name="menu"
                               value={this.state.menu}
                               onChange={this.onChange}
-                              disabled={
-                                this.state.submenu === "" ||
-                                this.state.submenu === "Select Sub Menu"
-                                  ? false
-                                  : true
-                              }
                             >
                               <option>Select Menu</option>
                               {this.state.menus &&
@@ -270,42 +251,38 @@ class EditPage extends React.Component {
                               "required"
                             )}
                           </div>
+                          {this.state.submenus.length > 0 ? (
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">
+                                Sub Menu Name
+                              </label>
 
-                          <div className="form-group tags-field row m-0">
-                            <label className="col-lg-2 p-0">
-                              Sub Menu Name
-                            </label>
+                              <select
+                                className="form-control col-lg-10"
+                                name="submenu"
+                                value={this.state.submenu}
+                                onChange={this.onChange}
+                              >
+                                <option>Select Sub Menu</option>
+                                {this.state.submenus &&
+                                  this.state.submenus.map((data, index) => {
+                                    return (
+                                      <option value={data.submenu} key={index}>
+                                        {data.submenu}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
 
-                            <select
-                              className="form-control col-lg-10"
-                              name="submenu"
-                              value={this.state.submenu}
-                              onChange={this.onChange}
-                              disabled={
-                                this.state.menu === "" ||
-                                this.state.menu === "Select Menu"
-                                  ? false
-                                  : true
-                              }
-                            >
-                              <option>Select Sub Menu</option>
-                              {this.state.submenus &&
-                                this.state.submenus.map((data, index) => {
-                                  return (
-                                    <option value={data.submenu} key={index}>
-                                      {data.submenu}
-                                    </option>
-                                  );
-                                })}
-                            </select>
-
-                            {this.validator.message(
-                              "Sub Menu Name",
-                              this.state.submenu,
-                              "required"
-                            )}
-                          </div>
-
+                              {this.validator.message(
+                                "Sub Menu Name",
+                                this.state.submenu,
+                                "required"
+                              )}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
                           <div className="form-group tags-field row m-0">
                             <label className="col-lg-2 p-0">Description</label>
 

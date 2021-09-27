@@ -1,15 +1,15 @@
 import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
-import PropTypes from "prop-types";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
+import Loader from "react-loader-spinner";
 class AddVideos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
+      loading: false,
       Thumbnail: "",
       theme: "snow",
       mobile_message: "",
@@ -136,17 +136,24 @@ class AddVideos extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ loading: true });
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
       formdata.append("Video", this.state.Thumbnail);
       axios
-        .post("video/save", formdata)
+        .post("video/save", formdata, {
+          onUploadProgress: () => {
+            this.setState({
+              loading: true,
+            });
+          },
+        })
         .then((response) => {
           // handle success
-
-          console.log(response.data);
+          console.log("object");
+          this.setState({ loading: false });
           this.props.history.push("/videos");
         })
         .catch(function (error) {
@@ -167,67 +174,80 @@ class AddVideos extends React.Component {
           <div className="admin-content">
             <div className="admin-head">Videos - Add New</div>
             <div className="admin-data">
-              <div className="container-fluid p-0">
-                <form
-                  className="form-contact contact_form"
-                  onSubmit={this.handleSubmit}
-                >
-                  <div className="row m-0">
-                    <div className="col-lg-12 p-0"></div>
-                    <div className="col-lg-12 p-0">
-                      <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Title</label>
-                        <input
-                          className="form-control col-lg-10"
-                          name="title"
-                          onChange={this.onChange}
-                          value={this.state.title}
-                          type="text"
-                          onfocus="this.placeholder = 'Menu Name'"
-                          onblur="this.placeholder = ''"
-                          placeholder=""
-                        />
-                        {this.validator.message(
-                          "Title",
-                          this.state.title,
-                          "required|whitespace|min:1|max:150"
-                        )}
-                        {this.state.mobile_message}
+              {!this.state.loading ? (
+                <div className="container-fluid p-0">
+                  <form
+                    className="form-contact contact_form"
+                    onSubmit={this.handleSubmit}
+                  >
+                    <div className="row m-0">
+                      <div className="col-lg-12 p-0"></div>
+                      <div className="col-lg-12 p-0">
+                        <div className="form-group tags-field row m-0">
+                          <label className="col-lg-2 p-0">Title</label>
+                          <input
+                            className="form-control col-lg-10"
+                            name="title"
+                            onChange={this.onChange}
+                            value={this.state.title}
+                            type="text"
+                            onfocus="this.placeholder = 'Menu Name'"
+                            onblur="this.placeholder = ''"
+                            placeholder=""
+                          />
+                          {this.validator.message(
+                            "Title",
+                            this.state.title,
+                            "required|whitespace|min:1|max:150"
+                          )}
+                          {this.state.mobile_message}
+                        </div>
+
+                        <div className="form-group tags-field row m-0">
+                          <label className="col-lg-2 p-0">Video</label>
+                          <input
+                            type="file"
+                            onChange={this.onFileChange}
+                            name="file"
+                            className="form-control col-lg-10"
+                          />
+
+                          {this.validator.message(
+                            "Thumbnail",
+                            this.state.Thumbnail,
+                            "required"
+                          )}
+                        </div>
                       </div>
 
-                      <div className="form-group tags-field row m-0">
-                        <label className="col-lg-2 p-0">Video</label>
-                        <input
-                          type="file"
-                          onChange={this.onFileChange}
-                          name="file"
-                          className="form-control col-lg-10"
-                        />
-
-                        {this.validator.message(
-                          "Thumbnail",
-                          this.state.Thumbnail,
-                          "required"
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="col-lg-12 p-0">
-                      <div className="form-group tags-field  row m-0">
-                        <label className="col-lg-2 p-0" />
-                        <div className="col-lg-6 p-0">
-                          <button
-                            className="button button-contactForm boxed-btn margin"
-                            type="submit"
-                          >
-                            Save
-                          </button>
+                      <div className="col-lg-12 p-0">
+                        <div className="form-group tags-field  row m-0">
+                          <label className="col-lg-2 p-0" />
+                          <div className="col-lg-6 p-0">
+                            <button
+                              className="button button-contactForm boxed-btn margin"
+                              type="submit"
+                            >
+                              Save
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </form>
-              </div>
+                  </form>
+                </div>
+              ) : (
+                <div style={{ marginLeft: "500px", marginTop: "200px" }}>
+                  {" "}
+                  <Loader
+                    type="Circles"
+                    color="#0029ff"
+                    height={100}
+                    width={100}
+                    timeout={3000} //3 secs
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
