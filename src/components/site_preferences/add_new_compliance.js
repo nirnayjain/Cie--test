@@ -1,11 +1,12 @@
 import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
-import PropTypes from "prop-types";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
 import "../../App.css";
+import { Editor } from "react-draft-wysiwyg";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
 class AddNewCompliance extends React.Component {
   constructor(props) {
     super(props);
@@ -152,7 +153,9 @@ class AddNewCompliance extends React.Component {
     e.preventDefault();
     const data = {
       title: this.state.title,
-      description: this.state.description,
+      description: draftToHtml(
+        convertToRaw(this.state.description.getCurrentContent())
+      ),
     };
     axios
       .post("compliance/add_compliance", data)
@@ -208,22 +211,19 @@ class AddNewCompliance extends React.Component {
                       <div className="form-group tags-field row m-0">
                         <label className="col-lg-2 p-0">Description</label>
 
-                        <ReactQuill
-                          className=" col-lg-10 height"
-                          theme={this.state.theme}
-                          onChange={this.handleChange}
-                          value={this.state.description}
-                          modules={AddNewCompliance.modules}
-                          formats={AddNewCompliance.formats}
-                          bounds={".app"}
-                          placeholder={this.props.placeholder}
-                        />
+                        <div className=" col-lg-10 height">
+                          <Editor
+                            onEditorStateChange={this.handleChange}
+                            editorState={this.state.description}
+                            wrapperStyle={{ border: "1px solid grey" }}
+                          />
 
-                        {this.validator.message(
-                          "Description",
-                          this.state.description,
-                          "required"
-                        )}
+                          {this.validator.message(
+                            "Description",
+                            this.state.description,
+                            "required"
+                          )}
+                        </div>
                       </div>
                     </div>
 
@@ -250,43 +250,4 @@ class AddNewCompliance extends React.Component {
     );
   }
 }
-AddNewCompliance.modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-AddNewCompliance.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
-
-AddNewCompliance.propTypes = {
-  placeholder: PropTypes.string,
-};
 export default AddNewCompliance;

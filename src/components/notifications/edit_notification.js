@@ -1,16 +1,17 @@
 import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
-import PropTypes from "prop-types";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import htmlToDraft from "html-to-draftjs";
+import draftToHtml from "draftjs-to-html";
 import SimpleReactValidator from "simple-react-validator";
 class EditNotification extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      description: "",
+      description: EditorState.createEmpty(),
       theme: "snow",
       thumbnail: "",
       mobile_message: "",
@@ -112,8 +113,17 @@ class EditNotification extends React.Component {
     console.log(id);
     axios.get(`notification/fetch/${id}`).then((res) => {
       const data = res.data;
-      console.log(data);
-      this.setState({ title: data.title, description: data.description });
+      const blocksFromHtml = htmlToDraft(data.description);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(
+        contentBlocks,
+        entityMap
+      );
+      const editorState = EditorState.createWithContent(contentState);
+      this.setState({
+        title: data.title,
+        description: editorState,
+      });
     });
   }
 
@@ -139,7 +149,9 @@ class EditNotification extends React.Component {
       axios
         .put(`notification/save/${id}`, {
           title: this.state.title,
-          description: this.state.description,
+          description: draftToHtml(
+            convertToRaw(this.state.description.getCurrentContent())
+          ),
         })
         .then((response) => {
           // handle success
@@ -194,22 +206,19 @@ class EditNotification extends React.Component {
                       <div className="form-group tags-field row m-0">
                         <label className="col-lg-2 p-0">Description</label>
 
-                        <ReactQuill
-                          className=" col-lg-10 height"
-                          theme={this.state.theme}
-                          onChange={this.handleChange}
-                          value={this.state.description}
-                          modules={EditNotification.modules}
-                          formats={EditNotification.formats}
-                          bounds={".app"}
-                          placeholder={this.props.placeholder}
-                        />
+                        <div className=" col-lg-10 height">
+                          <Editor
+                            onEditorStateChange={this.handleChange}
+                            editorState={this.state.description}
+                            wrapperStyle={{ border: "1px solid grey" }}
+                          />
 
-                        {this.validator.message(
-                          "Description",
-                          this.state.description,
-                          "required"
-                        )}
+                          {this.validator.message(
+                            "Description",
+                            this.state.description,
+                            "required"
+                          )}
+                        </div>
                       </div>
                     </div>
 
@@ -236,44 +245,5 @@ class EditNotification extends React.Component {
     );
   }
 }
-EditNotification.modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-EditNotification.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
-
-EditNotification.propTypes = {
-  placeholder: PropTypes.string,
-};
 
 export default EditNotification;

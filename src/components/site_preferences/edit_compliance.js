@@ -2,10 +2,10 @@ import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
-import PropTypes from "prop-types";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import Loader from "react-loader-spinner";
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import htmlToDraft from "html-to-draftjs";
+import draftToHtml from "draftjs-to-html";
 class EditCompliance extends React.Component {
   constructor(props) {
     super(props);
@@ -119,15 +119,17 @@ class EditCompliance extends React.Component {
     console.log(_id);
     //
     let res = await axios.get(`compliance/get_compliance_ById/${_id}`);
-    console.log(res.data);
-    const post = {
-      title: res.data.title,
-      description: res.data.description,
-    };
-    console.log(post);
+    const data = res.data;
+    const blocksFromHtml = htmlToDraft(data.description);
+    const { contentBlocks, entityMap } = blocksFromHtml;
+    const contentState = ContentState.createFromBlockArray(
+      contentBlocks,
+      entityMap
+    );
+    const editorState = EditorState.createWithContent(contentState);
     this.setState({
-      title: post.title,
-      description: post.description,
+      title: data.title,
+      description: editorState,
       loading: true,
     });
   }
@@ -175,7 +177,9 @@ class EditCompliance extends React.Component {
     e.preventDefault();
     const data = {
       title: this.state.title,
-      description: this.state.description,
+      description: draftToHtml(
+        convertToRaw(this.state.description.getCurrentContent())
+      ),
     };
 
     //
@@ -224,22 +228,19 @@ class EditCompliance extends React.Component {
                       <div className="form-group tags-field row m-0">
                         <label className="col-lg-2 p-0">Description</label>
 
-                        <ReactQuill
-                          className=" col-lg-10 height"
-                          theme={this.state.theme}
-                          onChange={this.handleChange}
-                          value={this.state.description}
-                          modules={EditCompliance.modules}
-                          formats={EditCompliance.formats}
-                          bounds={".app"}
-                          placeholder={this.props.placeholder}
-                        />
+                        <div className=" col-lg-10 height">
+                          <Editor
+                            onEditorStateChange={this.handleChange}
+                            editorState={this.state.description}
+                            wrapperStyle={{ border: "1px solid grey" }}
+                          />
 
-                        {this.validator.message(
-                          "Description",
-                          this.state.description,
-                          "required"
-                        )}
+                          {this.validator.message(
+                            "Description",
+                            this.state.description,
+                            "required"
+                          )}
+                        </div>
                       </div>
                     </div>
 
@@ -266,43 +267,4 @@ class EditCompliance extends React.Component {
     );
   }
 }
-EditCompliance.modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-EditCompliance.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
-
-EditCompliance.propTypes = {
-  placeholder: PropTypes.string,
-};
 export default EditCompliance;

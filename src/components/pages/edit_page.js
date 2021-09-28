@@ -2,10 +2,11 @@ import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
-import PropTypes from "prop-types";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import Loader from "react-loader-spinner";
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import htmlToDraft from "html-to-draftjs";
+import draftToHtml from "draftjs-to-html";
 class EditPage extends React.Component {
   constructor(props) {
     super(props);
@@ -117,18 +118,21 @@ class EditPage extends React.Component {
   async componentDidMount() {
     const { _id } = this.props.match.params;
     let res = await axios.get(`page/get_page_ById/${_id}`);
-    const post = {
-      title: res.data.title,
-      description: res.data.description,
-      menu: res.data.menu,
-      submenu: res.data.submenu,
-    };
+    const data = res.data;
+    const blocksFromHtml = htmlToDraft(data.description);
+    const { contentBlocks, entityMap } = blocksFromHtml;
+    const contentState = ContentState.createFromBlockArray(
+      contentBlocks,
+      entityMap
+    );
+    const editorState = EditorState.createWithContent(contentState);
     this.setState({
-      title: post.title,
-      description: post.description,
-      menu: post.menu,
-      submenu: post.submenu,
+      title: data.title,
+      description: editorState,
+      menu: data.menu,
+      submenu: data.submenu,
     });
+
     let menuRes = await axios.get(`admin/menus`);
     const menus = menuRes.data.filter((item) => item.menu !== "HOME" && item);
     this.setState({ menus });
@@ -285,23 +289,19 @@ class EditPage extends React.Component {
                           )}
                           <div className="form-group tags-field row m-0">
                             <label className="col-lg-2 p-0">Description</label>
+                            <div className=" col-lg-10 height">
+                              <Editor
+                                onEditorStateChange={this.handleChange}
+                                editorState={this.state.description}
+                                wrapperStyle={{ border: "1px solid grey" }}
+                              />
 
-                            <ReactQuill
-                              className=" col-lg-10 height"
-                              theme={this.state.theme}
-                              onChange={this.handleChange}
-                              value={this.state.description}
-                              modules={EditPage.modules}
-                              formats={EditPage.formats}
-                              bounds={".app"}
-                              placeholder={this.props.placeholder}
-                            />
-
-                            {this.validator.message(
-                              "Description",
-                              this.state.description,
-                              "required"
-                            )}
+                              {this.validator.message(
+                                "Description",
+                                this.state.description,
+                                "required"
+                              )}
+                            </div>
                           </div>
                         </div>
 
@@ -341,43 +341,4 @@ class EditPage extends React.Component {
     );
   }
 }
-EditPage.modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-
-EditPage.formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
-
-EditPage.propTypes = {
-  placeholder: PropTypes.string,
-};
 export default EditPage;
