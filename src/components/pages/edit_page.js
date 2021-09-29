@@ -191,7 +191,7 @@ class EditPage extends React.Component {
     e.preventDefault();
     let toStore = this.state.isUrl
       ? `<center><p>Click on the below link to be redirected</p><br/>
-  <a href="${this.state.url}">${this.state.url}</a>
+  <a href="${this.state.url}" target="_blank">${this.state.url}</a>
   </center>
   `
       : draftToHtml(convertToRaw(this.state.description.getCurrentContent()));

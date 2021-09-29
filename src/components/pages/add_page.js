@@ -152,7 +152,7 @@ class AddNewPage extends React.Component {
     let toStore = this.state.isUrl
       ? `<center>
       <p>Click on the below link to be redirected</p><br/>
-    <a href="${this.state.link}">${this.state.link}</a>
+    <a href="${this.state.link}" target="_blank">${this.state.link}</a>
     </center>
     `
       : draftToHtml(convertToRaw(this.state.description.getCurrentContent()));
