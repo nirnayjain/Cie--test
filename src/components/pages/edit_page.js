@@ -12,6 +12,8 @@ class EditPage extends React.Component {
     super(props);
     this.state = {
       title: "",
+      url: null,
+      isUrl: false,
       description: "",
       eventCategories: [],
       eventtypes: [],
@@ -131,8 +133,17 @@ class EditPage extends React.Component {
       description: editorState,
       menu: data.menu,
       submenu: data.submenu,
+      url: data.url,
+      isUrl: Boolean(data.url),
     });
-
+    console.log({
+      title: data.title,
+      description: editorState,
+      menu: data.menu,
+      submenu: data.submenu,
+      url: data.url,
+      isUrl: !Boolean(data.url),
+    });
     let menuRes = await axios.get(`admin/menus`);
     const menus = menuRes.data.filter((item) => item.menu !== "HOME" && item);
     this.setState({ menus });
@@ -178,9 +189,16 @@ class EditPage extends React.Component {
     const { _id } = this.props.match.params;
     this.setState({ loading: true });
     e.preventDefault();
+    let toStore = this.state.isUrl
+      ? `<center><p>Click on the below link to be redirected</p><br/>
+  <a href="${this.state.url}">${this.state.url}</a>
+  </center>
+  `
+      : draftToHtml(convertToRaw(this.state.description.getCurrentContent()));
     const data = {
       title: this.state.title,
-      description: this.state.description,
+      description: toStore,
+      url: this.state.isUrl ? this.state.url : null,
       menu: this.state.menu,
       submenu: this.state.submenu,
     };
@@ -288,21 +306,55 @@ class EditPage extends React.Component {
                             <></>
                           )}
                           <div className="form-group tags-field row m-0">
-                            <label className="col-lg-2 p-0">Description</label>
-                            <div className=" col-lg-10 height">
-                              <Editor
-                                onEditorStateChange={this.handleChange}
-                                editorState={this.state.description}
-                                wrapperStyle={{ border: "1px solid grey" }}
+                            <div class="form-group form-check">
+                              <input
+                                onChange={(e) => {
+                                  this.setState({
+                                    isUrl: e.target.checked,
+                                  });
+                                }}
+                                checked={this.state.isUrl}
+                                type="checkbox"
+                                class="form-check-input"
+                                id="checkboxUrl"
                               />
-
-                              {this.validator.message(
-                                "Description",
-                                this.state.description,
-                                "required"
-                              )}
+                              <label class="form-check-label" for="checkboxUrl">
+                                Enter a URL
+                              </label>
                             </div>
                           </div>
+                          {!this.state.isUrl ? (
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">
+                                Description
+                              </label>
+
+                              <div className=" col-lg-10 height">
+                                <Editor
+                                  onEditorStateChange={this.handleChange}
+                                  editorState={this.state.description}
+                                  wrapperStyle={{ border: "1px solid grey" }}
+                                />
+
+                                {this.validator.message(
+                                  "Description",
+                                  this.state.description,
+                                  "required"
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">URL</label>
+                              <input
+                                className="form-control col-lg-10 "
+                                name="url"
+                                onChange={this.onChange}
+                                value={this.state.url}
+                                type="text"
+                              />
+                            </div>
+                          )}
                         </div>
 
                         <div className="col-lg-12 p-0">

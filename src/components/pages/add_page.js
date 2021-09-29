@@ -14,9 +14,10 @@ class AddNewPage extends React.Component {
     this.state = {
       title: "",
       description: "",
+      link: null,
       menu: "",
       submenu: "",
-      theme: "snow",
+      isUrl: false,
       mobile_message: "",
       menus: [],
       submenus: [],
@@ -148,11 +149,17 @@ class AddNewPage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ loading: true });
+    let toStore = this.state.isUrl
+      ? `<center>
+      <p>Click on the below link to be redirected</p><br/>
+    <a href="${this.state.link}">${this.state.link}</a>
+    </center>
+    `
+      : draftToHtml(convertToRaw(this.state.description.getCurrentContent()));
     const data = {
       title: this.state.title,
-      description: draftToHtml(
-        convertToRaw(this.state.description.getCurrentContent())
-      ),
+      description: toStore,
+      url: this.state.isUrl ? this.state.link : null,
       menu: this.state.menu,
       submenu: this.state.submenu,
     };
@@ -267,24 +274,56 @@ class AddNewPage extends React.Component {
                           ) : (
                             <></>
                           )}
-
                           <div className="form-group tags-field row m-0">
-                            <label className="col-lg-2 p-0">Description</label>
-
-                            <div className=" col-lg-10 height">
-                              <Editor
-                                onEditorStateChange={this.handleChange}
-                                editorState={this.state.description}
-                                wrapperStyle={{ border: "1px solid grey" }}
+                            <div class="form-group form-check">
+                              <input
+                                onChange={(e) => {
+                                  this.setState({
+                                    isUrl: e.target.checked,
+                                  });
+                                }}
+                                checked={this.state.isUrl}
+                                type="checkbox"
+                                class="form-check-input"
+                                id="checkboxUrl"
                               />
-
-                              {this.validator.message(
-                                "Description",
-                                this.state.description,
-                                "required"
-                              )}
+                              <label class="form-check-label" for="checkboxUrl">
+                                Enter a URL
+                              </label>
                             </div>
                           </div>
+                          {!this.state.isUrl ? (
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">
+                                Description
+                              </label>
+
+                              <div className=" col-lg-10 height">
+                                <Editor
+                                  onEditorStateChange={this.handleChange}
+                                  editorState={this.state.description}
+                                  wrapperStyle={{ border: "1px solid grey" }}
+                                />
+
+                                {this.validator.message(
+                                  "Description",
+                                  this.state.description,
+                                  "required"
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">URL</label>
+                              <input
+                                className="form-control col-lg-10 "
+                                name="link"
+                                onChange={this.onChange}
+                                value={this.state.link}
+                                type="text"
+                              />
+                            </div>
+                          )}
                         </div>
 
                         <div className="col-lg-12 p-0">
