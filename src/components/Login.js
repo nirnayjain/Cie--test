@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, Route, useParams, Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const [User, setUser] = useState({
@@ -16,8 +16,6 @@ function Login() {
     setUser({ ...User, [email]: event.target.value });
   };
 
-  console.log(email, password);
-
   const Lo = () => {
     axios
       .post("admin/users/login", {
@@ -25,21 +23,12 @@ function Login() {
         password: password,
       })
       .then((res) => {
-        console.log(res);
         localStorage.setItem("user", JSON.stringify(res.data));
-
         history.push("/dashboard");
+      })
+      .catch((e) => {
+        alert("Invalid Credentials");
       });
-
-    // setUser({
-    //   isLoggedin : true,
-    //   googleID : response.googleId,
-    //   name : response.profileObj.name,
-    //   email : response.profileObj.email,
-    //   accesstoken : response.accessToken,
-    //   picture : response.profileObj.imageUrl,
-    //   didredirect : true
-    // })
   };
 
   return (
@@ -81,7 +70,7 @@ function Login() {
               </div>
             </div>
             <div className="form-group mt-3 mb-0">
-              <div className="w-100 btn  boxed-btn" onClick={Lo()}>
+              <div className="w-100 btn  boxed-btn" onClick={Lo}>
                 Login
               </div>
             </div>
