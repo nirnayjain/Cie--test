@@ -25,6 +25,10 @@ class EditPage extends React.Component {
       mobile_message: "",
       validError: false,
       loading: false,
+      isPdf:false,
+      isDescription:false,
+      pdf:"",
+      changingPdf:false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -134,7 +138,10 @@ class EditPage extends React.Component {
       menu: data.menu,
       submenu: data.submenu,
       url: data.url,
-      isUrl: Boolean(data.url),
+      pdf:data.pdf,
+      isUrl: data.url===null || data.url==="null" ? false:true,
+      isPdf:data.pdf?.length>0?true:false,
+      isDescription:(data.url!=null || data.url!="null") && data.pdf?.length>0 ?false:true
     });
     console.log({
       title: data.title,
@@ -178,7 +185,10 @@ class EditPage extends React.Component {
     }
   }
   onFileChange(e) {
-    this.setState({ image: e.target.files[0] });
+    this.setState({
+      changingPdf:true
+    })
+    this.setState({ pdf: e.target.files[0] });
   }
   handleThemeChange(newTheme) {
     if (newTheme === "core") newTheme = null;
@@ -202,9 +212,16 @@ class EditPage extends React.Component {
       menu: this.state.menu,
       submenu: this.state.submenu,
     };
+    const formdata = new FormData();
+    formdata.append("title", this.state.title);
+    formdata.append("description",toStore);
+    formdata.append("url",this.state.url);
+    formdata.append("menu", this.state.menu);
+    formdata.append("pdf", this.state.pdf);
+    formdata.append("submenu", this.state.submenu);
 
     //
-    axios.put(`page/edit_page/${_id}`, data).then((res) => {
+    axios.put(`page/edit_page/${_id}`, formdata).then((res) => {
       console.log(res.data);
       this.props.history.push("/all_pages");
     });
@@ -306,7 +323,7 @@ class EditPage extends React.Component {
                             <></>
                           )}
                           <div className="form-group tags-field row m-0">
-                            <div class="form-group form-check">
+                            {/* <div class="form-group form-check">
                               <input
                                 onChange={(e) => {
                                   this.setState({
@@ -321,9 +338,9 @@ class EditPage extends React.Component {
                               <label class="form-check-label" for="checkboxUrl">
                                 Enter a URL
                               </label>
-                            </div>
-                          </div>
-                          {!this.state.isUrl ? (
+                            </div> */}
+                         </div>
+                         {this.state.isDescription &&
                             <div className="form-group tags-field row m-0">
                               <label className="col-lg-2 p-0">
                                 Description
@@ -343,7 +360,8 @@ class EditPage extends React.Component {
                                 )}
                               </div>
                             </div>
-                          ) : (
+  }
+  {this.state.isUrl &&
                             <div className="form-group tags-field row m-0">
                               <label className="col-lg-2 p-0">URL</label>
                               <input
@@ -354,7 +372,28 @@ class EditPage extends React.Component {
                                 type="text"
                               />
                             </div>
-                          )}
+  }
+  {this.state.isPdf &&
+                          <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">Upload PDF</label>
+                              <input
+                                className="form-control col-lg-10 "
+                                name="file"
+                                // value={this.state.pdf}
+                                onChange={this.onFileChange}
+                                accept="application/pdf"
+                                type="file"
+                              />
+                               {!this.state.changingPdf &&
+                              <p style={{marginLeft:175,marginTop:10}}>
+                              {/* <a href={this.state.pdf} target="_blank">
+                              {this.state.pdf}
+                               </a> */}
+                               <embed src= {this.state.pdf} width= "500" height= "375"></embed>
+                               </p>
+  }
+                            </div>
+  }
                         </div>
 
                         <div className="col-lg-12 p-0">

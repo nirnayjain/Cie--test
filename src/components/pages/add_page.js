@@ -21,10 +21,15 @@ class AddNewPage extends React.Component {
       mobile_message: "",
       menus: [],
       submenus: [],
+      pdf:"",
       validError: false,
       loading: false,
       date: Date.now(),
+      isPdf:false,
+      isDescription:true
     };
+    this.onFileChange = this.onFileChange.bind(this);
+    this.handleCheckBox = this.handleCheckBox.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -126,6 +131,30 @@ class AddNewPage extends React.Component {
   handleChange(html) {
     this.setState({ description: html });
   }
+  onFileChange(e) {
+    this.setState({ pdf: e.target.files[0] });
+  }
+  handleCheckBox=(type)=>{
+    if(type==="url")
+    {
+    this.setState({isUrl: true });
+    this.setState({isPdf:false})
+    this.setState({isDescription:false})
+    }
+    else if(type==="pdf")
+    {
+      this.setState({isUrl: false });
+      this.setState({isPdf:true});
+      this.setState({isDescription:false})
+    }
+    else{
+      this.setState({isUrl: false });
+      this.setState({isPdf:false});
+      this.setState({isDescription:true})
+    }
+
+
+  }
   onChange(event) {
     if (event.target.name === "menu") {
       this.setState({
@@ -155,7 +184,15 @@ class AddNewPage extends React.Component {
     <a href="${this.state.link}" target="_blank">${this.state.link}</a>
     </center>
     `
-      : draftToHtml(convertToRaw(this.state.description.getCurrentContent()));
+      :
+      this.state.isPdf?
+      `<center>
+       <p>This is pdf document</p><br/>
+
+     </center>
+     `
+     :
+      draftToHtml(convertToRaw(this.state.description.getCurrentContent()));
     const data = {
       title: this.state.title,
       description: toStore,
@@ -163,8 +200,15 @@ class AddNewPage extends React.Component {
       menu: this.state.menu,
       submenu: this.state.submenu,
     };
+    const formdata = new FormData();
+    formdata.append("title", this.state.title);
+    formdata.append("description",toStore);
+    formdata.append("url",this.state.isUrl ? this.state.link : null);
+    formdata.append("menu", this.state.menu);
+    formdata.append("pdf", this.state.isPdf ? this.state.pdf : "");
+    formdata.append("submenu", this.state.submenu);
     axios
-      .post("page/add_page", data)
+      .post("page/add_page", formdata)
       .then(function (response) {
         // handle success
         //console.log(response.data);
@@ -275,24 +319,28 @@ class AddNewPage extends React.Component {
                             <></>
                           )}
                           <div className="form-group tags-field row m-0">
-                            <div class="form-group form-check">
-                              <input
-                                onChange={(e) => {
-                                  this.setState({
-                                    isUrl: e.target.checked,
-                                  });
-                                }}
-                                checked={this.state.isUrl}
-                                type="checkbox"
-                                class="form-check-input"
-                                id="checkboxUrl"
-                              />
-                              <label class="form-check-label" for="checkboxUrl">
-                                Enter a URL
-                              </label>
+                          <div class="form-group form-check">
+                            <li style={{display:"flex", alignItems:"center", textAlign:"left"}}>
+                          <input type="radio" id="url" name="50-100" checked={this.state.isUrl}
+                             onChange={e => this.handleCheckBox("url")} style={{border:"none", textDecoration:"none"}}
+                          />
+                          <label for="url" style={{paddingLeft:"13px" , color:"black" , "hover":{color: "#efefef"}}}> Enter Url</label>
+                        </li>
+                        <li style={{display:"flex", alignItems:"center", textAlign:"left"}}>
+                          <input type="radio" id="pdf" name="50-100" checked={this.state.isPdf}
+                            onChange={e => this.handleCheckBox("pdf")} style={{border:"none", textDecoration:"none"}}
+                          />
+                          <label for="pdf" style={{paddingLeft:"13px" , color:"black" , "hover":{color: "#efefef"}}}>Upload Pdf</label>
+                        </li>
+                        <li style={{display:"flex", alignItems:"center", textAlign:"left"}}>
+                          <input type="radio" id="pdf" name="50-100" checked={this.state.isDescription}
+                            onChange={e =>this. handleCheckBox("description")} style={{border:"none", textDecoration:"none"}}
+                          />
+                          <label for="pdf" style={{paddingLeft:"13px" , color:"black" , "hover":{color: "#efefef"}}}>Enter Description</label>
+                        </li>
                             </div>
                           </div>
-                          {!this.state.isUrl ? (
+                          {this.state.isDescription &&
                             <div className="form-group tags-field row m-0">
                               <label className="col-lg-2 p-0">
                                 Description
@@ -312,7 +360,8 @@ class AddNewPage extends React.Component {
                                 )}
                               </div>
                             </div>
-                          ) : (
+  }
+  {this.state.isUrl &&
                             <div className="form-group tags-field row m-0">
                               <label className="col-lg-2 p-0">URL</label>
                               <input
@@ -323,7 +372,20 @@ class AddNewPage extends React.Component {
                                 type="text"
                               />
                             </div>
-                          )}
+                          }
+                          {this.state.isPdf &&
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">Upload PDF</label>
+                              <input
+                                className="form-control col-lg-10 "
+                                name="file"
+                                onChange={this.onFileChange}
+                                accept="application/pdf"
+                                type="file"
+                              />
+                            </div>
+  }
+
                         </div>
 
                         <div className="col-lg-12 p-0">
