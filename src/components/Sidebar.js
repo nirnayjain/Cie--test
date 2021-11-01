@@ -40,6 +40,12 @@ function Sidebar() {
                         Menu
                       </Link>
                     </li>
+                     <li>
+                      <Link to="/sub_sub_menu">
+                        <i class="fa fa-book fa-fw" aria-hidden="true"></i> Sub-Sub
+                        Menu
+                      </Link>
+                    </li>
                     <li>
                       {" "}
                       <a href="/gallery">

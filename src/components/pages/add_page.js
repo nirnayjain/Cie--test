@@ -17,10 +17,12 @@ class AddNewPage extends React.Component {
       link: null,
       menu: "",
       submenu: "",
+      subsubmenu:"",
       isUrl: false,
       mobile_message: "",
       menus: [],
       submenus: [],
+      subsubmenus:[],
       pdf:"",
       validError: false,
       loading: false,
@@ -160,6 +162,7 @@ class AddNewPage extends React.Component {
       this.setState({
         menu: event.target.value,
         submenu: "",
+        subsubmenu:""
       });
       axios.get(`admin/submenus`).then((res) => {
         const submenus = res.data.filter((e) => {
@@ -167,6 +170,20 @@ class AddNewPage extends React.Component {
           return e.menu === this.state.menu;
         });
         this.setState({ submenus });
+      });
+    }
+     else if (event.target.name === "submenu") {
+      this.setState({
+
+        submenu: event.target.value,
+        subsubmenu:""
+      });
+      axios.get(`admin/subsubmenus`).then((res) => {
+        const subsubmenus = res.data.filter((e) => {
+
+          return e.submenu === this.state.submenu &&  e.menu===this.state.menu;
+        });
+        this.setState({ subsubmenus });
       });
     } else {
       this.setState({
@@ -207,6 +224,7 @@ class AddNewPage extends React.Component {
     formdata.append("menu", this.state.menu);
     formdata.append("pdf", this.state.isPdf ? this.state.pdf : "");
     formdata.append("submenu", this.state.submenu);
+     formdata.append("subsubmenu", this.state.subsubmenu);
     axios
       .post("page/add_page", formdata)
       .then(function (response) {
@@ -311,6 +329,38 @@ class AddNewPage extends React.Component {
 
                               {this.validator.message(
                                 "Sub Menu Name",
+                                this.state.submenu,
+                                "required"
+                              )}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          {this.state.subsubmenus.length > 0 ? (
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">
+                                Sub-Sub Menu Name
+                              </label>
+
+                              <select
+                                className="form-control col-lg-10"
+                                name="subsubmenu"
+                                value={this.state.subsubmenu}
+                                onChange={this.onChange}
+                              >
+                                <option>Select Sub-Sub Menu</option>
+                                {this.state.subsubmenus &&
+                                  this.state.subsubmenus.map((data, index) => {
+                                    return (
+                                      <option value={data.subsubmenu} key={index}>
+                                        {data.subsubmenu}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
+
+                              {this.validator.message(
+                                "Sub-Sub Menu Name",
                                 this.state.submenu,
                                 "required"
                               )}

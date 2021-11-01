@@ -19,6 +19,8 @@ class EditPage extends React.Component {
       eventtypes: [],
       menus: [],
       submenus: [],
+      subsubmenus:[],
+      subsubmenu:"",
       menu: "",
       submenu: "",
       theme: "snow",
@@ -137,6 +139,7 @@ class EditPage extends React.Component {
       description: editorState,
       menu: data.menu,
       submenu: data.submenu,
+      subsubmenu:data.subsubmenu,
       url: data.url,
       pdf:data.pdf,
       isUrl: data.url===null || data.url==="null" ? false:true,
@@ -161,6 +164,13 @@ class EditPage extends React.Component {
       });
       this.setState({ submenus });
     });
+    axios.get(`admin/subsubmenus`).then((res) => {
+      const subsubmenus = res.data.filter((e) => {
+
+        return e.menu === this.state.menu && e.submenu==this.state.submenu;
+      });
+      this.setState({ subsubmenus });
+    });
   }
   handleChange(html) {
     this.setState({ description: html });
@@ -170,6 +180,7 @@ class EditPage extends React.Component {
       this.setState({
         menu: event.target.value,
         submenu: "",
+        subsubmenu:""
       });
       axios.get(`admin/submenus`).then((res) => {
         const submenus = res.data.filter((e) => {
@@ -178,7 +189,22 @@ class EditPage extends React.Component {
         });
         this.setState({ submenus });
       });
-    } else {
+    }
+     else if (event.target.name === "submenu") {
+      this.setState({
+
+        submenu: event.target.value,
+        subsubmenu:""
+      });
+      axios.get(`admin/subsubmenus`).then((res) => {
+        const subsubmenus = res.data.filter((e) => {
+
+          return e.submenu === this.state.submenu &&  e.menu===this.state.menu;
+        });
+        this.setState({ subsubmenus });
+      });
+    }
+    else {
       this.setState({
         [event.target.name]: event.target.value,
       });
@@ -219,6 +245,7 @@ class EditPage extends React.Component {
     formdata.append("menu", this.state.menu);
     formdata.append("pdf", this.state.pdf);
     formdata.append("submenu", this.state.submenu);
+     formdata.append("subsubmenu", this.state.subsubmenu);
 
     //
     axios.put(`page/edit_page/${_id}`, formdata).then((res) => {
@@ -315,6 +342,38 @@ class EditPage extends React.Component {
 
                               {this.validator.message(
                                 "Sub Menu Name",
+                                this.state.submenu,
+                                "required"
+                              )}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          {this.state.subsubmenus.length > 0 ? (
+                            <div className="form-group tags-field row m-0">
+                              <label className="col-lg-2 p-0">
+                                Sub-Sub Menu Name
+                              </label>
+
+                              <select
+                                className="form-control col-lg-10"
+                                name="subsubmenu"
+                                value={this.state.subsubmenu}
+                                onChange={this.onChange}
+                              >
+                                <option>Select Sub-Sub Menu</option>
+                                {this.state.subsubmenus &&
+                                  this.state.subsubmenus.map((data, index) => {
+                                    return (
+                                      <option value={data.subsubmenu} key={index}>
+                                        {data.subsubmenu}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
+
+                              {this.validator.message(
+                                "Sub Sub Menu Name",
                                 this.state.submenu,
                                 "required"
                               )}
