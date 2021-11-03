@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
+import Loader from "react-loader-spinner";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
 class AddPeople extends React.Component {
@@ -15,6 +16,7 @@ class AddPeople extends React.Component {
       theme: "snow",
       mobile_message: "",
       validError: false,
+      loading:false,
       date: Date.now(),
     };
     // this.handleChange = this.handleChange.bind(this);
@@ -134,6 +136,7 @@ class AddPeople extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ loading: true });
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
@@ -145,13 +148,15 @@ class AddPeople extends React.Component {
         .then((response) => {
           // handle success
 
-          console.log(response.data);
-          this.props.history.push("/people");
+         if(response)
+         this.setState({ loading: false });
+
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
+        this.props.history.push("/people");
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -166,6 +171,7 @@ class AddPeople extends React.Component {
           <div className="admin-content">
             <div className="admin-head">People - Add New</div>
             <div className="admin-data">
+            {this.state.loading === false ?
               <div className="container-fluid p-0">
                 <form
                   className="form-contact contact_form"
@@ -245,6 +251,18 @@ class AddPeople extends React.Component {
                   </div>
                 </form>
               </div>
+              :
+              <div style={{ marginLeft: "500px", marginTop: "200px" }}>
+              {" "}
+              <Loader
+                type="Circles"
+                color="#0029ff"
+                height={100}
+                width={100}
+                timeout={3000} //3 secs
+              />
+            </div>
+  }
             </div>
           </div>
         </div>

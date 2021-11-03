@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
+import Loader from "react-loader-spinner";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
 class EditPeople extends React.Component {
@@ -11,10 +12,12 @@ class EditPeople extends React.Component {
     this.state = {
       name: "",
       Photo: "",
+      newPhoto:"",
       designation: "",
       theme: "snow",
       mobile_message: "",
       validError: false,
+      loading:false,
       date: Date.now(),
     };
     // this.handleChange = this.handleChange.bind(this);
@@ -134,7 +137,7 @@ class EditPeople extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ Photo: e.target.files[0] });
+    this.setState({ newPhoto: e.target.files[0] });
   }
   //   handleSubmit(event) {
   //     event.preventDefault();
@@ -162,24 +165,28 @@ class EditPeople extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ loading: true });
     const id = this.props.match.params.id;
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("name", this.state.name);
-      formdata.append("Photo", this.state.Photo);
+      // if(this.state.newPhoto)
+      formdata.append("Photo", this.state.newPhoto);
       formdata.append("designation", this.state.designation);
       axios
-        .put(`people/save/${id}`, formdata)
+        .put(`people/save/people/${id}`, formdata)
         .then((response) => {
           // handle success
-          this.props.history.push("/people");
-          console.log(response.data);
+          this.setState({ loading: false });
+
+
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
+         this.props.history.push("/people");
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -194,6 +201,7 @@ class EditPeople extends React.Component {
           <div className="admin-content">
             <div className="admin-head">People - Edit</div>
             <div className="admin-data">
+            {this.state.loading === false ?
               <div className="container-fluid p-0">
                 <form
                   className="form-contact contact_form"
@@ -256,11 +264,13 @@ class EditPeople extends React.Component {
                           "required"
                         )}
                       </div>
+                      {!this.state.newPhoto &&
                       <img
                         className="logoImg"
                         src={this.state.Photo}
                         alt="Frontend Img"
                       ></img>
+  }
                     </div>
 
                     <div className="col-lg-12 p-0">
@@ -279,6 +289,18 @@ class EditPeople extends React.Component {
                   </div>
                 </form>
               </div>
+              :
+              <div style={{ marginLeft: "500px", marginTop: "200px" }}>
+              {" "}
+              <Loader
+                type="Circles"
+                color="#0029ff"
+                height={100}
+                width={100}
+                timeout={3000} //3 secs
+              />
+            </div>
+  }
             </div>
           </div>
         </div>

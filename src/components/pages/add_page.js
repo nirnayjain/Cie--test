@@ -230,12 +230,15 @@ class AddNewPage extends React.Component {
       .then(function (response) {
         // handle success
         //console.log(response.data);
+        this.setState({ loading: false });
+
       })
       .catch(function (error) {
         // handle error
         //console.log(error);
       });
-    this.props.history.push("/all_pages");
+      this.props.history.push("/all_pages");
+
   }
 
   render() {

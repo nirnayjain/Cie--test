@@ -250,6 +250,7 @@ class EditPage extends React.Component {
     //
     axios.put(`page/edit_page/${_id}`, formdata).then((res) => {
       console.log(res.data);
+      this.setState({ loading: false });
       this.props.history.push("/all_pages");
     });
   }
