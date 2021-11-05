@@ -175,7 +175,7 @@ class EditPeople extends React.Component {
       formdata.append("Photo", this.state.newPhoto);
       formdata.append("designation", this.state.designation);
       axios
-        .put(`people/save/people/${id}`, formdata)
+        .put(`people/save/${id}`, formdata)
         .then((response) => {
           // handle success
           this.setState({ loading: false });
