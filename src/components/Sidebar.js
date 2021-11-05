@@ -98,6 +98,16 @@ function Sidebar() {
                     </li>
                     <li>
                       {" "}
+                      <a href="/files">
+                        <span>
+                          <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}
+                          Files
+                        </span>
+                        <b className="gw-arrow" />
+                      </a>
+                    </li>
+                    <li>
+                      {" "}
                       <a href="/notification">
                         <span>
                           <i class="fa fa-rss-square" aria-hidden="true"></i>{" "}

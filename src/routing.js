@@ -67,6 +67,10 @@ import About3 from "./components/about3/about3";
 import AddAbout3 from "./components/about3/add_about3";
 import EditAbout3 from "./components/about3/edit_about3";
 import ViewAbout3 from "./components/about3/view_about3";
+//files
+import Files from "./components/files/file"
+import AddFile from "./components/files/addFile"
+
 
 //Bloog
 import Blog from "./components/blog/edit_blog";
@@ -184,6 +188,9 @@ function Routing() {
         <Route exact path="/home_section_1" component={Home1}></Route>
         <Route exact path="/add_home1" component={AddHome1}></Route>
         {/* <Route exact path="/edit_home1/:_id" component={EditHome1}></Route> */}
+        <Route exact path="/files" component={Files}></Route>
+        <Route exact path="/add_file" component={AddFile}></Route>
+
         <Route
           exact
           path="/home1/608b912efcc7860015dce5b1"
