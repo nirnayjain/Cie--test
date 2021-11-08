@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
+import Loader from "react-loader-spinner";
 import SimpleReactValidator from "simple-react-validator";
 import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -14,6 +15,7 @@ class AddFile extends React.Component {
       title: "",
       file: "",
       theme: "snow",
+      loading:"false",
       mobile_message: "",
       validError: false,
       date: Date.now(),
@@ -170,13 +172,15 @@ class AddFile extends React.Component {
         .then((response) => {
           // handle success
 
-          console.log(response.data);
-          this.props.history.push("/files");
+
+          this.setState({ loading: false });
+
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
+        this.props.history.push("/files");
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -191,6 +195,8 @@ class AddFile extends React.Component {
           <div className="admin-content">
             <div className="admin-head">File - Add New</div>
             <div className="admin-data">
+            {/* {this.state.loading === false ? (
+              <> */}
               <div className="container-fluid p-0">
                 <form
                   className="form-contact contact_form"
@@ -251,6 +257,19 @@ class AddFile extends React.Component {
                   </div>
                 </form>
               </div>
+              {/* </>
+            ):(
+              <div style={{ marginLeft: "500px", marginTop: "200px" }}>
+                {" "}
+                <Loader
+                  type="Circles"
+                  color="#0029ff"
+                  height={100}
+                  width={100}
+                  timeout={3000} //3 secs
+                />
+              </div>
+            )} */}
             </div>
           </div>
         </div>

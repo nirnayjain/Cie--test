@@ -79,6 +79,14 @@ class File extends React.Component {
               <Link to={`/edit_file/${blog._id}`}>
                 <span className="btn">Edit</span>
               </Link> */}
+              <a href={`${file.file}`}>
+              <span
+                className="btn"
+
+              >
+                Download
+              </span>
+              </a>
               <span
                 className="btn"
                 onClick={this.deleteItem.bind(this, file._id)}
