@@ -244,8 +244,8 @@ class AddNewPage extends React.Component {
         return;
         }
 
-        //window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
-        window.location.href = "http://localhost:3000/all_pages"
+        window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+        // window.location.href = "http://localhost:3000/all_pages"
 
 
       })
