@@ -230,11 +230,20 @@ class AddNewPage extends React.Component {
       .then(function (response) {
         // handle success
         //console.log(response.data);
+
+        if(response.status===502 || response.status===500)
+        {
+
+        alert("Error uploading File.Please try again later")
+        return;
+        }
+
         window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
 
 
       })
       .catch(function (error) {
+
         // handle error
         //console.log(error);
       });
