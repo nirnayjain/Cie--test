@@ -266,8 +266,8 @@ class EditPage extends React.Component {
     //
     axios.put(`page/edit_page/${_id}`, formdata).then((res) => {
       console.log(res.data);
-      //window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
-      window.location.href = "http://localhost:3000/all_pages"
+      window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+      // window.location.href = "http://localhost:3000/all_pages"
     });
   }
 
