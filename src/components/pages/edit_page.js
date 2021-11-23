@@ -1,12 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React,{useState} from "react";
 import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
 import Loader from "react-loader-spinner";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
+import ViewPdf from "./viewPdf"
 import draftToHtml from "draftjs-to-html";
+import { Document, Page } from 'react-pdf';
 class EditPage extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,12 @@ class EditPage extends React.Component {
       isDescription:false,
       pdf:"",
       changingPdf:false,
+
     };
+
+
+    // const [numPages, setNumPages] = useState(null);
+    // const [pageNumber, setPageNumber] = useState(1);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onFileChange = this.onFileChange.bind(this);
@@ -223,8 +230,17 @@ class EditPage extends React.Component {
 
   handleSubmit(e) {
     const { _id } = this.props.match.params;
-    this.setState({ loading: true });
     e.preventDefault();
+    if(this.state.pdf)
+    {
+    if(this.state.pdf.size>10000000)
+    {
+    alert("Please upload file less than 10Mb")
+    return;
+    }
+  }
+    this.setState({ loading: true });
+
     let toStore = this.state.isUrl
       ? `<center><p>Click on the below link to be redirected</p><br/>
   <a href="${this.state.url}" target="_blank">${this.state.url}</a>
@@ -250,8 +266,8 @@ class EditPage extends React.Component {
     //
     axios.put(`page/edit_page/${_id}`, formdata).then((res) => {
       console.log(res.data);
-      this.setState({ loading: false });
-      this.props.history.push("/all_pages");
+      //window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+      window.location.href = "http://localhost:3000/all_pages"
     });
   }
 
@@ -449,7 +465,11 @@ class EditPage extends React.Component {
                               {/* <a href={this.state.pdf} target="_blank">
                               {this.state.pdf}
                                </a> */}
-                               <embed src= {this.state.pdf} width= "500" height= "375"></embed>
+                               {/* <embed src= {this.state.pdf} width= "500" height= "375"></embed> */}
+                               <a href={this.state.pdf}  download>
+                                 {this.state.pdf}
+                                 </a>
+                             {/* <ViewPdf pdf={this.state.pdf}/> */}
                                </p>
   }
                             </div>

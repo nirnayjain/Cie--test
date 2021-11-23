@@ -134,6 +134,7 @@ class AddNewPage extends React.Component {
     this.setState({ description: html });
   }
   onFileChange(e) {
+
     this.setState({ pdf: e.target.files[0] });
   }
   handleCheckBox=(type)=>{
@@ -194,6 +195,11 @@ class AddNewPage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if(this.state.pdf.size>10000000)
+    {
+    alert("Please upload file less than 10Mb")
+    return;
+    }
     this.setState({ loading: true });
     let toStore = this.state.isUrl
       ? `<center>
@@ -238,7 +244,8 @@ class AddNewPage extends React.Component {
         return;
         }
 
-        window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+        //window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+        window.location.href = "http://localhost:3000/all_pages"
 
 
       })
@@ -393,7 +400,7 @@ class AddNewPage extends React.Component {
                           <input type="radio" id="pdf" name="50-100" checked={this.state.isPdf}
                             onChange={e => this.handleCheckBox("pdf")} style={{border:"none", textDecoration:"none"}}
                           />
-                          <label for="pdf" style={{paddingLeft:"13px" , color:"black" , "hover":{color: "#efefef"}}}>Upload Pdf</label>
+                          <label for="pdf" style={{paddingLeft:"13px" , color:"black" , "hover":{color: "#efefef"}}}>Upload Pdf (Upto 10MB)</label>
                         </li>
                         <li style={{display:"flex", alignItems:"center", textAlign:"left"}}>
                           <input type="radio" id="pdf" name="50-100" checked={this.state.isDescription}
@@ -476,7 +483,7 @@ class AddNewPage extends React.Component {
                     color="#0029ff"
                     height={100}
                     width={100}
-                    timeout={3000} //3 secs
+                    // timeout={3000} //3 secs
                   />
                 </div>
               )}
