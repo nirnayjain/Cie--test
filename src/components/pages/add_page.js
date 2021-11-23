@@ -230,14 +230,15 @@ class AddNewPage extends React.Component {
       .then(function (response) {
         // handle success
         //console.log(response.data);
-        this.setState({ loading: false });
+        window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+
 
       })
       .catch(function (error) {
         // handle error
         //console.log(error);
       });
-      this.props.history.push("/all_pages");
+      // this.props.history.push("/all_pages");
 
   }
 

@@ -358,6 +358,8 @@ function Routing() {
           component={EditCompliance}
         ></Route>
         {/* Pages */}
+       
+
         <Route exact path="/all_pages" component={ViewPages}></Route>
         <Route exact path="/add_page" component={AddNewPage}></Route>
         <Route exact path="/edit_page/:_id" component={EditPage}></Route>
