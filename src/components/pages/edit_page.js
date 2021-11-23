@@ -465,10 +465,10 @@ class EditPage extends React.Component {
                               {/* <a href={this.state.pdf} target="_blank">
                               {this.state.pdf}
                                </a> */}
-                               {/* <embed src= {this.state.pdf} width= "500" height= "375"></embed> */}
-                               <a href={this.state.pdf}  download>
+                               <embed src= {this.state.pdf} width= "500" height= "375"></embed>
+                               {/* <a href={this.state.pdf}  download>
                                  {this.state.pdf}
-                                 </a>
+                                 </a> */}
                              {/* <ViewPdf pdf={this.state.pdf}/> */}
                                </p>
   }
