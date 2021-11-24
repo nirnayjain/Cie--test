@@ -233,9 +233,9 @@ class EditPage extends React.Component {
     e.preventDefault();
     if(this.state.pdf)
     {
-    if(this.state.pdf.size>10000000)
+    if(this.state.pdf.size>50000000)
     {
-    alert("Please upload file less than 10Mb")
+    alert("Please upload file less than 50Mb")
     return;
     }
   }
@@ -451,7 +451,7 @@ class EditPage extends React.Component {
   }
   {this.state.isPdf &&
                           <div className="form-group tags-field row m-0">
-                              <label className="col-lg-2 p-0">Upload PDF</label>
+                              <label className="col-lg-2 p-0">Upload PDF(Upto 50 Mb)</label>
                               <input
                                 className="form-control col-lg-10 "
                                 name="file"
