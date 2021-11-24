@@ -167,9 +167,9 @@ class AddFile extends React.Component {
         const formdata = new FormData();
         formdata.append("title", this.state.title);
         formdata.append("file", this.state.file);
-        if(this.state.file.size>10000000)
+        if(this.state.file.size>500000000)
         {
-        alert("Please upload file less than 10Mb")
+        alert("Please upload file less than 50Mb")
         return;
         }
         this.setState({ loading: false });
@@ -231,7 +231,7 @@ class AddFile extends React.Component {
                         {this.state.mobile_message}
                       </div>
                       <div className="form-group tags-field row m-0">
-                      <label className="col-lg-2 p-0">File (Upto 10Mb)</label>
+                      <label className="col-lg-2 p-0">File (Upto 50Mb)</label>
                         <input
                           type="file"
                           onChange={this.onFileChange}

@@ -195,9 +195,9 @@ class AddNewPage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if(this.state.pdf.size>10000000)
+    if(this.state.pdf.size>500000000)
     {
-    alert("Please upload file less than 10Mb")
+    alert("Please upload file less than 50Mb")
     return;
     }
     this.setState({ loading: true });
@@ -404,7 +404,7 @@ class AddNewPage extends React.Component {
                           <input type="radio" id="pdf" name="50-100" checked={this.state.isPdf}
                             onChange={e => this.handleCheckBox("pdf")} style={{border:"none", textDecoration:"none"}}
                           />
-                          <label for="pdf" style={{paddingLeft:"13px" , color:"black" , "hover":{color: "#efefef"}}}>Upload Pdf (Upto 10MB)</label>
+                          <label for="pdf" style={{paddingLeft:"13px" , color:"black" , "hover":{color: "#efefef"}}}>Upload Pdf (Upto 50MB)</label>
                         </li>
                         <li style={{display:"flex", alignItems:"center", textAlign:"left"}}>
                           <input type="radio" id="pdf" name="50-100" checked={this.state.isDescription}
