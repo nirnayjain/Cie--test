@@ -232,7 +232,7 @@ class AddNewPage extends React.Component {
     formdata.append("submenu", this.state.submenu);
      formdata.append("subsubmenu", this.state.subsubmenu);
     axios
-      .post("page/add-pageTest", formdata, {
+      .post("page/add-page", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
