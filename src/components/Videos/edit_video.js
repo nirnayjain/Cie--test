@@ -166,12 +166,13 @@ class EditVideo extends React.Component {
       console.log(this.state);
       const formdata = new FormData();
       formdata.append("title", this.state.title);
-      formdata.append("Thumbnail", this.state.Thumbnail);
+      formdata.append("Video", this.state.Thumbnail);
       axios
         .put(`video/save/${id}`, formdata)
         .then((response) => {
           // handle success
-          this.props.history.push("/videos");
+          window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          // this.props.history.push("/videos");
           console.log(response.data);
         })
         .catch(function (error) {
@@ -224,13 +225,14 @@ class EditVideo extends React.Component {
                         <label className="col-lg-2 p-0">Thumbnail</label>
                         <input
                           type="file"
+                          accept="video/*"
                           onChange={this.onFileChange}
                           name="file"
                           className="form-control col-lg-10"
                         />
 
                         {this.validator.message(
-                          "Thumbnail",
+                          "Video",
                           this.state.Thumbnail,
                           "required"
                         )}

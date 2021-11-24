@@ -172,15 +172,15 @@ class AddFile extends React.Component {
         .then((response) => {
           // handle success
 
-
-          this.setState({ loading: false });
+          window.location.href = "https://admin.cie.telangana.gov.in/files"
+          // this.setState({ loading: true });
 
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-        this.props.history.push("/files");
+        // this.props.history.push("/files");
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -195,8 +195,8 @@ class AddFile extends React.Component {
           <div className="admin-content">
             <div className="admin-head">File - Add New</div>
             <div className="admin-data">
-            {/* {this.state.loading === false ? (
-              <> */}
+            {this.state.loading ? (
+              <>
               <div className="container-fluid p-0">
                 <form
                   className="form-contact contact_form"
@@ -257,7 +257,7 @@ class AddFile extends React.Component {
                   </div>
                 </form>
               </div>
-              {/* </>
+              </>
             ):(
               <div style={{ marginLeft: "500px", marginTop: "200px" }}>
                 {" "}
@@ -266,10 +266,10 @@ class AddFile extends React.Component {
                   color="#0029ff"
                   height={100}
                   width={100}
-                  timeout={3000} //3 secs
+                  //  timeout={3000} //3 secs
                 />
               </div>
-            )} */}
+            )}
             </div>
           </div>
         </div>

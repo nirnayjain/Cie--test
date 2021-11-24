@@ -152,9 +152,7 @@ class AddVideos extends React.Component {
         })
         .then((response) => {
           // handle success
-          console.log("object");
-          this.setState({ loading: false });
-          this.props.history.push("/videos");
+          window.location.href = "https://admin.cie.telangana.gov.in/videos"
         })
         .catch(function (error) {
           // handle error
@@ -207,13 +205,14 @@ class AddVideos extends React.Component {
                           <label className="col-lg-2 p-0">Video</label>
                           <input
                             type="file"
+                            accept="video/*"
                             onChange={this.onFileChange}
                             name="file"
                             className="form-control col-lg-10"
                           />
 
                           {this.validator.message(
-                            "Thumbnail",
+                            "Video",
                             this.state.Thumbnail,
                             "required"
                           )}
@@ -244,7 +243,7 @@ class AddVideos extends React.Component {
                     color="#0029ff"
                     height={100}
                     width={100}
-                    timeout={3000} //3 secs
+                    // timeout={3000} //3 secs
                   />
                 </div>
               )}
