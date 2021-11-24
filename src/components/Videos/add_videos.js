@@ -136,7 +136,14 @@ class AddVideos extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+
+    if(this.state.Thumbnail.size>250000000)
+    {
+    alert("Please upload file less than 25Mb")
+    return;
+    }
     this.setState({ loading: true });
+   
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
@@ -202,7 +209,7 @@ class AddVideos extends React.Component {
                         </div>
 
                         <div className="form-group tags-field row m-0">
-                          <label className="col-lg-2 p-0">Video</label>
+                          <label className="col-lg-2 p-0">Video (Upto 25Mb)</label>
                           <input
                             type="file"
                             accept="video/*"

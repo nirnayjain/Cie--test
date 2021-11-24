@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
+import Loader from "react-loader-spinner";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
 class EditVideo extends React.Component {
@@ -12,6 +13,7 @@ class EditVideo extends React.Component {
       title: "",
       Thumbnail: "",
       image: "",
+      loading:false,
       theme: "snow",
       mobile_message: "",
       validError: false,
@@ -114,7 +116,7 @@ class EditVideo extends React.Component {
     axios.get(`video/fetch/${id}`).then((res) => {
       const data = res.data;
       console.log(data);
-      this.setState({ title: data.title, image: data.Video });
+      this.setState({ title: data.title,  thumbnail: res.data.Video, });
     });
   }
 
@@ -161,6 +163,12 @@ class EditVideo extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if(this.state.Thumbnail.size>250000000)
+    {
+    alert("Please upload file less than 25Mb")
+    return;
+    }
+    this.setState({ loading: true });
     const id = this.props.match.params.id;
     if (this.validator.allValid()) {
       console.log(this.state);
@@ -193,6 +201,7 @@ class EditVideo extends React.Component {
           <div className="admin-content">
             <div className="admin-head">Video - Edit</div>
             <div className="admin-data">
+            {!this.state.loading ? (
               <div className="container-fluid p-0">
                 <form
                   className="form-contact contact_form"
@@ -237,11 +246,13 @@ class EditVideo extends React.Component {
                           "required"
                         )}
                       </div>
-                      <img
-                        className="logoImg col-lg-3"
-                        src={this.state.image}
-                        alt="Frontend Img"
-                      ></img>
+
+                      <video
+                              src={this.state.thumbnail}
+                              width="200px"
+                              height="100px"
+                              controls
+                            />
                     </div>
 
                     <div className="col-lg-12 p-0">
@@ -260,6 +271,18 @@ class EditVideo extends React.Component {
                   </div>
                 </form>
               </div>
+              ): (
+                <div style={{ marginLeft: "500px", marginTop: "200px" }}>
+                  {" "}
+                  <Loader
+                    type="Circles"
+                    color="#0029ff"
+                    height={100}
+                    width={100}
+                    // timeout={3000} //3 secs
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -167,6 +167,12 @@ class AddFile extends React.Component {
         const formdata = new FormData();
         formdata.append("title", this.state.title);
         formdata.append("file", this.state.file);
+        if(this.state.file.size>10000000)
+        {
+        alert("Please upload file less than 10Mb")
+        return;
+        }
+        this.setState({ loading: false });
       axios
         .post("file/save",formdata)
         .then((response) => {
@@ -225,7 +231,7 @@ class AddFile extends React.Component {
                         {this.state.mobile_message}
                       </div>
                       <div className="form-group tags-field row m-0">
-                      <label className="col-lg-2 p-0">Photo</label>
+                      <label className="col-lg-2 p-0">File (Upto 10Mb)</label>
                         <input
                           type="file"
                           onChange={this.onFileChange}
@@ -266,7 +272,7 @@ class AddFile extends React.Component {
                   color="#0029ff"
                   height={100}
                   width={100}
-                  //  timeout={3000} //3 secs
+                   //timeout={3000} //3 secs
                 />
               </div>
             )}
