@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
+import { BrowserRouter } from "react-router-dom";
 
 const setupAxios = () => {
   axios.defaults.baseURL =
@@ -25,7 +26,9 @@ setupAxios();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
