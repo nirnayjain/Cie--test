@@ -111,6 +111,11 @@ import AddPress from "./components/pressreleae/add_press";
 import ViewPress from "./components/pressreleae/view_press";
 import EditPress from "./components/pressreleae/edit_press";
 
+//log
+import Log from "./components/logs/log";
+import ViewLog from "./components/logs/view_log";
+
+
 // people
 import people from "./components/people/people";
 import AddPeople from "./components/people/add_people";
@@ -162,7 +167,7 @@ function Routing() {
     <Router>
       <Switch>
         <Route exact path="/" component={Login}></Route>
-        
+
         <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
         <PrivateRoute exact path="/contact" component={Contact}></PrivateRoute>
         <PrivateRoute exact path="/medialibrary" component={Medialibrary}></PrivateRoute>
@@ -290,6 +295,10 @@ function Routing() {
         <PrivateRoute exact path="/add_press" component={AddPress}></PrivateRoute>
         <PrivateRoute exact path="/view_press/:id" component={ViewPress}></PrivateRoute>
         <PrivateRoute exact path="/edit_press/:id" component={EditPress}></PrivateRoute>
+
+        <PrivateRoute exact path="/log" component={Log}></PrivateRoute>
+
+        <PrivateRoute exact path="/view_log/:id" component={ViewLog}></PrivateRoute>
         {/* notification */}
         <PrivateRoute exact path="/notification" component={Notification}></PrivateRoute>
         <PrivateRoute
