@@ -7,6 +7,8 @@ import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import {url} from "../../url"
+
 
 class AddFile extends React.Component {
   constructor(props) {
@@ -130,7 +132,20 @@ class AddFile extends React.Component {
     });
   }
   onFileChange(e) {
+    const fileInput =
+    document.getElementById('file');
+    if (
+      e.target.files[0].type.endsWith("pdf") ||
+      e.target.files[0].type.endsWith("docx")
+  ) {
     this.setState({ file: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload file with extension pdf or docx only")
+  fileInput.value=""
+  this.setState({ file: "" });
+  }
   }
 
   handleThemeChange(newTheme) {
@@ -164,6 +179,7 @@ class AddFile extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.validator.allValid()) {
+      const { token } = JSON.parse(localStorage.getItem("auth"))
         const formdata = new FormData();
         formdata.append("title", this.state.title);
         formdata.append("file", this.state.file);
@@ -172,19 +188,30 @@ class AddFile extends React.Component {
         alert("Please upload file less than 50Mb")
         return;
         }
-        this.setState({ loading: false });
+        this.setState({ loading: true });
       axios
-        .post("file/save",formdata)
+        .post("file/save",formdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        )
         .then((response) => {
           // handle success
 
-          window.location.href = "https://admin.cie.telangana.gov.in/files"
+          window.location.href = `${url}/files`
           // this.setState({ loading: true });
 
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
         });
         // this.props.history.push("/files");
     } else {
@@ -236,6 +263,7 @@ class AddFile extends React.Component {
                           type="file"
                           onChange={this.onFileChange}
                           name="File"
+                          id="file"
                           className="form-control col-lg-10"
                         />
 

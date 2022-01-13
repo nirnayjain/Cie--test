@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
 import "../../App.css";
+import{url} from "../../url"
 import Loader from "react-loader-spinner";
 
 class AddSocialMedia extends React.Component {
@@ -131,6 +132,7 @@ class AddSocialMedia extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state);
+    const { token } = JSON.parse(localStorage.getItem("auth"))
     this.setState({ loading: true });
     const data = {
       facebook: this.state.facebook,
@@ -140,7 +142,13 @@ class AddSocialMedia extends React.Component {
       linkedIn: this.state.linkedIn,
     };
     axios
-      .post("social/add_social_media", data)
+      .post("social/add_social_media", data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      )
       .then(function (response) {
         // handle success
         console.log(response.data);
@@ -150,7 +158,12 @@ class AddSocialMedia extends React.Component {
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+        if(window.confirm("Your session expired.Please login to proceed"))
+
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
       });
   }
   render() {

@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
+
 class AddGallery extends React.Component {
   constructor(props) {
     super(props);
@@ -132,7 +134,21 @@ class AddGallery extends React.Component {
   }
 
   onFileChange(e) {
+    const fileInput =
+    document.getElementById('file');
+    if (
+      e.target.files[0].type.endsWith("jpeg") ||
+      e.target.files[0].type.endsWith("png") ||
+      e.target.files[0].type.endsWith("jpg")
+  ) {
     this.setState({ Thumbnail: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload image with exteension jpeg,png or jpg only")
+  fileInput.value=""
+  this.setState({ Thumbnail: "" });
+  }
   }
   //   handleSubmit(event) {
   //     event.preventDefault();
@@ -160,13 +176,24 @@ class AddGallery extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if(this.state.Thumbnail.size>20000000)
+    {
+    alert("Please upload file less than 2Mb")
+    return;
+    }
     if (this.validator.allValid()) {
-      console.log(this.state);
+      const { token } = JSON.parse(localStorage.getItem("auth"))
       const formdata = new FormData();
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .post("photo/save", formdata)
+        .post("photo/save", formdata,
+        {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }
+        )
         .then((response) => {
           // handle success
 
@@ -175,7 +202,12 @@ class AddGallery extends React.Component {
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
         });
     } else {
       this.validator.showMessages();
@@ -222,6 +254,7 @@ class AddGallery extends React.Component {
                       <div className="form-group tags-field row m-0">
                         <label className="col-lg-2 p-0">Thumbnail</label>
                         <input
+                        id="file"
                           type="file"
                           onChange={this.onFileChange}
                           name="file"

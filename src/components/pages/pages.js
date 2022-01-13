@@ -3,6 +3,7 @@ import Sidebar from "../Sidebar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import {url} from "../../url"
 import ReactPaginate from "react-paginate";
 import Loader from "react-loader-spinner";
 import moment from "moment";
@@ -42,10 +43,25 @@ class ViewPages extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(_id);
-        //
-        axios.delete(`page/delete_page/${_id}`).then((res) => {
-          console.log(res);
-          console.log(res.data);
+        const { token } = JSON.parse(localStorage.getItem("auth"))
+        axios.delete(`page/delete_page/${_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        ).then((res) => {
+          window.location.reload()
+        })
+        .catch(function (error) {
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
+          // handle error
+          //console.log(error);
         });
         this.componentDidMount();
       } else {

@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
+
 class AddSubSubMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -141,6 +143,7 @@ class AddSubSubMenu extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if (this.validator.allValid()) {
+      const { token } = JSON.parse(localStorage.getItem("auth"))
       const formdata = new FormData();
       formdata.append("submenu", this.state.submenu);
       // formdata.append("description", this.state.description);
@@ -149,20 +152,30 @@ class AddSubSubMenu extends React.Component {
       formdata.append("subsubmenu", this.state.subsubmenu);
       // formdata.append("file", this.state.image);
       axios
-        .post(`admin/add_sub_sub_menu`, formdata)
+        .post(`admin/add_sub_sub_menu`, formdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+          }
+        )
         .then(function (response) {
           // handle success
-
-          console.log(response.data);
+          window.location.href = `${url}/sub_sub_menu`
 
           this.setState({ formdata });
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
         });
 
-      this.props.history.push("/sub_sub_menu");
+      // this.props.history.push("/sub_sub_menu");
     } else {
       this.validator.showMessages();
       this.forceUpdate();

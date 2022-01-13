@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import PrivateRoute from "./PrivateRoute";
 
 import Contact from "./components/Contact";
 import Medialibrary from "./components/Medialibrary";
@@ -161,219 +162,220 @@ function Routing() {
     <Router>
       <Switch>
         <Route exact path="/" component={Login}></Route>
-        <Route exact path="/dashboard" component={Dashboard}></Route>
-        <Route exact path="/contact" component={Contact}></Route>
-        <Route exact path="/medialibrary" component={Medialibrary}></Route>
-        <Route exact path="/settin" component={Settings}></Route>
-        <Route exact path="/profile" component={Profilesetting}></Route>
-        <Route exact path="/changepassword" component={Changepassword}></Route>
+        
+        <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
+        <PrivateRoute exact path="/contact" component={Contact}></PrivateRoute>
+        <PrivateRoute exact path="/medialibrary" component={Medialibrary}></PrivateRoute>
+        <PrivateRoute exact path="/settin" component={Settings}></PrivateRoute>
+        <PrivateRoute exact path="/profile" component={Profilesetting}></PrivateRoute>
+        <PrivateRoute exact path="/changepassword" component={Changepassword}></PrivateRoute>
         {/* Menu */}
-        <Route exact path="/menu" component={Menu}></Route>
-        <Route exact path="/add_menu" component={AddMenu}></Route>
-        <Route exact path="/edit_menu/:_id" component={EditMenu}></Route>
-        <Route exact path="/view_menu/:_id" component={ViewMenu}></Route>
+        <PrivateRoute exact path="/menu" component={Menu}></PrivateRoute>
+        <PrivateRoute exact path="/add_menu" component={AddMenu}></PrivateRoute>
+        <PrivateRoute exact path="/edit_menu/:_id" component={EditMenu}></PrivateRoute>
+        <PrivateRoute exact path="/view_menu/:_id" component={ViewMenu}></PrivateRoute>
         {/* Sub Menu */}
-        {/* <Route exact path="/menu" component={Menu}></Route> */}
-        <Route exact path="/add_sub_menu" component={AddSubMenu}></Route>
-        <Route exact path="/sub_menu" component={SubMenu}></Route>
-        <Route exact path="/edit_sub_menu/:_id" component={EditSubMenu}></Route>
-        <Route exact path="/view_sub_menu/:_id" component={ViewSubMenu}></Route>
+        {/* <PrivateRoute exact path="/menu" component={Menu}></PrivateRoute> */}
+        <PrivateRoute exact path="/add_sub_menu" component={AddSubMenu}></PrivateRoute>
+        <PrivateRoute exact path="/sub_menu" component={SubMenu}></PrivateRoute>
+        <PrivateRoute exact path="/edit_sub_menu/:_id" component={EditSubMenu}></PrivateRoute>
+        <PrivateRoute exact path="/view_sub_menu/:_id" component={ViewSubMenu}></PrivateRoute>
         {/* sub sub menu */}
-          <Route exact path="/add_sub_sub_menu" component={AddSubSubMenu}></Route>
-        <Route exact path="/sub_sub_menu" component={SubSubMenu}></Route>
-        <Route exact path="/edit_sub_sub_menu/:_id" component={EditSubSubMenu}></Route>
-        <Route exact path="/view_sub_sub_menu/:_id" component={ViewSubSubMenu}></Route>
+          <PrivateRoute exact path="/add_sub_sub_menu" component={AddSubSubMenu}></PrivateRoute>
+        <PrivateRoute exact path="/sub_sub_menu" component={SubSubMenu}></PrivateRoute>
+        <PrivateRoute exact path="/edit_sub_sub_menu/:_id" component={EditSubSubMenu}></PrivateRoute>
+        <PrivateRoute exact path="/view_sub_sub_menu/:_id" component={ViewSubSubMenu}></PrivateRoute>
         {/* AddHome1 */}
 
-        <Route exact path="/home_section_1" component={Home1}></Route>
-        <Route exact path="/add_home1" component={AddHome1}></Route>
-        {/* <Route exact path="/edit_home1/:_id" component={EditHome1}></Route> */}
-        <Route exact path="/files" component={Files}></Route>
-        <Route exact path="/add_file" component={AddFile}></Route>
+        <PrivateRoute exact path="/home_section_1" component={Home1}></PrivateRoute>
+        <PrivateRoute exact path="/add_home1" component={AddHome1}></PrivateRoute>
+        {/* <PrivateRoute exact path="/edit_home1/:_id" component={EditHome1}></PrivateRoute> */}
+        <PrivateRoute exact path="/files" component={Files}></PrivateRoute>
+        <PrivateRoute exact path="/add_file" component={AddFile}></PrivateRoute>
 
-        <Route
+        <PrivateRoute
           exact
           path="/home1/608b912efcc7860015dce5b1"
           component={EditHome1}
-        ></Route>
-        <Route exact path="/view_home1/:_id" component={ViewHome1}></Route>
+        ></PrivateRoute>
+        <PrivateRoute exact path="/view_home1/:_id" component={ViewHome1}></PrivateRoute>
         {/* //Home2 */}
-        <Route exact path="/home_section_2" component={Home2}></Route>
-        <Route exact path="/add_home2" component={AddHome2}></Route>
-        <Route exact path="/edit_home2/:_id" component={EditHome2}></Route>
-        <Route exact path="/view_home2/:_id" component={ViewHome2}></Route>
-        {/* <Route exact path="/view_home2/:_id" component={ViewHome2}></Route> */}
+        <PrivateRoute exact path="/home_section_2" component={Home2}></PrivateRoute>
+        <PrivateRoute exact path="/add_home2" component={AddHome2}></PrivateRoute>
+        <PrivateRoute exact path="/edit_home2/:_id" component={EditHome2}></PrivateRoute>
+        <PrivateRoute exact path="/view_home2/:_id" component={ViewHome2}></PrivateRoute>
+        {/* <PrivateRoute exact path="/view_home2/:_id" component={ViewHome2}></PrivateRoute> */}
         {/* //Home3 */}
-        <Route exact path="/home_section_3" component={Home3}></Route>
-        <Route exact path="/add_home3" component={AddHome3}></Route>
-        <Route exact path="/edit_home3/:_id" component={EditHome3}></Route>
-        <Route exact path="/view_home3/:_id" component={ViewHome3}></Route>
+        <PrivateRoute exact path="/home_section_3" component={Home3}></PrivateRoute>
+        <PrivateRoute exact path="/add_home3" component={AddHome3}></PrivateRoute>
+        <PrivateRoute exact path="/edit_home3/:_id" component={EditHome3}></PrivateRoute>
+        <PrivateRoute exact path="/view_home3/:_id" component={ViewHome3}></PrivateRoute>
 
         {/* Home1-1 */}
-        <Route exact path="/home_section_1_1" component={Home1_1}></Route>
-        <Route exact path="/add_home1_1" component={AddHome1_1}></Route>
-        <Route exact path="/edit_home1_1/:_id" component={EditHome1_1}></Route>
-        <Route exact path="/view_home1_1/:_id" component={ViewHome1_1}></Route>
+        <PrivateRoute exact path="/home_section_1_1" component={Home1_1}></PrivateRoute>
+        <PrivateRoute exact path="/add_home1_1" component={AddHome1_1}></PrivateRoute>
+        <PrivateRoute exact path="/edit_home1_1/:_id" component={EditHome1_1}></PrivateRoute>
+        <PrivateRoute exact path="/view_home1_1/:_id" component={ViewHome1_1}></PrivateRoute>
 
         {/* //Home4 */}
-        <Route exact path="/home_section_4" component={Home4}></Route>
-        <Route exact path="/add_home4" component={AddHome4}></Route>
-        <Route exact path="/edit_home4/:_id" component={EditHome4}></Route>
-        <Route exact path="/view_home4/:_id" component={ViewHome4}></Route>
+        <PrivateRoute exact path="/home_section_4" component={Home4}></PrivateRoute>
+        <PrivateRoute exact path="/add_home4" component={AddHome4}></PrivateRoute>
+        <PrivateRoute exact path="/edit_home4/:_id" component={EditHome4}></PrivateRoute>
+        <PrivateRoute exact path="/view_home4/:_id" component={ViewHome4}></PrivateRoute>
         {/* Testimonials*/}
-        <Route exact path="/testimonials" component={Testimonial}></Route>
-        <Route exact path="/add_testimonial" component={AddTestimonial}></Route>
-        <Route
+        <PrivateRoute exact path="/testimonials" component={Testimonial}></PrivateRoute>
+        <PrivateRoute exact path="/add_testimonial" component={AddTestimonial}></PrivateRoute>
+        <PrivateRoute
           exact
           path="/edit_testimonial/:_id"
           component={EditTestimonial}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/view_testimonial/:_id"
           component={ViewTestimonial}
-        ></Route>
+        ></PrivateRoute>
         {/* //About2 */}
-        <Route exact path="/about_section_2" component={About2}></Route>
-        <Route exact path="/add_about2" component={AddAbout2}></Route>
-        <Route exact path="/edit_about2/:_id" component={EditAbout2}></Route>
-        <Route exact path="/view_about2/:_id" component={ViewAbout2}></Route>
+        <PrivateRoute exact path="/about_section_2" component={About2}></PrivateRoute>
+        <PrivateRoute exact path="/add_about2" component={AddAbout2}></PrivateRoute>
+        <PrivateRoute exact path="/edit_about2/:_id" component={EditAbout2}></PrivateRoute>
+        <PrivateRoute exact path="/view_about2/:_id" component={ViewAbout2}></PrivateRoute>
         {/* //About3 */}
-        <Route exact path="/about_section_3" component={About3}></Route>
-        <Route exact path="/add_about3" component={AddAbout3}></Route>
-        <Route exact path="/edit_about3/:_id" component={EditAbout3}></Route>
-        <Route exact path="/view_about3/:_id" component={ViewAbout3}></Route>
+        <PrivateRoute exact path="/about_section_3" component={About3}></PrivateRoute>
+        <PrivateRoute exact path="/add_about3" component={AddAbout3}></PrivateRoute>
+        <PrivateRoute exact path="/edit_about3/:_id" component={EditAbout3}></PrivateRoute>
+        <PrivateRoute exact path="/view_about3/:_id" component={ViewAbout3}></PrivateRoute>
         {/* Blog */}
-        <Route exact path="/blog" component={Blog}></Route>
+        <PrivateRoute exact path="/blog" component={Blog}></PrivateRoute>
 
-        <Route exact path="/blogcategory" component={BlogCategory}></Route>
-        <Route
+        <PrivateRoute exact path="/blogcategory" component={BlogCategory}></PrivateRoute>
+        <PrivateRoute
           exact
           path="/add_blogcategory"
           component={AddBlogCategory}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/edit_blogcategory/:_id"
           component={EditBlogCategory}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/view_blogcategory/:_id"
           component={ViewBlogCategory}
-        ></Route>
+        ></PrivateRoute>
 
         {/* Article */}
-        <Route exact path="/article" component={Blog1}></Route>
-        <Route exact path="/add_article" component={AddBlog1}></Route>
-        <Route exact path="/edit_article/:_id" component={EditBlog1}></Route>
-        <Route exact path="/view_article/:_id" component={ViewBlog1}></Route>
+        <PrivateRoute exact path="/article" component={Blog1}></PrivateRoute>
+        <PrivateRoute exact path="/add_article" component={AddBlog1}></PrivateRoute>
+        <PrivateRoute exact path="/edit_article/:_id" component={EditBlog1}></PrivateRoute>
+        <PrivateRoute exact path="/view_article/:_id" component={ViewBlog1}></PrivateRoute>
         {/* photo_gallery */}
-        <Route exact path="/gallery" component={Gallery}></Route>
-        <Route exact path="/add_gallery" component={AddGallery}></Route>
-        <Route exact path="/view_gallery/:id" component={ViewGallery}></Route>
-        <Route exact path="/edit_gallery/:id" component={EditGallery}></Route>
+        <PrivateRoute exact path="/gallery" component={Gallery}></PrivateRoute>
+        <PrivateRoute exact path="/add_gallery" component={AddGallery}></PrivateRoute>
+        <PrivateRoute exact path="/view_gallery/:id" component={ViewGallery}></PrivateRoute>
+        <PrivateRoute exact path="/edit_gallery/:id" component={EditGallery}></PrivateRoute>
         {/* carousal */}
-        <Route exact path="/carousal" component={Carousal}></Route>
-        <Route exact path="/add_carousal" component={AddCarousal}></Route>
-        <Route exact path="/view_carousal/:id" component={ViewCarousal}></Route>
-        <Route exact path="/edit_carousal/:id" component={EditCarousal}></Route>
+        <PrivateRoute exact path="/carousal" component={Carousal}></PrivateRoute>
+        <PrivateRoute exact path="/add_carousal" component={AddCarousal}></PrivateRoute>
+        <PrivateRoute exact path="/view_carousal/:id" component={ViewCarousal}></PrivateRoute>
+        <PrivateRoute exact path="/edit_carousal/:id" component={EditCarousal}></PrivateRoute>
         {/* Videos */}
-        <Route exact path="/videos" component={Videos}></Route>
-        <Route exact path="/add_videos" component={AddVideos}></Route>
-        <Route exact path="/view_video/:id" component={ViewVideo}></Route>
-        <Route exact path="/edit_video/:id" component={EditVideo}></Route>
+        <PrivateRoute exact path="/videos" component={Videos}></PrivateRoute>
+        <PrivateRoute exact path="/add_videos" component={AddVideos}></PrivateRoute>
+        <PrivateRoute exact path="/view_video/:id" component={ViewVideo}></PrivateRoute>
+        <PrivateRoute exact path="/edit_video/:id" component={EditVideo}></PrivateRoute>
         {/* pressreleae */}
-        <Route exact path="/press" component={Press}></Route>
-        <Route exact path="/add_press" component={AddPress}></Route>
-        <Route exact path="/view_press/:id" component={ViewPress}></Route>
-        <Route exact path="/edit_press/:id" component={EditPress}></Route>
+        <PrivateRoute exact path="/press" component={Press}></PrivateRoute>
+        <PrivateRoute exact path="/add_press" component={AddPress}></PrivateRoute>
+        <PrivateRoute exact path="/view_press/:id" component={ViewPress}></PrivateRoute>
+        <PrivateRoute exact path="/edit_press/:id" component={EditPress}></PrivateRoute>
         {/* notification */}
-        <Route exact path="/notification" component={Notification}></Route>
-        <Route
+        <PrivateRoute exact path="/notification" component={Notification}></PrivateRoute>
+        <PrivateRoute
           exact
           path="/add_notification"
           component={AddNotification}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/view_notification/:id"
           component={ViewNotification}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/edit_notification/:id"
           component={EditNotification}
-        ></Route>
+        ></PrivateRoute>
         {/* Events */}
-        <Route exact path="/eventcategory" component={EventCategory}></Route>
-        <Route exact path="/add_new_event" component={AddEvent}></Route>
-        <Route exact path="/view_events/:_id" component={ViewEvents}></Route>
-        <Route exact path="/edit_event/:_id" component={EditEvent}></Route>
-        <Route exact path="/event_types" component={EventTypes}></Route>
-        <Route exact path="/event_category" component={EventCategory}></Route>
-        <Route
+        <PrivateRoute exact path="/eventcategory" component={EventCategory}></PrivateRoute>
+        <PrivateRoute exact path="/add_new_event" component={AddEvent}></PrivateRoute>
+        <PrivateRoute exact path="/view_events/:_id" component={ViewEvents}></PrivateRoute>
+        <PrivateRoute exact path="/edit_event/:_id" component={EditEvent}></PrivateRoute>
+        <PrivateRoute exact path="/event_types" component={EventTypes}></PrivateRoute>
+        <PrivateRoute exact path="/event_category" component={EventCategory}></PrivateRoute>
+        <PrivateRoute
           exact
           path="/add_new_event_type"
           component={AddEventType}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/edit_event_type/:_id"
           component={EditEventType}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/view_event_type/:_id"
           component={ViewEventType}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/edit_event_cat/:_id"
           component={EditEventCat}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/view_event_cat/:_id"
           component={ViewEventCat}
-        ></Route>
-        <Route exact path="/add_new_event_cat" component={AddEventCat}></Route>
-        <Route exact path="/past_events" component={EventPast}></Route>
-        <Route exact path="/upcomming_events" component={EventUpcoming}></Route>
-        <Route exact path="/events" component={Events}></Route>
-        <Route exact path="/events" component={Events}></Route>
+        ></PrivateRoute>
+        <PrivateRoute exact path="/add_new_event_cat" component={AddEventCat}></PrivateRoute>
+        <PrivateRoute exact path="/past_events" component={EventPast}></PrivateRoute>
+        <PrivateRoute exact path="/upcomming_events" component={EventUpcoming}></PrivateRoute>
+        <PrivateRoute exact path="/events" component={Events}></PrivateRoute>
+        <PrivateRoute exact path="/events" component={Events}></PrivateRoute>
         {/* Site Preferences */}
-        <Route exact path="/add_logos" component={AddLogos}></Route>
-        <Route exact path="/add_address" component={AddAddress}></Route>
-        <Route exact path="/add_socialmedia" component={AddSocialMedia}></Route>
-        <Route exact path="/add_compliance" component={AddCompliances}></Route>
-        <Route
+        <PrivateRoute exact path="/add_logos" component={AddLogos}></PrivateRoute>
+        <PrivateRoute exact path="/add_address" component={AddAddress}></PrivateRoute>
+        <PrivateRoute exact path="/add_socialmedia" component={AddSocialMedia}></PrivateRoute>
+        <PrivateRoute exact path="/add_compliance" component={AddCompliances}></PrivateRoute>
+        <PrivateRoute
           exact
           path="/add_new_compliance"
           component={AddNewCompliance}
-        ></Route>
-        <Route
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/edit_compliance/:_id"
           component={EditCompliance}
-        ></Route>
+        ></PrivateRoute>
         {/* Pages */}
-       
 
-        <Route exact path="/all_pages" component={ViewPages}></Route>
-        <Route exact path="/add_page" component={AddNewPage}></Route>
-        <Route exact path="/edit_page/:_id" component={EditPage}></Route>
+
+        <PrivateRoute exact path="/all_pages" component={ViewPages}></PrivateRoute>
+        <PrivateRoute exact path="/add_page" component={AddNewPage}></PrivateRoute>
+        <PrivateRoute exact path="/edit_page/:_id" component={EditPage}></PrivateRoute>
         {/* people */}
-        <Route exact path="/people" component={People}></Route>
-        <Route exact path="/add_people" component={AddPeople}></Route>
-        <Route exact path="/view_people/:id" component={ViewPeople}></Route>
-        <Route exact path="/edit_people/:id" component={EditPeople}></Route>
+        <PrivateRoute exact path="/people" component={People}></PrivateRoute>
+        <PrivateRoute exact path="/add_people" component={AddPeople}></PrivateRoute>
+        <PrivateRoute exact path="/view_people/:id" component={ViewPeople}></PrivateRoute>
+        <PrivateRoute exact path="/edit_people/:id" component={EditPeople}></PrivateRoute>
         {/* Websited */}
-        <Route exact path="/websites" component={Gov}></Route>
-        <Route exact path="/add_websites" component={AddGov}></Route>
-        <Route exact path="/view_websites/:id" component={ViewGov}></Route>
-        <Route exact path="/edit_websites/:id" component={EditGov}></Route>
-        <Route exact path="/settings" component={Changepassword}></Route>
+        <PrivateRoute exact path="/websites" component={Gov}></PrivateRoute>
+        <PrivateRoute exact path="/add_websites" component={AddGov}></PrivateRoute>
+        <PrivateRoute exact path="/view_websites/:id" component={ViewGov}></PrivateRoute>
+        <PrivateRoute exact path="/edit_websites/:id" component={EditGov}></PrivateRoute>
+        <PrivateRoute exact path="/settings" component={Changepassword}></PrivateRoute>
       </Switch>
     </Router>
   );

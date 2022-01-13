@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
+
 class EditGallery extends React.Component {
   constructor(props) {
     super(props);
@@ -133,7 +135,28 @@ class EditGallery extends React.Component {
   }
 
   onFileChange(e) {
+    const fileInput =
+    document.getElementById('file');
+    alert(fileInput.val())
+    var ext = fileInput.val().match(/\.(.+)$/)[1];
+// Reject if ext still contain a dot (which is implemented as part of the double extension prevention)
+if (ext.indexOf('.') !== -1) {
+  fileInput.val("");
+return alert('Filename with two extensions is not supported due security restrictions');
+}
+    if (
+      e.target.files[0].type.endsWith("jpeg") ||
+      e.target.files[0].type.endsWith("png") ||
+      e.target.files[0].type.endsWith("jpg")
+  ) {
     this.setState({ Thumbnail: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload image with exteension jpeg,png or jpg only")
+  fileInput.value=""
+  this.setState({ Thumbnail: "" });
+  }
   }
   //   handleSubmit(event) {
   //     event.preventDefault();
@@ -161,22 +184,38 @@ class EditGallery extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+      if(this.state.Thumbnail.size>20000000)
+    {
+    alert("Please upload file less than 2Mb")
+    return;
+    }
     const id = this.props.match.params.id;
     if (this.validator.allValid()) {
-      console.log(this.state);
+      const { token } = JSON.parse(localStorage.getItem("auth"))
       const formdata = new FormData();
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .put(`photo/save/${id}`, formdata)
+        .put(`photo/save/${id}`, formdata,
+        {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }
+        )
         .then((response) => {
           // handle success
           this.props.history.goBack();
-          console.log(response.data);
+         
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
         });
     } else {
       this.validator.showMessages();
@@ -223,6 +262,7 @@ class EditGallery extends React.Component {
                       <div className="form-group tags-field row mt-1">
                         <label className="col-lg-2 p-0">Thumbnail</label>
                         <input
+                        id="file"
                           type="file"
                           onChange={this.onFileChange}
                           name="file"

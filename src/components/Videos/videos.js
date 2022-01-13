@@ -6,6 +6,7 @@ import swal from "sweetalert";
 import ReactPaginate from "react-paginate";
 import Loader from "react-loader-spinner";
 import Blog from "../blog/edit_blog";
+import {url} from "../../url"
 
 const PER_PAGE = 10;
 class Videos extends React.Component {
@@ -42,11 +43,27 @@ class Videos extends React.Component {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        console.log(_id);
-        axios.delete(`video/delete/${_id}`).then((res) => {
-          console.log(res);
-          console.log(res.data);
+        const { token } = JSON.parse(localStorage.getItem("auth"))
+        axios.delete(`video/delete/${_id}`,
+        {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }
+        ).then((res) => {
+          window.location.reload()
+        })
+        .catch(function (error) {
+          // handle error
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
+
         });
+
         this.componentDidMount();
       } else {
       }
@@ -76,7 +93,7 @@ class Videos extends React.Component {
                 <source src={blog.Video} type="video/mp4" />
               </video>
             </td>
-            <td> {new Date(Date.now(blog.createdAt)).toDateString()}</td>
+            <td> {new Date(blog.createdAt).toDateString()}</td>
             <td>
               <Link to={`/view_video/${blog._id}`}>
                 <span className="btn">View</span>

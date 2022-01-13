@@ -6,6 +6,8 @@ import { EditorState, ContentState, convertToRaw } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import draftToHtml from "draftjs-to-html";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
+
 class EditNotification extends React.Component {
   constructor(props) {
     super(props);
@@ -144,7 +146,8 @@ class EditNotification extends React.Component {
     const id = this.props.match.params.id;
     e.preventDefault();
     if (this.validator.allValid()) {
-      console.log(this.state);
+      const { token } = JSON.parse(localStorage.getItem("auth"))
+
 
       axios
         .put(`notification/save/${id}`, {
@@ -152,7 +155,13 @@ class EditNotification extends React.Component {
           description: draftToHtml(
             convertToRaw(this.state.description.getCurrentContent())
           ),
-        })
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        )
         .then((response) => {
           // handle success
           this.props.history.push("/notification");
@@ -160,7 +169,12 @@ class EditNotification extends React.Component {
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
         });
     } else {
       this.validator.showMessages();

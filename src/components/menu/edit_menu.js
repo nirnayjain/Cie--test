@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import Loader from "react-loader-spinner";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
 class EditMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -135,15 +136,32 @@ class EditMenu extends React.Component {
     const { _id } = this.props.match.params;
     e.preventDefault();
     if (this.validator.allValid()) {
+      const { token } = JSON.parse(localStorage.getItem("auth"))
       const menu = {
         menu: this.state.menu,
         description: this.state.description,
         date: this.state.date,
         url: this.state.url,
       };
-      axios.put(`admin/update_menu_patch/${_id}`, menu).then((res) => {
+      axios.put(`admin/update_menu_patch/${_id}`, menu,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+        }
+      ).then((res) => {
         console.log(res.data);
         this.props.history.push("/menu");
+      })
+      .catch(function (error) {
+        // handle error
+        if(window.confirm("Your session expired.Please login to proceed"))
+
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
+
       });
       this.forceUpdate();
     } else {

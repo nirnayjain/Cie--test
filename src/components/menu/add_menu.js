@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
 class AddMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -119,12 +120,27 @@ class AddMenu extends React.Component {
         url: this.state.url,
         date: Date.now(),
       };
-      console.log(menu);
+      const { token } = JSON.parse(localStorage.getItem("auth"))
       // s://trw-backend-api.herokuapp.com
-      axios.post(`admin/add_menu`, menu).then((res) => {
-        console.log(res);
-        console.log(res.data);
+      axios.post(`admin/add_menu`, menu,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+        }
+      ).then((res) => {
+
         this.props.history.push("/menu");
+      })
+      .catch(function (error) {
+        // handle error
+        if(window.confirm("Your session expired.Please login to proceed"))
+
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
+
       });
     } else {
       this.validator.showMessages();

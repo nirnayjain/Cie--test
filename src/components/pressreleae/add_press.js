@@ -6,6 +6,8 @@ import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import {url} from "../../url"
+
 
 class AddPress extends React.Component {
   constructor(props) {
@@ -158,22 +160,35 @@ class AddPress extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.validator.allValid()) {
+      const { token } = JSON.parse(localStorage.getItem("auth"))
+
       axios
         .post("press/save", {
           title: this.state.title,
           description: draftToHtml(
             convertToRaw(this.state.description.getCurrentContent())
           ),
-        })
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        )
         .then((response) => {
           // handle success
 
-          console.log(response.data);
-          this.props.history.push("/press");
+
+          window.location.href = `${url}/press`
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+      // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+      window.location.href = `${url}/`
+        else
+        window.location.reload()
         });
     } else {
       this.validator.showMessages();

@@ -4,6 +4,8 @@ import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
+import {url} from "../../url"
+
 import htmlToDraft from "html-to-draftjs";
 import draftToHtml from "draftjs-to-html";
 class EditCompliance extends React.Component {
@@ -175,6 +177,8 @@ class EditCompliance extends React.Component {
   handleSubmit(e) {
     const { _id } = this.props.match.params;
     e.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
+
     const data = {
       title: this.state.title,
       description: draftToHtml(
@@ -183,9 +187,24 @@ class EditCompliance extends React.Component {
     };
 
     //
-    axios.put(`compliance/edit_compliance/${_id}`, data).then((res) => {
-      console.log(res.data);
-      this.props.history.push("/add_compliance");
+    axios.put(`compliance/edit_compliance/${_id}`, data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    ).then((res) => {
+     
+      window.location.href = `${url}/add_compliance`
+    })
+    .catch(function (error) {
+      // handle error
+      if(window.confirm("Your session expired.Please login to proceed"))
+
+      // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+      window.location.href = `${url}/`
+        else
+        window.location.reload()
     });
   }
 

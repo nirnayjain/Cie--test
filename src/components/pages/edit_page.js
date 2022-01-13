@@ -8,6 +8,7 @@ import { EditorState, ContentState, convertToRaw } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import ViewPdf from "./viewPdf"
 import draftToHtml from "draftjs-to-html";
+import {url} from "../../url"
 import { Document, Page } from 'react-pdf';
 class EditPage extends React.Component {
   constructor(props) {
@@ -221,7 +222,20 @@ class EditPage extends React.Component {
     this.setState({
       changingPdf:true
     })
+    const fileInput =
+    document.getElementById('file');
+    if (
+      e.target.files[0].type.endsWith("pdf") ||
+      e.target.files[0].type.endsWith("docx")
+  ) {
     this.setState({ pdf: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload file with extension pdf or docx only")
+  fileInput.value=""
+  this.setState({ pdf: "" });
+  }
   }
   handleThemeChange(newTheme) {
     if (newTheme === "core") newTheme = null;
@@ -231,6 +245,8 @@ class EditPage extends React.Component {
   handleSubmit(e) {
     const { _id } = this.props.match.params;
     e.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
+
     if(this.state.pdf)
     {
     if(this.state.pdf.size>50000000)
@@ -264,10 +280,26 @@ class EditPage extends React.Component {
      formdata.append("subsubmenu", this.state.subsubmenu);
 
     //
-    axios.put(`page/edit_page/${_id}`, formdata).then((res) => {
+    axios.put(`page/edit_page/${_id}`, formdata,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    ).then((res) => {
       console.log(res.data);
-      window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+      window.location.href = `${url}/all_pages`
       // window.location.href = "http://localhost:3000/all_pages"
+    })
+    .catch(function (error) {
+      if(window.confirm("Your session expired.Please login to proceed"))
+
+      // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+      window.location.href = `${url}/`
+        else
+        window.location.reload()
+      // handle error
+      //console.log(error);
     });
   }
 
@@ -455,6 +487,7 @@ class EditPage extends React.Component {
                               <input
                                 className="form-control col-lg-10 "
                                 name="file"
+                                id="file"
                                 // value={this.state.pdf}
                                 onChange={this.onFileChange}
                                 accept="application/pdf"

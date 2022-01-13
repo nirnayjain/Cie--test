@@ -7,6 +7,7 @@ import Loader from "react-loader-spinner";
 import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertToRaw } from "draft-js";
+import {url} from "../../url"
 import draftToHtml from "draftjs-to-html";
 class AddNewPage extends React.Component {
   constructor(props) {
@@ -134,8 +135,20 @@ class AddNewPage extends React.Component {
     this.setState({ description: html });
   }
   onFileChange(e) {
-
+    const fileInput =
+    document.getElementById('file');
+    if (
+      e.target.files[0].type.endsWith("pdf") ||
+      e.target.files[0].type.endsWith("docx")
+  ) {
     this.setState({ pdf: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload file with extension pdf or docx only")
+  fileInput.value=""
+  this.setState({ pdf: "" });
+  }
   }
   handleCheckBox=(type)=>{
     if(type==="url")
@@ -195,6 +208,8 @@ class AddNewPage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
+
     if(this.state.pdf.size>500000000)
     {
     alert("Please upload file less than 50Mb")
@@ -235,6 +250,7 @@ class AddNewPage extends React.Component {
       .post("page/add-page", formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`
         }
         })
       .then(function (response) {
@@ -248,13 +264,18 @@ class AddNewPage extends React.Component {
         return;
         }
 
-        window.location.href = "https://admin.cie.telangana.gov.in/all_pages"
+        window.location.href = `${url}/all_pages`
         // window.location.href = "http://localhost:3000/all_pages"
 
 
       })
       .catch(function (error) {
+        if(window.confirm("Your session expired.Please login to proceed"))
 
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
         // handle error
         //console.log(error);
       });
@@ -453,6 +474,7 @@ class AddNewPage extends React.Component {
                               <input
                                 className="form-control col-lg-10 "
                                 name="file"
+                                id="file"
                                 onChange={this.onFileChange}
                                 accept="application/pdf"
                                 type="file"

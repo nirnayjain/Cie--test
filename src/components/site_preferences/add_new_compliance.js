@@ -7,6 +7,8 @@ import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import {url} from "../../url"
+
 class AddNewCompliance extends React.Component {
   constructor(props) {
     super(props);
@@ -151,6 +153,8 @@ class AddNewCompliance extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
+
     const data = {
       title: this.state.title,
       description: draftToHtml(
@@ -158,16 +162,27 @@ class AddNewCompliance extends React.Component {
       ),
     };
     axios
-      .post("compliance/add_compliance", data)
+      .post("compliance/add_compliance", data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      )
       .then(function (response) {
         // handle success
-        console.log(response.data);
+        window.location.href = `${url}/add_compliance`
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+        if(window.confirm("Your session expired.Please login to proceed"))
+
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
       });
-    this.props.history.push("/add_compliance");
+    // this.props.history.push("/add_compliance");
   }
 
   render() {

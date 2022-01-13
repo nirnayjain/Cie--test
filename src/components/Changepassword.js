@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
+import {url} from "../url"
+
 import { Link, Route, useParams, Redirect, useHistory } from "react-router-dom";
 import { isAutheticated } from "../auth";
 
@@ -15,6 +17,7 @@ function Changepassword() {
 
   const updatepassword = (e) => {
     e.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
 
     axios
       .post("admin/changepassword", {
@@ -22,13 +25,32 @@ function Changepassword() {
         password,
         email,
         passwordnew: newPassword,
-      })
+      },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+      )
       .then(function (response) {
-        alert(response.data.Error);
+        if(response.data.status=='failed')
+        alert("Incorrect old password")
+        if(response.data.status=='OK')
+        {
+        if(window.confirm("Password updated successfully"))
+        window.location.href = `${url}/dashboard`
+            else
+            window.location.reload()
         setPassword(response.data);
+        }
       })
       .catch(function (error) {
-        console.log(error);
+        if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
       });
   };
 
@@ -49,6 +71,7 @@ function Changepassword() {
                     <div className="form-group tags-field row m-0">
                       <label className="col-lg-2 p-0">Update Email</label>
                       <input
+                       autoComplete="off"
                         className="form-control col-lg-6"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -60,6 +83,8 @@ function Changepassword() {
                     <div className="form-group tags-field row m-0">
                       <label className="col-lg-2 p-0">Current Password</label>
                       <input
+                      required
+                      autoComplete="off"
                         className="form-control col-lg-6"
                         value={password}
                         type="password"
@@ -72,6 +97,8 @@ function Changepassword() {
                     <div className="form-group tags-field  row m-0">
                       <label className="col-lg-2 p-0">New Password</label>
                       <input
+                      required
+                      autoComplete="off"
                         className="form-control col-lg-6"
                         value={newPassword}
                         type="password"

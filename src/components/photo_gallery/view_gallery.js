@@ -79,16 +79,14 @@ class ViewPhoto extends React.Component {
                           </td>
                         </tr>
 
-                        <tr>
+                        {/* <tr>
                           <td valign="top" width="150px;">
                             <b>AddedOn</b>
                           </td>
                           <td>
-                            {new Date(
-                              Date.now(this.state.AddedOn)
-                            ).toDateString()}
+                          {new Date(this.state.AddedOn).toDateString()}
                           </td>
-                        </tr>
+                        </tr> */}
                       </tbody>
                     </table>
                   </div>

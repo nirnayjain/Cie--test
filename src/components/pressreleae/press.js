@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import ReactPaginate from "react-paginate";
 import Loader from "react-loader-spinner";
+import {url} from "../../url"
+
 
 const PER_PAGE = 10;
 class Press extends React.Component {
@@ -41,10 +43,25 @@ class Press extends React.Component {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        console.log(_id);
-        axios.delete(`press/delete/${_id}`).then((res) => {
-          console.log(res);
-          console.log(res.data);
+      const { token } = JSON.parse(localStorage.getItem("auth"))
+
+        axios.delete(`press/delete/${_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        ).then((res) => {
+          window.location.reload()
+        })
+        .catch(function (error) {
+          // handle error
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
         });
         this.componentDidMount();
       } else {
@@ -70,7 +87,7 @@ class Press extends React.Component {
             <td>
               <div className="limited-text">{blog.title}</div>
             </td>
-            <td> {new Date(Date.now(blog.createdAt)).toDateString()}</td>
+            <td> {new Date(blog.createdAt).toDateString()}</td>
             <td>
               <Link to={`/view_press/${blog._id}`}>
                 <span className="btn">View</span>

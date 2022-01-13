@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
 import Loader from "react-loader-spinner";
+import {url} from "../../url"
 class AddVideos extends React.Component {
   constructor(props) {
     super(props);
@@ -107,14 +108,9 @@ class AddVideos extends React.Component {
     });
   }
 
+
   // componentDidMount() {
-  //   // axios
-  //   //   .get(`blog/blogcategorys`)
-  //   //   .then((res) => {
-  //   //     const blogcategories = res.data;
-  //   //     console.log(blogcategories);
-  //   //     this.setState({ blogcategories });
-  //   //   });
+  //   const { token } = JSON.parse(localStorage.getItem("auth"))
   // }
 
   handleChange(html) {
@@ -132,10 +128,24 @@ class AddVideos extends React.Component {
   }
 
   onFileChange(e) {
+    const fileInput =
+    document.getElementById('file');
+    if (
+      e.target.files[0].type.endsWith(".mp4")
+
+  ) {
     this.setState({ Thumbnail: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload video with extension .mp4")
+  fileInput.value=""
+  this.setState({ Thumbnail: "" });
+  }
   }
   handleSubmit(e) {
     e.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
 
     if(this.state.Thumbnail.size>250000000)
     {
@@ -143,7 +153,7 @@ class AddVideos extends React.Component {
     return;
     }
     this.setState({ loading: true });
-   
+
     if (this.validator.allValid()) {
       console.log(this.state);
       const formdata = new FormData();
@@ -151,19 +161,35 @@ class AddVideos extends React.Component {
       formdata.append("Video", this.state.Thumbnail);
       axios
         .post("video/save", formdata, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }, {
           onUploadProgress: () => {
             this.setState({
               loading: true,
             });
           },
-        })
+        },
+
+        )
         .then((response) => {
           // handle success
-          window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/videos`
+          // this.props.history.push("/videos")
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
+
+
         });
     } else {
       this.validator.showMessages();
@@ -212,6 +238,7 @@ class AddVideos extends React.Component {
                           <label className="col-lg-2 p-0">Video (Upto 25Mb)</label>
                           <input
                             type="file"
+                            id="file"
                             accept="video/*"
                             onChange={this.onFileChange}
                             name="file"

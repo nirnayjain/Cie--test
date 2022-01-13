@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
 import "../../App.css";
+import {url} from "../../url"
 import Loader from "react-loader-spinner";
 
 class AddAddress extends React.Component {
@@ -131,6 +132,7 @@ class AddAddress extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state);
+    const { token } = JSON.parse(localStorage.getItem("auth"))
     this.setState({ loading: true });
     const data = {
       name: this.state.name,
@@ -141,7 +143,13 @@ class AddAddress extends React.Component {
       pincode: this.state.pincode,
     };
     axios
-      .post("address/add_address", data)
+      .post("address/add_address", data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      )
       .then(function (response) {
         // handle success
         console.log(response.data);
@@ -150,8 +158,12 @@ class AddAddress extends React.Component {
         }
       })
       .catch(function (error) {
-        // handle error
-        console.log(error);
+        if(window.confirm("Your session expired.Please login to proceed"))
+
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
       });
   }
   render() {

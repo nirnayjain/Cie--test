@@ -6,6 +6,8 @@ import ReactQuill from "react-quill";
 import Loader from "react-loader-spinner";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
+
 class EditVideo extends React.Component {
   constructor(props) {
     super(props);
@@ -135,7 +137,20 @@ class EditVideo extends React.Component {
   }
 
   onFileChange(e) {
+    const fileInput =
+    document.getElementById('file');
+    if (
+      e.target.files[0].type.endsWith(".mp4")
+
+  ) {
     this.setState({ Thumbnail: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload video with extension .mp4")
+  fileInput.value=""
+  this.setState({ Thumbnail: "" });
+  }
   }
   //   handleSubmit(event) {
   //     event.preventDefault();
@@ -163,6 +178,7 @@ class EditVideo extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
     if(this.state.Thumbnail.size>250000000)
     {
     alert("Please upload file less than 25Mb")
@@ -176,16 +192,26 @@ class EditVideo extends React.Component {
       formdata.append("title", this.state.title);
       formdata.append("Video", this.state.Thumbnail);
       axios
-        .put(`video/save/${id}`, formdata)
+        .put(`video/save/${id}`, formdata, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           // handle success
-          window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/videos`
           // this.props.history.push("/videos");
-          console.log(response.data);
+
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
+
         });
     } else {
       this.validator.showMessages();

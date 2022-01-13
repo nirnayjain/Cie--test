@@ -4,11 +4,11 @@ import { Link, Route, useParams, Redirect, useHistory } from "react-router-dom";
 import "../App.css";
 
 function Sidebar() {
-  const {
-    user: { name },
-  } = isAutheticated();
+  // const {
+  //   user: { name },
+  // } = isAutheticated();
 
-  console.log(name);
+  // console.log(name);
 
   const history = useHistory();
   return (
@@ -202,7 +202,7 @@ function Sidebar() {
                         }}
                       >
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        Logout {name}
+                        Logout
                       </Link>
                     </li>
                   </ul>

@@ -6,6 +6,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
 import { Redirect } from "react-router";
+import {url} from "../../url"
+
 
 class EditCarousal extends React.Component {
   constructor(props) {
@@ -135,7 +137,22 @@ class EditCarousal extends React.Component {
   }
 
   onFileChange(e) {
+    const fileInput =
+    document.getElementById('file');
+    if (
+      e.target.files[0].type.endsWith("jpeg") ||
+      e.target.files[0].type.endsWith("png") ||
+      e.target.files[0].type.endsWith("jpg")
+  ) {
     this.setState({ Thumbnail: e.target.files[0] });
+  }
+  else
+  {
+  alert("Please upload image with exteension jpeg,png or jpg only")
+  fileInput.value=""
+  this.setState({ Thumbnail: "" });
+  }
+
   }
   //   handleSubmit(event) {
   //     event.preventDefault();
@@ -163,14 +180,25 @@ class EditCarousal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if(this.state.Thumbnail.size>20000000)
+    {
+    alert("Please upload file less than 2Mb")
+    return;
+    }
     const id = this.props.match.params.id;
     if (this.validator.allValid()) {
-      console.log(this.state);
+      const { token } = JSON.parse(localStorage.getItem("auth"))
       const formdata = new FormData();
       formdata.append("title", this.state.title);
       formdata.append("Thumbnail", this.state.Thumbnail);
       axios
-        .put(`carousal/save/${id}`, formdata)
+        .put(`carousal/save/${id}`, formdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+          }
+        )
         .then((response) => {
           // handle success
           this.props.history.push("/carousal");
@@ -178,7 +206,12 @@ class EditCarousal extends React.Component {
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
         });
     } else {
       this.validator.showMessages();
@@ -225,6 +258,7 @@ class EditCarousal extends React.Component {
                       <div className="form-group tags-field row mt-1">
                         <label className="col-lg-2 p-0">Thumbnail</label>
                         <input
+                        id="file"
                           type="file"
                           onChange={this.onFileChange}
                           name="file"

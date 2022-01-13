@@ -4,7 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import SimpleReactValidator from "simple-react-validator";
 import "../../App.css";
 import Loader from "react-loader-spinner";
-
+import {url} from "../../url"
 class AddLogos extends React.Component {
   constructor(props) {
     super(props);
@@ -107,10 +107,24 @@ class AddLogos extends React.Component {
       },
     });
   }
-  onFileChange(event) {
-    this.setState({
-      [event.target.name]: event.target.files[0],
-    });
+  onFileChange(e) {
+    const fileInput =
+    document.getElementById('file');
+
+    if (
+      e.target.files[0].type.endsWith("jpeg") ||
+      e.target.files[0].type.endsWith("png") ||
+      e.target.files[0].type.endsWith("jpg")
+  ) {
+    this.setState({ [e.target.name]: e.target.files[0],});
+  }
+  else
+  {
+  alert("Please upload image with extension jpeg,png or jpg only")
+  fileInput.value=""
+  this.setState({  [e.target.name]: "" });
+  }
+
   }
   // handleChange(event) {
   //     this.setState({
@@ -125,12 +139,24 @@ class AddLogos extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state);
+    if(this.state.frontendImage.size>20000000 || this.state.backendImage.size)
+    {
+    alert("Please upload file less than 2Mb")
+    return;
+    }
     const formdata = new FormData();
+    const { token } = JSON.parse(localStorage.getItem("auth"))
     formdata.append("frontendImage", this.state.frontendImage);
     formdata.append("backendImage", this.state.backendImage);
     this.setState({ loading: true });
     axios
-      .post("logo/add_logo", formdata)
+      .post("logo/add_logo", formdata,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      )
       .then(function (response) {
         // handle success
         console.log(response.data);
@@ -142,7 +168,12 @@ class AddLogos extends React.Component {
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+        if(window.confirm("Your session expired.Please login to proceed"))
+
+        // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+        window.location.href = `${url}/`
+          else
+          window.location.reload()
       });
   }
   render() {
@@ -177,6 +208,8 @@ class AddLogos extends React.Component {
                             <input
                               className="form-control col-lg-5 InputFiled"
                               name="frontendImage"
+                              id="file"
+
                               onChange={this.onFileChange}
                               type="file"
                               onfocus="this.placeholder = 'Menu Name'"
@@ -206,6 +239,7 @@ class AddLogos extends React.Component {
                             <input
                               className="form-control col-lg-5 InputFiled"
                               name="backendImage"
+                              id="file"
                               onChange={this.onFileChange}
                               type="file"
                               onfocus="this.placeholder = 'Menu Name'"

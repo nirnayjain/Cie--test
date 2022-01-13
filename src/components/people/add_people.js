@@ -6,6 +6,8 @@ import ReactQuill from "react-quill";
 import Loader from "react-loader-spinner";
 import "react-quill/dist/quill.snow.css";
 import SimpleReactValidator from "simple-react-validator";
+import {url} from "../../url"
+
 class AddPeople extends React.Component {
   constructor(props) {
     super(props);
@@ -132,31 +134,64 @@ class AddPeople extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ Photo: e.target.files[0] });
+    const fileInput =
+    document.getElementById('file');
+
+    if (
+      e.target.files[0].type.endsWith("jpeg") ||
+      e.target.files[0].type.endsWith("png") ||
+      e.target.files[0].type.endsWith("jpg")
+  ) {
+    this.setState({ Photo: e.target.files[0],});
+  }
+  else
+  {
+  alert("Please upload image with extension jpeg,png or jpg only")
+  fileInput.value=""
+  this.setState({ Photo: "" });
+  }
   }
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ loading: true });
     if (this.validator.allValid()) {
-      console.log(this.state);
+      if(this.state.Photo.size>20000000 )
+      {
+      alert("Please upload file less than 2Mb")
+      return;
+      }
+      const { token } = JSON.parse(localStorage.getItem("auth"))
+
       const formdata = new FormData();
       formdata.append("name", this.state.name);
       formdata.append("designation", this.state.designation);
       formdata.append("Photo", this.state.Photo);
       axios
-        .post("people/save", formdata)
+        .post("people/save", formdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        )
         .then((response) => {
           // handle success
 
          if(response)
          this.setState({ loading: false });
+        window.location.href = `${url}/people`
 
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+      // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+      window.location.href = `${url}/`
+        else
+        window.location.reload()
         });
-        this.props.history.push("/people");
+
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -222,6 +257,7 @@ class AddPeople extends React.Component {
                         <label className="col-lg-2 p-0">Photo</label>
                         <input
                           type="file"
+                          id="file"
                           onChange={this.onFileChange}
                           name="Photo"
                           className="form-control col-lg-10"

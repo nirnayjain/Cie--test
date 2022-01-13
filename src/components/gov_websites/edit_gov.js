@@ -4,6 +4,8 @@ import Sidebar from "../../components/Sidebar";
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import {url} from "../../url"
+
 import SimpleReactValidator from "simple-react-validator";
 class EditGov extends React.Component {
   constructor(props) {
@@ -133,7 +135,22 @@ class EditGov extends React.Component {
   }
 
   onFileChange(e) {
-    this.setState({ logo: e.target.files[0] });
+    const fileInput =
+    document.getElementById('file');
+
+    if (
+      e.target.files[0].type.endsWith("jpeg") ||
+      e.target.files[0].type.endsWith("png") ||
+      e.target.files[0].type.endsWith("jpg")
+  ) {
+    this.setState({ logo: e.target.files[0],});
+  }
+  else
+  {
+  alert("Please upload image with extension jpeg,png or jpg only")
+  fileInput.value=""
+  this.setState({ logo: "" });
+  }
   }
   //   handleSubmit(event) {
   //     event.preventDefault();
@@ -163,21 +180,39 @@ class EditGov extends React.Component {
     e.preventDefault();
     const id = this.props.match.params.id;
     if (this.validator.allValid()) {
-      console.log(this.state);
+      if(this.state.logo.size>20000000 )
+      {
+      alert("Please upload file less than 2Mb")
+      return;
+      }
+      const { token } = JSON.parse(localStorage.getItem("auth"))
+
       const formdata = new FormData();
       formdata.append("name", this.state.name);
       formdata.append("logo", this.state.logo);
       formdata.append("url", this.state.url);
       axios
-        .put(`websites/save/${id}`, formdata)
+        .put(`websites/save/${id}`, formdata,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        )
         .then((response) => {
           // handle success
-          this.props.history.push("/websites");
-          console.log(response.data);
+          window.location.href = `${url}/websites`
+
+
         })
         .catch(function (error) {
           // handle error
-          console.log(error);
+          if(window.confirm("Your session expired.Please login to proceed"))
+
+          // window.location.href = "https://admin.cie.telangana.gov.in/videos"
+          window.location.href = `${url}/`
+            else
+            window.location.reload()
         });
     } else {
       this.validator.showMessages();
@@ -243,6 +278,7 @@ class EditGov extends React.Component {
                         <label className="col-lg-2 p-0">Logo</label>
                         <input
                           type="file"
+                          id="file"
                           onChange={this.onFileChange}
                           name="logo"
                           className="form-control col-lg-5"
