@@ -7,12 +7,12 @@ import axios from "axios";
 
 const setupAxios = () => {
   axios.defaults.baseURL =
-    // process.env.NODE_ENV === "development"
-    //   ? "http://localhost:5000/":
-    //   "https://api.cie.telangana.gov.in/";
     process.env.NODE_ENV === "development"
-    ? "http://localhost:5000/":
-     "https://cie-api-gov.herokuapp.com/";
+      ? "http://localhost:5000/":
+      "https://api.cie.telangana.gov.in/";
+    // process.env.NODE_ENV === "development"
+    // ? "http://localhost:5000/":
+    //  "https://cie-api-gov.herokuapp.com/";
      axios.defaults.headers = {
       'Cache-Control': 'no-cache',
       'Pragma': 'no-cache',
