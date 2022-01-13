@@ -16,26 +16,25 @@ function Login() {
   const handleChange = (email) => (event) => {
     setUser({ ...User, [email]: event.target.value });
   };
-  const[recapcha,setRecapcha]=useState(true)
+  const [recapcha, setRecapcha] = useState(true)
 
-  const Lo = async() => {
-   const res= await axios
+  const Lo = async () => {
+    const res = await axios
       .post("admin/users/login", {
         email: email,
         password: password,
       })
-      if(res.data.status=="ok") {
-        localStorage.setItem("auth", JSON.stringify({
-          user:res.data.user,
-          token: res.data.token,
-        }));
+    if (res.data.status == "ok") {
+      localStorage.setItem("auth", JSON.stringify({
+        user: res.data.user,
+        token: res.data.token,
+      }));
 
-        history.push("/dashboard");
-      }
-     else
-     {
-        alert("Invalid Credentials");
-      }
+      history.push("/dashboard");
+    }
+    else {
+      alert("Invalid Credentials");
+    }
   };
 
   return (
@@ -64,7 +63,7 @@ function Login() {
               <div className="col-sm-12">
                 <div className="form-group">
                   <input
-                  autoComplete="off"
+                    autoComplete="off"
                     className="form-control"
                     type="password"
                     onChange={handleChange("password")}
@@ -78,14 +77,14 @@ function Login() {
               </div>
             </div>
             <div className="form-group mt-3 mb-0">
-            <ReCAPTCHA
-    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-    onChange={()=>setRecapcha(!recapcha)}
-  />,
-              </div>
+              <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                onChange={() => setRecapcha(!recapcha)}
+              />,
+            </div>
             <div className="form-group mt-3 mb-0">
 
-                <button type="button" className="w-100 btn  boxed-btn" onClick={Lo} disabled={recapcha}>Login</button>
+              <button type="button" className="w-100 btn  boxed-btn" onClick={Lo} disabled={recapcha}>Login</button>
 
 
             </div>
