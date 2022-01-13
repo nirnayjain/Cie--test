@@ -202,12 +202,17 @@ class AddGallery extends React.Component {
         })
         .catch(function (error) {
           // handle error
+          if(error.response.status===500)
+          return alert("Please upload valid file")
+          if(error.response.status===401)
+          {
           if(window.confirm("Your session expired.Please login to proceed"))
 
           // window.location.href = "https://admin.cie.telangana.gov.in/videos"
           window.location.href = `${url}/`
             else
             window.location.reload()
+          }
         });
     } else {
       this.validator.showMessages();
