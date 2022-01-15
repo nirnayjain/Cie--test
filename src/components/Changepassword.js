@@ -4,6 +4,7 @@ import axios from "axios";
 import { url } from "../url"
 import validator from 'validator'
 
+
 import { Link, Route, useParams, Redirect, useHistory } from "react-router-dom";
 import { isAutheticated } from "../auth";
 
@@ -15,43 +16,13 @@ function Changepassword() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [hashedPassword, setHashedPassword] = useState('')
 
-  // const [errorLength, setErrorLength] = useState('')
-  // const [errornum, setErrorNum] = useState('')
-  // const [errorlower, setErrorLower] = useState('')
-  // const [errorupper, setErrorUpper] = useState('')
-  // const [errorspecial, setErrorSpecial] = useState('')
+
   const [errorMessage, setErrorMessage] = useState('')
 
   const validate = (value) => {
     setNewPassword(value)
-
-    // if (!validator.isStrongPassword(value, { minLength: 9 })) {
-    //   setErrorLength('')
-    // } else {
-    //   setErrorLength('')
-    // }
-    // if (!validator.isStrongPassword(value, { minLowercase: 1 })) {
-    //   setErrorLower('Must have a lower case character')
-    // } else {
-    //   setErrorLower('')
-    // }
-    // if (!validator.isStrongPassword(value, { minUppercase: 1 })) {
-    //   setErrorUpper('Must have an uppercase character')
-    // } else {
-    //   setErrorUpper('')
-    // }
-    // if (!validator.isStrongPassword(value, { minNumber: 1 })) {
-    //   setErrorNum('Must have a number')
-    // } else {
-    //   setErrorNum('')
-    // }
-    // if (!validator.isStrongPassword(value, { minSymbols: 1 })) {
-    //   setErrorSpecial('Must have a special character')
-    // } else {
-    //   setErrorSpecial('')
-    // }
-
 
     if (validator.isStrongPassword(value, {
       minLength: 9, minLowercase: 1,
@@ -66,20 +37,21 @@ function Changepassword() {
 
   const updatepassword = (e) => {
     e.preventDefault();
+    const encodedPassword = Buffer.from(newPassword).toString('base64');
+
+    var credentials = btoa(email + ':' + encodedPassword);
+
+    var basicAuth = 'Basic ' + credentials;
+    console.log(basicAuth);
     const { token } = JSON.parse(localStorage.getItem("auth"))
 
     axios
       .post("admin/changepassword", {
         userid: _id,
         password,
-        email,
-        passwordnew: newPassword,
       },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { 'Authorization': basicAuth } },
+
       )
       .then(function (response) {
         if (response.data.status == 'failed')
@@ -93,6 +65,7 @@ function Changepassword() {
         }
       })
       .catch(function (error) {
+        console.log(error);
         if (window.confirm("Your session expired.Please login to proceed"))
 
           // window.location.href = "https://admin.cie.telangana.gov.in/videos"
@@ -181,8 +154,8 @@ function Changepassword() {
             </div>
           </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
 

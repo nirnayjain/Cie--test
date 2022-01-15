@@ -2,28 +2,33 @@ import React, { useState } from "react";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useHistory } from "react-router-dom";
+import bcrypt from 'bcryptjs'
 
 function Login() {
-  const [User, setUser] = useState({
+  const [auth, setauth] = useState({
     email: "",
     password: "",
   });
 
   const history = useHistory();
 
-  const { email, password } = User;
+  const { email, password } = auth;
 
   const handleChange = (email) => (event) => {
-    setUser({ ...User, [email]: event.target.value });
+    setauth({ ...auth, [email]: event.target.value });
   };
   const [recapcha, setRecapcha] = useState(true)
 
+
   const Lo = async () => {
+    const encodedPassword = Buffer.from(password).toString('base64');
+    setauth({ ...auth, password: encodedPassword });
+    var credentials = btoa(auth.email + ':' + auth.password);
+
+    var basicAuth = 'Basic ' + credentials;
+    console.log(basicAuth);
     const res = await axios
-      .post("admin/users/login", {
-        email: email,
-        password: password,
-      })
+      .post("admin/users/login", {}, { headers: { 'Authorization': basicAuth } })
     if (res.data.status == "ok") {
       localStorage.setItem("auth", JSON.stringify({
         user: res.data.user,
