@@ -39,7 +39,7 @@ function Changepassword() {
     e.preventDefault();
     const encodedPassword = Buffer.from(newPassword).toString('base64');
 
-    var credentials = btoa(email + ':' + encodedPassword);
+    var credentials = btoa(_id + ':' + encodedPassword);
 
     var basicAuth = 'Basic ' + credentials;
     console.log(basicAuth);
