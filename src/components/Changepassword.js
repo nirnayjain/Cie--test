@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import {url} from "../url"
+import { url } from "../url"
+import validator from 'validator'
 
 import { Link, Route, useParams, Redirect, useHistory } from "react-router-dom";
 import { isAutheticated } from "../auth";
@@ -15,6 +16,54 @@ function Changepassword() {
   const [newPassword, setNewPassword] = useState("");
   const [email, setEmail] = useState("");
 
+  // const [errorLength, setErrorLength] = useState('')
+  // const [errornum, setErrorNum] = useState('')
+  // const [errorlower, setErrorLower] = useState('')
+  // const [errorupper, setErrorUpper] = useState('')
+  // const [errorspecial, setErrorSpecial] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const validate = (value) => {
+    setNewPassword(value)
+
+    // if (!validator.isStrongPassword(value, { minLength: 9 })) {
+    //   setErrorLength('')
+    // } else {
+    //   setErrorLength('')
+    // }
+    // if (!validator.isStrongPassword(value, { minLowercase: 1 })) {
+    //   setErrorLower('Must have a lower case character')
+    // } else {
+    //   setErrorLower('')
+    // }
+    // if (!validator.isStrongPassword(value, { minUppercase: 1 })) {
+    //   setErrorUpper('Must have an uppercase character')
+    // } else {
+    //   setErrorUpper('')
+    // }
+    // if (!validator.isStrongPassword(value, { minNumber: 1 })) {
+    //   setErrorNum('Must have a number')
+    // } else {
+    //   setErrorNum('')
+    // }
+    // if (!validator.isStrongPassword(value, { minSymbols: 1 })) {
+    //   setErrorSpecial('Must have a special character')
+    // } else {
+    //   setErrorSpecial('')
+    // }
+
+
+    if (validator.isStrongPassword(value, {
+      minLength: 9, minLowercase: 1,
+      minUppercase: 1, minNumbers: 1, minSymbols: 1
+    })) {
+      setErrorMessage('Is Strong Password')
+    }
+    else {
+      setErrorMessage('Password must have : 9 characters in total,a special character (eg:@,!,/,etc..), a number, an uppercase letter, a lowercase letter')
+    }
+  }
+
   const updatepassword = (e) => {
     e.preventDefault();
     const { token } = JSON.parse(localStorage.getItem("auth"))
@@ -26,31 +75,30 @@ function Changepassword() {
         email,
         passwordnew: newPassword,
       },
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then(function (response) {
-        if(response.data.status=='failed')
-        alert("Incorrect old password")
-        if(response.data.status=='OK')
-        {
-        if(window.confirm("Password updated successfully"))
-        window.location.href = `${url}/dashboard`
-            else
+        if (response.data.status == 'failed')
+          alert("Incorrect old password")
+        if (response.data.status == 'OK') {
+          if (window.confirm("Password updated successfully"))
+            window.location.href = `${url}/dashboard`
+          else
             window.location.reload()
-        setPassword(response.data);
+          setPassword(response.data);
         }
       })
       .catch(function (error) {
-        if(window.confirm("Your session expired.Please login to proceed"))
+        if (window.confirm("Your session expired.Please login to proceed"))
 
           // window.location.href = "https://admin.cie.telangana.gov.in/videos"
           window.location.href = `${url}/`
-            else
-            window.location.reload()
+        else
+          window.location.reload()
       });
   };
 
@@ -71,7 +119,7 @@ function Changepassword() {
                     <div className="form-group tags-field row m-0">
                       <label className="col-lg-2 p-0">Update Email</label>
                       <input
-                       autoComplete="off"
+                        autoComplete="off"
                         className="form-control col-lg-6"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -83,8 +131,8 @@ function Changepassword() {
                     <div className="form-group tags-field row m-0">
                       <label className="col-lg-2 p-0">Current Password</label>
                       <input
-                      required
-                      autoComplete="off"
+                        required
+                        autoComplete="off"
                         className="form-control col-lg-6"
                         value={password}
                         type="password"
@@ -97,16 +145,26 @@ function Changepassword() {
                     <div className="form-group tags-field  row m-0">
                       <label className="col-lg-2 p-0">New Password</label>
                       <input
-                      required
-                      autoComplete="off"
+                        required
+                        autoComplete="off"
                         className="form-control col-lg-6"
                         value={newPassword}
                         type="password"
-                        onChange={(e) => setNewPassword(e.target.value)}
+                        onChange={(e) => validate(e.target.value)}
                         placeholder="*******"
                       />
+                      <div style={{
+                        width: "50%",
+                        marginLeft: '17%',
+                        marginTop: '10px',
+                        color: "blue"
+
+                      }}>
+                        {errorMessage}</div>
                     </div>
+
                   </div>
+
 
                   <div className="col-lg-12 p-0">
                     <div className="form-group tags-field  row m-0">
@@ -123,8 +181,8 @@ function Changepassword() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 

@@ -44,7 +44,7 @@ function Login() {
           <div className="login-logo">
             <img src="assets/img/logo/logo-cie.png" />
           </div>
-          <form className="form-contact contact_form" >
+          <form className="form-contact contact_form" autoComplete="off">
             <div className="row">
               <div className="col-sm-12">
                 <div className="form-group">
@@ -57,6 +57,7 @@ function Login() {
                     onfocus="this.placeholder = ''"
                     onblur="this.placeholder = 'Username'"
                     placeholder="Username*"
+                    autoComplete="off"
                   />
                 </div>
               </div>
@@ -72,6 +73,7 @@ function Login() {
                     onfocus="this.placeholder = ''"
                     onblur="this.placeholder = '******'"
                     placeholder="******"
+
                   />
                 </div>
               </div>
